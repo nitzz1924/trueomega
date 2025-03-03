@@ -6,7 +6,7 @@
         <div class="brand-logo d-flex align-items-center justify-content-between">
             <a href="{{ route('user.dashboard')}}" class="text-nowrap text-center fw-bolder fs-6 logo-img">
                 {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" /> --}}
-                <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">Investor Lands</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
+                <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">Truomega</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
             </a>
             <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fw-bolder fs-5 d-block d-xl-none">
                 IL
@@ -36,7 +36,7 @@
                     </a>
                     <ul aria-expanded="false" class="collapse first-level">
                         <li class="sidebar-item">
-                            <a href="{{ route('user.mylistings')}}" class="sidebar-link">
+                            <a href="#" class="sidebar-link">
                                 <div class="round-16 d-flex align-items-center justify-content-center">
                                     <i class="ti ti-circle"></i>
                                 </div>
@@ -51,14 +51,6 @@
                             <i class="ti ti-user-circle"></i>
                         </span>
                         <span class="hide-menu">Profile</span>
-                    </a>
-                </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link" href="{{ route('user.notifications')}}" aria-expanded="false">
-                        <span>
-                            <i class="ti ti-bell"></i>
-                        </span>
-                        <span class="hide-menu">Notifications</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
@@ -283,58 +275,6 @@
                         <i class="ti ti-align-justified fs-7"></i>
                     </a>
                     <ul class="navbar-nav flex-row ms-auto align-items-center justify-content-center">
-                        <li class="nav-item nav-icon-hover-bg rounded-circle dropdown">
-                            <a class="nav-link position-relative" href="javascript:void(0)" id="drop2" aria-expanded="false">
-                                <i class="ti ti-bell-ringing"></i>
-                                @php
-                                use App\Models\Nortification;
-                                $authuser = Auth::guard('customer')->user();
-                                $data = Nortification::where('sendto', $authuser->user_type)
-                                ->orWhere('sendto', 'all')
-                                ->orderBy('created_at', 'DESC')->get();
-                                @endphp
-
-                                @if($data->isNotEmpty())
-                                <div class="notification bg-primary rounded-circle"></div>
-                                @endif
-
-                            </a>
-                            <div style="height: 300px; overflow-y: scroll;" class="dropdown-menu content-dd dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
-                                <div class="d-flex align-items-center justify-content-between py-3 px-7">
-                                    <h5 class="mb-0 fs-5 fw-semibold">Notifications</h5>
-                                </div>
-                                @if($data->isNotEmpty())
-                                <div>
-                                    @foreach ($data->take(5) as $row)
-                                    <div class="message-body" data-simplebar>
-                                        <a href="#" class="py-6 px-7 text-wrap row d-flex align-items-center dropdown-item">
-                                            <div class="col-md-4 p-0">
-                                                <img src="{{ asset('assets/images/Notificaitons/'.$row->notificationimg) }}" alt="user" class="rounded img-fluid" />
-                                            </div>
-                                            <div class="col-md-8">
-                                                <h6 class="mb-1 fw-semibold lh-base">
-                                                    {{ $row->notificationname }}
-                                                </h6>
-                                                <span class="fs-2 d-block text-body-secondary text-wrap"> {{ Str::limit($row->notificationdes,20) }}</span>
-                                            </div>
-                                        </a>
-                                    </div>
-                                    @endforeach
-                                    <div class="py-6 px-7 mb-1">
-                                        <a href="{{ route('user.notifications') }}">
-                                            <button class="btn btn-outline-primary w-100">
-                                                See All Notifications
-                                            </button>
-                                        </a>
-                                    </div>
-                                </div>
-                                @else
-                                <div class="d-flex justify-content-center align-items-center mt-5">
-                                    <p class="mb-0 text-muted">No new notifications</p>
-                                </div>
-                                @endif
-                            </div>
-                        </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link pe-0" href="javascript:void(0)" id="drop1" aria-expanded="false">
                                 <div class="d-flex align-items-center">

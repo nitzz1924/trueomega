@@ -24,41 +24,41 @@
                 </div>
             </div>
             @if($userdata->user_type == 'agent')
-                @if(empty($userdata->company_document) || empty($userdata->company_name) || empty($userdata->mobile))
-                    <div class="alert customize-alert alert-dismissible alert-light-danger bg-danger-subtle text-danger fade show remove-close-icon" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <div class="d-flex align-items-center  me-3 me-md-0 fw-bolder">
-                            <i class="ti ti-info-circle fs-5 me-2 text-danger"></i>
-                            Complete your Profile Details!!!!!!
-                        </div>
-                        <ol start="1" class="mt-2 text-black">
-                            @if(empty($userdata->company_document))
-                                <li>Company Document is missing</li>
-                            @endif
-                            @if(empty($userdata->company_name))
-                                <li>Company Name is missing</li>
-                            @endif
-                            @if(empty($userdata->mobile))
-                                <li>Mobile Number is missing</li>
-                            @endif
-                        </ol>
-                    </div>
-                @endif
+            @if(empty($userdata->company_document) || empty($userdata->company_name) || empty($userdata->mobile))
+            <div class="alert customize-alert alert-dismissible alert-light-danger bg-danger-subtle text-danger fade show remove-close-icon" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex align-items-center  me-3 me-md-0 fw-bolder">
+                    <i class="ti ti-info-circle fs-5 me-2 text-danger"></i>
+                    Complete your Profile Details!!!!!!
+                </div>
+                <ol start="1" class="mt-2 text-black">
+                    @if(empty($userdata->company_document))
+                    <li>Company Document is missing</li>
+                    @endif
+                    @if(empty($userdata->company_name))
+                    <li>Company Name is missing</li>
+                    @endif
+                    @if(empty($userdata->mobile))
+                    <li>Mobile Number is missing</li>
+                    @endif
+                </ol>
+            </div>
+            @endif
             @elseif($userdata->user_type == 'user')
-                @if(empty($userdata->mobile))
-                    <div class="alert customize-alert alert-dismissible alert-light-danger bg-danger-subtle text-danger fade show remove-close-icon" role="alert">
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        <div class="d-flex align-items-center  me-3 me-md-0 fw-bolder">
-                            <i class="ti ti-info-circle fs-5 me-2 text-danger"></i>
-                            Complete your Profile Details!!!!!!
-                        </div>
-                        <ol start="1" class="mt-2 text-black">
-                            @if(empty($userdata->mobile))
-                                <li>Mobile Number is missing</li>
-                            @endif
-                        </ol>
-                    </div>
-                @endif
+            @if(empty($userdata->mobile))
+            <div class="alert customize-alert alert-dismissible alert-light-danger bg-danger-subtle text-danger fade show remove-close-icon" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <div class="d-flex align-items-center  me-3 me-md-0 fw-bolder">
+                    <i class="ti ti-info-circle fs-5 me-2 text-danger"></i>
+                    Complete your Profile Details!!!!!!
+                </div>
+                <ol start="1" class="mt-2 text-black">
+                    @if(empty($userdata->mobile))
+                    <li>Mobile Number is missing</li>
+                    @endif
+                </ol>
+            </div>
+            @endif
             @endif
             <div class="card overflow-hidden">
                 <div class="card-body pt-0">
@@ -138,10 +138,10 @@
                                                 <span class="bar"></span>
                                                 <label for="input1">Company Name</label>
                                             </div>
-                                                <div class="form-group col-md-6 mb-4">
-                                                    <div for="input1" class="mb-1">Company Document</div>
-                                                    <input type="file" name="company_document" class="form-control" id="company_document">
-                                                </div>
+                                            <div class="form-group col-md-6 mb-4">
+                                                <div for="input1" class="mb-1">Company Document</div>
+                                                <input type="file" name="company_document" class="form-control" id="company_document">
+                                            </div>
                                             @endif
                                         </div>
                                         @if($userdata->user_type == 'agent')
@@ -168,6 +168,55 @@
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('user.updatepassword') }}" class="floating-labels" method="POST" enctype="multipart/form-data">
+        @csrf
+        <div class="card shadow">
+            <div class="card-header align-items-center d-flex">
+                <h4 class="card-title mb-0 flex-grow-1">Change Password</h4>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="form-group mb-4">
+                            <input type="text" class="form-control" name="oldpassword" id="input1">
+                            <span class="bar"></span>
+                            <label for="input1">Old Password</label>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-4">
+                            <input type="password" id="passwordfield" class="form-control" name="newpassword">
+                            <span class="bar"></span>
+                            <label for="passwordfield">New Password</label>
+                            <span id="togglePassword" class="position-absolute" style="right: 61px; top: 53%; transform: translateY(-50%); cursor: pointer;">
+                                <i id="eyeIcon" class="ti ti-eye-off fs-5"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group mb-4">
+                            <input type="password" id="passwordfield2" class="form-control" name="confirmpassword">
+                            <span class="bar"></span>
+                            <label for="passwordfield2">Confirm Password</label>
+                            <span id="togglePassword2" class="position-absolute" style="right: 61px; top: 53%; transform: translateY(-50%); cursor: pointer;">
+                                <i id="eyeIcon2" class="ti ti-eye-off fs-5"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                        <div class="d-flex justify-content-end">
+                            <a href="">
+                                <button type="submit" class="btn rounded-pill waves-effect waves-light btn-success">
+                                    Update Password
+                                </button>
+                            </a>
                         </div>
                     </div>
                 </div>

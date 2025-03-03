@@ -18,7 +18,7 @@ class CustomerAuth
     public function handle(Request $request, Closure $next): Response
     {
         if (!Auth::guard('customer')->check()) {
-            return redirect()->route('website.userlogin')->with('error', 'You must be logged in to access this page.');
+            return redirect()->route('user.userloginpage')->with('error', 'You must be logged in to access this page.');
         }
         return $next($request);
     }

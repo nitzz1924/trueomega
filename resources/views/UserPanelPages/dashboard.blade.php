@@ -18,16 +18,16 @@
                                             <img src="{{ asset('assets/images/Users/' . Auth::guard('customer')->user()->profile_photo_path) }}" alt="modernize-img" width="40" height="40">
                                         @endif
                                     @else
-                                        <img src="{{ asset('assets/images/Users/defaultuser.png') }}" alt="modernize-img" width="40" height="40">
+                                        <img src="{{ asset('assets/images/defaultuser.png') }}" alt="modernize-img" width="40" height="40">
                                     @endif
                                 </div>
                                 <h5 class="fw-semibold mb-0 fs-5">Welcome back {{ucwords(Auth::guard('customer')->user()->name)}}</h5>
                             </div>
                             <div class="d-flex align-items-center">
                                 <div class="border-end pe-4 border-muted border-opacity-10">
-                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center"><i class="ti ti-home-down"></i>&nbsp;&nbsp;{{$mylistingscnt}}
+                                    <h3 class="mb-1 fw-semibold fs-8 d-flex align-content-center"><i class="ti ti-home-down"></i>&nbsp;&nbsp;000
                                     </h3>
-                                    <p class="mb-0 text-dark">My Total Listings</p>
+                                    <p class="mb-0 text-dark">My Total Orders</p>
                                 </div>
                             </div>
                         </div>
@@ -123,7 +123,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($allproperties as $data)
+                                {{-- @foreach ($allproperties as $data)
                                 <tr>
                                     <td>
                                         <div class="d-flex align-items-center gap-6">
@@ -144,7 +144,7 @@
                                         </div>
                                     </td>
                                 </tr>
-                                @endforeach
+                                @endforeach --}}
                             </tbody>
                         </table>
                     </div>

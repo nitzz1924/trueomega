@@ -7,7 +7,7 @@
           <div class="brand-logo d-flex align-items-center justify-content-between">
               <a href="{{route('admin.admindashboard')}}" class="text-nowrap text-center fw-bolder fs-6 logo-img">
                   {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" /> --}}
-                  <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">Investor Lands</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
+                  <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">True Omega</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
               </a>
               <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fw-bolder fs-5 d-block d-xl-none">
                   IL
@@ -41,7 +41,7 @@
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                       <i class="ti ti-circle"></i>
                                   </div>
-                                  <span class="hide-menu">Add Category</span>
+                                  <span class="hide-menu">Master Settings</span>
                               </a>
                               <a href="{{ route('admin.companyprofile')}}" class="sidebar-link">
                                   <div class="round-16 d-flex align-items-center justify-content-center">
@@ -49,140 +49,24 @@
                                   </div>
                                   <span class="hide-menu">Company Profile</span>
                               </a>
-                              <a href="{{ route('admin.investpagesettings')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">Invest Page Settings</span>
-                              </a>
                           </li>
                       </ul>
                   </li>
                   <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-home-plus"></i>
+                      <a class="sidebar-link" href="{{route ('admin.allusers')}}" aria-expanded="false">
+                          <span>
+                            <i class="ti ti-users"></i>
                           </span>
-                          <span class="hide-menu">Property</span>
+                          <span class="hide-menu">Registered Users</span>
                       </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.allproperties')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Properties List</span>
-                              </a>
-                          </li>
-                      </ul>
                   </li>
                   <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-file-spreadsheet"></i>
+                      <a class="sidebar-link" href="{{route ('admin.media')}}" aria-expanded="false">
+                          <span>
+                           <i class="ti ti-camera-plus"></i>
                           </span>
-                          <span class="hide-menu">Lead Management</span>
+                          <span class="hide-menu">Media</span>
                       </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.leadslist')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Leads</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-article"></i>
-                          </span>
-                          <span class="hide-menu">Blogs</span>
-                      </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.blogslist')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Blogs</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                             <i class="ti ti-building-fortress"></i>
-                          </span>
-                          <span class="hide-menu">Projects</span>
-                      </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.projects')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Projects</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-address-book"></i>
-                          </span>
-                          <span class="hide-menu">Customers</span>
-                      </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.allcustomers')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Customers</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-users"></i>
-                          </span>
-                          <span class="hide-menu">Agents</span>
-                      </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.allagents')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-circle"></i>
-                                  </div>
-                                  <span class="hide-menu">All Agents</span>
-                              </a>
-                          </li>
-                      </ul>
-                  </li>
-                  <li class="sidebar-item">
-                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                          <span class="d-flex">
-                              <i class="ti ti-bell"></i>
-                          </span>
-                          <span class="hide-menu">Notifications</span>
-                      </a>
-                      <ul aria-expanded="false" class="collapse first-level">
-                          <li class="sidebar-item">
-                              <a href="{{ route('admin.notifications')}}" class="sidebar-link">
-                                  <div class="round-16 d-flex align-items-center justify-content-center">
-                                      <i class="ti ti-bell"></i>
-                                  </div>
-                                  <span class="hide-menu">All Notifications</span>
-                              </a>
-                          </li>
-                      </ul>
                   </li>
               </ul>
           </nav>

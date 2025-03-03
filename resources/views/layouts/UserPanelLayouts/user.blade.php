@@ -20,7 +20,8 @@
     <!-- Required meta tags -->
 
     <!-- Favicon icon-->
-    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/moving.png') }}" />
+     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/faviomega.png') }}" />
+
 
     <!-- Core Css -->
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />

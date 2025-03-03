@@ -19256,7 +19256,7 @@
     --bs-gray-700: #495057;
     --bs-gray-800: #343a40;
     --bs-gray-900: #212529;
-    --bs-primary: #5d87ff;
+    --bs-primary: #30295d;
     --bs-secondary: #49beff;
     --bs-success: #13deb9;
     --bs-info: #539bff;
@@ -19267,7 +19267,7 @@
     --bs-muted: #5a6a85;
     --bs-indigo: #6610f2;
     --bs-light-indigo: #ebf3fe;
-    --bs-primary-rgb: 93, 135, 255;
+    --bs-primary-rgb: 48, 41, 93;
     --bs-secondary-rgb: 73, 190, 255;
     --bs-success-rgb: 19, 222, 185;
     --bs-info-rgb: 83, 155, 255;
@@ -19278,7 +19278,7 @@
     --bs-muted-rgb: 90, 106, 133;
     --bs-indigo-rgb: 102, 16, 242;
     --bs-light-indigo-rgb: 235, 243, 254;
-    --bs-primary-text-emphasis: shade-color(#5d87ff, 60%);
+    --bs-primary-text-emphasis: shade-color(#30295d, 60%);
     --bs-secondary-text-emphasis: shade-color(#49beff, 60%);
     --bs-success-text-emphasis: shade-color(#13deb9, 60%);
     --bs-info-text-emphasis: shade-color(#539bff, 60%);
