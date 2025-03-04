@@ -27,41 +27,66 @@
             </div>
         </div>
         <div class="row">
-            <div class="d-flex justify-content-end">
-                <button type="button" id="submitAllForms" class="btn btn-primary">
-                    Save changes
-                </button>
-            </div>
-            <div class="col-lg-8">
-                <div class="card">
-                    <div class="card-body">
-                        <h4 class="card-title mb-7">Property Gallery</h4>
-                        <form action="#" class="dropzone dz-clickable mb-2" id="propertyGalleryForm" enctype="multipart/form-data">
-                            <div class="dz-default dz-message">
-                                <button class="dz-button" type="button">Drop files here
-                                    to upload</button>
-                            </div>
-                        </form>
-                        <p class="fs-3 text-left text-danger mb-0 fw-bold">
-                            Set the property Gallery images. Only *.png, *.jpg and *.jpeg image files are accepted.
-                        </p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="offcanvas-md offcanvas-end overflow-auto" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+            <div class="col-lg-12">
+                <div class="row">
                     <div class="card">
                         <div class="card-body">
-                            <h4 class="card-title mb-7">Property Thumbnail</h4>
-                            <form action="#" class="dropzone dz-clickable mb-2" id="propertythumbnail">
+                            <h4 class="card-title mb-7">Property Gallery</h4>
+                            <form action="#" class="dropzone dz-clickable mb-2" id="mediaGalleryForm" enctype="multipart/form-data">
+                                @csrf
                                 <div class="dz-default dz-message">
-                                    <button class="dz-button" type="button">Drop Thumbnail here
+                                    <button class="dz-button" type="button">Drop files here
                                         to upload</button>
                                 </div>
                             </form>
                             <p class="fs-3 text-left text-danger mb-0 fw-bold">
-                                Set the property thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted.
+                                Set the property Gallery images. Only *.png, *.jpg and *.jpeg image files are accepted.
                             </p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="d-flex justify-content-end">
+                                <button type="button" id="submitAllForms" class="btn btn-primary">
+                                    Upload
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-9">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title">Image Gallery</h5>
+                            </div>
+                            <div class="row gy-4" id="mediaGallery">
+                               
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-3">
+                                <h5 class="card-title">Image Information</h5>
+                            </div>
+                            <div class="row gy-4">
+                                <div class="col-md-12">
+                                    <div class="" id="imagePreview">
+                                        <img src="{{asset('assets/images/Categories/placeholder.png')}}" alt="">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <input type="text" placeholder="path of image" name="imageUrl" class="form-control" required>
+                                        <button class="btn btn-outline-primary" type="button" onclick="copyToClipboard(event)">
+                                            <i class="ti ti-copy"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -141,127 +166,32 @@
     <script>
         document.querySelector("#submitAllForms").addEventListener("click", function(event) {
             event.preventDefault();
-
-            // Create a FormData object
             const combinedFormData = new FormData();
-
-
-            // Select all forms
             const forms = document.querySelectorAll("form");
 
-            // Iterate through each form and append data to combinedFormData
             forms.forEach(form => {
                 const formData = new FormData(form);
                 for (let [key, value] of formData.entries()) {
                     combinedFormData.append(key, value);
                 }
-            })
-
-
-            // Get Dropzone instances
-            const dropzoneInstance = Dropzone.forElement("#propertyGalleryForm"); // Multiple images
-            const propertydocumentsform = Dropzone.forElement("#propertydocumentsform"); // Multiple images
-            const propertyThumbnail = Dropzone.forElement("#propertythumbnail"); // Single image
-            const MasterPlanDocument = document.getElementById("masterplandocument"); // Master Plan Document
-            const descriptionContent = quill.root.innerHTML;
-            combinedFormData.append("description", descriptionContent);
-
-
-            //Get Amenities here..
-            let amenities = $('input[name="input"]').tagsinput('items');
-            combinedFormData.append("amenities", JSON.stringify(amenities));
-
-            //Create JSON for Latitude & Longitude
-            const locationData = {
-                Latitude: document.getElementById("us2-lat").value
-                , Longitude: document.getElementById("us2-lon").value
-            };
-            combinedFormData.append("location", JSON.stringify(locationData));
-
-
-            //Get Value of Date using checkbox
-            let checkbox = document.getElementById("flexCheckDefault");
-            if (checkbox.checked) {
-                const PriceHistory = {
-                    dateValue: document.getElementById("historydateinput").value
-                    , priceValue: document.getElementById("propertyprice").value
-                };
-                combinedFormData.append("historydate", JSON.stringify([PriceHistory]));
-            }
-
-
-            //Multiple Video Upload Dropzone
-            const videosdrop = Dropzone.forElement("#propertyvideosform");
-            videosdrop.options.acceptedFiles = "video/mp4, video/mov, video/avi";
-            videosdrop.options.maxFilesize = 20; // This is Video Size that is 20 MB maximum.
-            videosdrop.options.maxFiles = 2; // Restrict to 2 files maximum
-            if (videosdrop.files.length > 2) {
-                Swal.fire({
-                    title: "Error!"
-                    , text: "You can upload a maximum of 2 video files."
-                    , icon: "error"
-                    , confirmButtonText: "OK"
-                    , customClass: {
-                        confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                    }
-                    , buttonsStyling: true
-                    , showCancelButton: true
-                    , showCloseButton: true
-                });
-                setTimeout(function() {
-                    window.location.reload();
-                }, 2000);
-                return;
-            }
-            videosdrop.files.forEach((Videofile) => {
-                if (Videofile) {
-                    combinedFormData.append("propertyvideos[]", Videofile);
-                }
             });
 
-            // Append multiple image files to FormData
-            dropzoneInstance.files.forEach((file) => {
+            // Get mediaGalleryForm instances
+            const mediaGalleryForm = Dropzone.forElement("#mediaGalleryForm");
+            mediaGalleryForm.files.forEach((file) => {
                 if (file) {
-                    // Append each file to FormData
-                    combinedFormData.append("galleryImages[]", file);
+                    combinedFormData.append("mediaImages[]", file);
                 }
             });
-
-            propertydocumentsform.files.forEach((file) => {
-                if (file) {
-                    // Append each file to FormData
-                    combinedFormData.append("documents[]", file);
-                }
-            });
-
-
-            // Check if there are any files selected for the thumbnail
-            if (propertyThumbnail.files.length > 0) {
-                propertyThumbnail.files.forEach((file) => {
-                    // Append each file to FormData
-                    combinedFormData.append("thumbnailImages", file);
-                });
-                console.log("thumbnailImages:", propertyThumbnail.files);
-            }
-
-            //Master Plan Document
-            if (MasterPlanDocument.files.length > 0) {
-                for (let i = 0; i < MasterPlanDocument.files.length; i++) {
-                    combinedFormData.append("masterplandocument", MasterPlanDocument.files[i]);
-                }
-                console.log("MasterPlanDocument:", MasterPlanDocument.files);
-            }
-
 
             // Log all form values to the console
             for (let [key, value] of combinedFormData.entries()) {
                 console.log(key, value);
             }
 
-
-            // Submit the form data via AJAX
+            // Submit the form data via AJAX (Move it inside the event listener)
             $.ajax({
-                url: '/admin/insertlisting'
+                url: '/admin/insertMedia'
                 , method: 'POST'
                 , data: combinedFormData
                 , processData: false
@@ -270,52 +200,90 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 }
                 , success: function(data) {
-                    console.log("%cRaw response:", "background: black; color: green; font-size: 14px;", data);
-                    console.log("%cRaw response:", "background: black; color: green; font-size: 14px;", data.id);
-                    try {
-                        if (data.message) {
-                            Swal.fire({
-                                title: "Success!"
-                                , text: data.message
-                                , icon: "success"
-                                , confirmButtonText: "OK"
-                                , customClass: {
-                                    confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                                }
-                                , buttonsStyling: true
-                                , showCancelButton: true
-                                , showCloseButton: true
-                            }).then((result) => {
-                                if (result.isConfirmed) {
-                                    window.location.href = "editproperty/" + data.data.id;
-                                }
-                            });
-                        } else {
-                            Swal.fire({
-                                title: "Error!"
-                                , text: data.message
-                                , icon: "error"
-                                , confirmButtonText: "OK"
-                                , customClass: {
-                                    confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                                }
-                                , buttonsStyling: true
-                                , showCancelButton: true
-                                , showCloseButton: true
-                            });
-                        }
-                    } catch (e) {
-                        console.error("Failed to parse response:", e);
+                    console.log("%cRaw response:", "background: black; color: purple; font-size: 14px;", data);
+                    if (data.message) {
                         Swal.fire({
-                            title: "Error!"
-                            , text: "The response from the server is not valid JSON."
-                            , icon: "error"
+                            title: "Success!"
+                            , text: data.message
+                            , icon: "success"
+                            , confirmButtonText: "OK"
+                            , customClass: {
+                                confirmButton: "btn btn-primary w-xs me-2 mt-2"
+                            }
+                            , buttonsStyling: true
+                            , showCancelButton: true
+                            , showCloseButton: true
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                if (data.images && data.images.length > 0) {
+                                    let gallery = document.querySelector("#mediaGallery");
+                                    data.images.forEach(imgUrl => {
+                                        let imgElement = document.createElement("img");
+                                        imgElement.src = imgUrl;
+                                        imgElement.classList.add("col-3", "gallery-card", "img-fluid");
+                                        gallery.appendChild(imgElement);
+                                    });
+                                }
+                            }
                         });
                     }
                 }
+
             });
         });
 
-    </script>
+        //Getting Gallery Images here............
+        $(document).ready(function() {
+            $.ajax({
+            url: "/admin/showMediaGallery"
+            , method: "GET"
+            , success: function(response) {
+                let gallery = $("#mediaGallery");
+                response.storedImages.forEach(imgUrl => {
+                let imgElement = `<img src="${imgUrl}" data-url="${imgUrl}" onclick="GetPath(event);" class="gallery-card img-fluid" alt="Media Image">`;
+                gallery.append(imgElement);
+                });
+            }
+            , error: function(error) {
+                console.error("Error fetching images:", error);
+            }
+            });
+        });
+        
+          //Getting path of Image url and show it in div
+        function GetPath(event) {
+            var imgUrl = event.target.getAttribute('data-url');
+            document.querySelector('input[name="imageUrl"]').value = imgUrl;
+            document.getElementById('imagePreview').querySelector('img').src = imgUrl;
+        }
+
+
+        //Copy URL to clipboard
+        function copyToClipboard(event) {
+            event.preventDefault();
+            const imgUrl = document.querySelector('input[name="imageUrl"]').value;
+            const currentUrl = imgUrl;
+            navigator.clipboard.writeText(currentUrl)
+                .then(() => {
+                    const toastHTML = `
+                        <div class="toast position-fixed top-0 end-0 p-1 align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true" style="z-index: 1050;">
+                        <div class="toast-body">
+                                URL copied to clipboard
+                            </div>
+                        </div>
+                        `;
+
+                    const toastContainer = document.createElement('div');
+                    toastContainer.innerHTML = toastHTML;
+                    document.body.appendChild(toastContainer);
+
+                    const toastElement = new bootstrap.Toast(toastContainer.querySelector('.toast'), { delay: 3000 });
+                    toastElement.show();
+                })
+                .catch(err => {
+                    console.error("Failed to copy URL: ", err);
+                });
+        }
+    </script>  
 
 </x-app-layout>

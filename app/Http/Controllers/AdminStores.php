@@ -17,6 +17,7 @@ use Exception;
 use Illuminate\Support\Facades\Log;
 use Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class AdminStores extends Controller
 {
@@ -90,7 +91,7 @@ class AdminStores extends Controller
                 $filenamecompanylogo = time() . '_' . $companylogo->getClientOriginalName();
                 $companylogo->move(public_path('assets/images/Services'), $filenamecompanylogo);
             }
-            
+
             if ($request->hasFile('registrationimage')) {
                 $request->validate([
                     'registrationimage' => 'image|mimes:jpeg,png,jpg,svg,webp|max:2048',
@@ -140,7 +141,7 @@ class AdminStores extends Controller
                 $filenamecompanylogo = time() . '_' . $companylogo->getClientOriginalName();
                 $companylogo->move(public_path('assets/images/Services'), $filenamecompanylogo);
             }
-            
+
             if ($request->hasFile('registrationimage')) {
                 $request->validate([
                     'registrationimage' => 'required|image|mimes:jpeg,png,jpg,svg,webp|max:2048',
@@ -225,5 +226,47 @@ class AdminStores extends Controller
         }
         return response()->json(['success' => false], 404);
     }
+
+    public function insertMedia(Request $request)
+    {
+        try {
+            $mediaImages = [];
+            if ($request->hasFile('mediaImages')) {
+                $request->validate([
+                    'mediaImages.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+
+                $files = $request->file('mediaImages');
+                foreach ($files as $file) {
+                    $imageFullName = time() . '_' . $file->getClientOriginalName();
+                    $uploadedPath = public_path('assets/images/Media');
+                    $file->move($uploadedPath, $imageFullName);
+                    $mediaImages[] = asset('assets/images/Media/' . $imageFullName);
+                }
+            }
+
+            return response()->json([
+                'message' => 'Media inserted successfully!',
+                'images' => $mediaImages // Return images list to AJAX
+            ]);
+        } catch (Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+    public function showMediaGallery()
+    {
+        $directory = public_path('assets/images/Media');
+        $storedImages = [];
+
+        if (File::exists($directory)) {
+            $files = File::files($directory);
+            foreach ($files as $file) {
+                $storedImages[] = asset('assets/images/Media/' . $file->getFilename());
+            }
+        }
+        return response()->json(['storedImages' => $storedImages]);
+    }
+
+
 
 }

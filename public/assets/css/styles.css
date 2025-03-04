@@ -54918,3 +54918,10 @@ body .connect-sorting-content {
     content: '\00d7';
 }
 
+.gallery-card {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+    /* Optional for rounded corners */
+}
