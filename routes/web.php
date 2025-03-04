@@ -48,6 +48,7 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/media', [AdminViews::class, 'media'])->name('admin.media');
     Route::post('/insertMedia', [AdminStores::class, 'insertMedia'])->name('admin.insertMedia');
     Route::get('/showMediaGallery', [AdminStores::class, 'showMediaGallery'])->name('admin.showMediaGallery');
+    Route::get('/removegalleryitem', [AdminStores::class, 'removegalleryitem'])->name('admin.removegalleryitem');
 
 });
 

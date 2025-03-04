@@ -99,71 +99,6 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('input[name="input"]').tagsinput({
-                trimValue: true
-                , confirmKeys: [13, 44]
-                , focusClass: 'my-focus-class'
-            });
-
-            $('.bootstrap-tagsinput input').on('focus', function() {
-                $(this).closest('.bootstrap-tagsinput').addClass('has-focus');
-            }).on('blur', function() {
-                $(this).closest('.bootstrap-tagsinput').removeClass('has-focus');
-            });
-
-        });
-
-        document.getElementById("flexCheckDefault").addEventListener("change", function() {
-            var dateInput = document.getElementById("dateInput");
-            dateInput.style.display = this.checked ? "block" : "none";
-        });
-
-    </script>
-    <script>
-        var counter = 0;
-        let amenties = [];
-        $(document).on('click', '.addRow', function() {
-            counter++;
-            var name = $('#amentinamevalue').val();
-            amenties.push(name);
-            var tr = `
-                    <tr>
-                        <td class="row-number">${counter}</td>
-                        <td>
-                            <div class="mb-3">
-                                <div class="mb-4">${name}</div>
-                            </div>
-                        </td>
-                        <td>
-                            <button class="btn btn-danger btn-sm deleteRow" data-value="${name}">delete</button>
-                        </td>
-                    </tr>
-                `;
-            $('#tablebody').append(tr);
-            updateRowNumbers();
-            console.log("dsfsd", amenties);
-        });
-
-        $(document).on('click', '.deleteRow', function() {
-            var valueToRemove = $(this).data("value"); // Get the value associated with the button
-            amenties = amenties.filter(item => item !== valueToRemove); // Remove value from array
-            $(this).closest('tr').remove();
-            updateRowNumbers();
-            console.log("Updated Amenities:", amenties);
-        });
-
-        // Function to update row numbers dynamically
-        function updateRowNumbers() {
-            counter = 0; // Reset counter
-            $('#tablebody tr').each(function() {
-                counter++;
-                $(this).find('.row-number').text(counter);
-            });
-        }
-
-    </script>
-    <script>
         document.querySelector("#submitAllForms").addEventListener("click", function(event) {
             event.preventDefault();
             const combinedFormData = new FormData();
@@ -218,10 +153,25 @@
                                 if (data.images && data.images.length > 0) {
                                     let gallery = document.querySelector("#mediaGallery");
                                     data.images.forEach(imgUrl => {
+                                        let imgContainer = document.createElement("div");
+                                        imgContainer.classList.add("col-3", "position-relative");
+
                                         let imgElement = document.createElement("img");
                                         imgElement.src = imgUrl;
-                                        imgElement.classList.add("col-3", "gallery-card", "img-fluid");
-                                        gallery.appendChild(imgElement);
+                                        imgElement.classList.add("gallery-card", "img-fluid");
+
+                                        let closeButton = document.createElement("button");
+                                        closeButton.classList.add("btn", "btn-danger", "pe-2", "ps-2", "rounded", "text-black");
+                                        closeButton.style.position = "absolute";
+                                        closeButton.style.top = "0";
+                                        closeButton.style.right = "67px";
+                                        closeButton.setAttribute("aria-label", "Close");
+                                        closeButton.innerHTML = "X";
+
+
+                                        imgContainer.appendChild(imgElement);
+                                        imgContainer.appendChild(closeButton);
+                                        gallery.appendChild(imgContainer);
                                     });
                                 }
                             }
@@ -240,8 +190,11 @@
             , success: function(response) {
                 let gallery = $("#mediaGallery");
                 response.storedImages.forEach(imgUrl => {
-                let imgElement = `<img src="${imgUrl}" data-url="${imgUrl}" onclick="GetPath(event);" class="gallery-card img-fluid" alt="Media Image">`;
-                gallery.append(imgElement);
+                    let imgContainer = `<div class="col-3 position-relative">
+                                            <img src="${imgUrl}" data-url="${imgUrl}" onclick="GetPath(event);" class="gallery-card img-fluid" alt="Media Image">
+                                            <button onclick="RemoveGalleryItem('${imgUrl}');" class="btn btn-danger pe-2 ps-2 rounded text-black" style="position: absolute; top: 0; right: 67px;" aria-label="Close">X</button>
+                                        </div>`;
+                    gallery.append(imgContainer);
                 });
             }
             , error: function(error) {
@@ -283,6 +236,21 @@
                 .catch(err => {
                     console.error("Failed to copy URL: ", err);
                 });
+        }
+
+        function RemoveGalleryItem(url){
+            const Deleteurl = url;
+            $.ajax({
+            url: "/admin/removegalleryitem",
+            method: "GET",
+            data: {
+                url: Deleteurl
+            },
+            success: function(){
+                console.log('deleted');
+                $(`img[data-url="${url}"]`).closest('.col-3').remove();
+            }
+            });
         }
     </script>  
 

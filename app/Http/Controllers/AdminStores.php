@@ -266,7 +266,12 @@ class AdminStores extends Controller
         }
         return response()->json(['storedImages' => $storedImages]);
     }
-
-
-
+    public function removegalleryitem(Request $request){
+        $filename = public_path('assets/images/Media/' . basename($request->url));
+        if (File::exists($filename)) {
+            File::delete($filename);
+            return response()->json(['success' => true]);
+        }
+        return response()->json(['success' => false], 404);
+    }
 }
