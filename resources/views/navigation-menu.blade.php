@@ -68,6 +68,14 @@
                           <span class="hide-menu">Media</span>
                       </a>
                   </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('admin.allproducts')}}" aria-expanded="false">
+                          <span>
+                            <i class="ti ti-notes"></i>
+                          </span>
+                          <span class="hide-menu">All Products</span>
+                      </a>
+                  </li>
               </ul>
           </nav>
 

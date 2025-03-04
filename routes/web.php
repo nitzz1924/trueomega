@@ -49,18 +49,23 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/insertMedia', [AdminStores::class, 'insertMedia'])->name('admin.insertMedia');
     Route::get('/showMediaGallery', [AdminStores::class, 'showMediaGallery'])->name('admin.showMediaGallery');
     Route::get('/removegalleryitem', [AdminStores::class, 'removegalleryitem'])->name('admin.removegalleryitem');
+    Route::get('/addProduct', [AdminViews::class, 'addProduct'])->name('admin.addProduct');
+    Route::post('/insertProduct', [AdminStores::class, 'insertProduct'])->name('admin.insertProduct');
+    Route::get('/allproducts', [AdminViews::class, 'allproducts'])->name('admin.allproducts');
+    Route::get('/deleteProduct', [AdminStores::class, 'deleteProduct'])->name('admin.deleteProduct');
+    Route::get('/editproduct/{id}', [AdminViews::class, 'editproduct'])->name('admin.editproduct');
 
 });
 
 
-//User Panel Routes
+//User Panel Authentication Routes
 Route::get('user/login', [UserViews::class, 'userloginpage'])->name('user.userloginpage');
 Route::get('user/registration', [UserViews::class, 'userregistration'])->name('user.userregistration');
 Route::post('register-user', [UserViews::class, 'registeruser'])->name('user.registeruser');
 Route::post('loginuser', [UserViews::class, 'loginuser'])->name('user.loginuser');
 
 
-
+//User Panel Routes
 Route::prefix('user')->middleware('customer.auth')->group(function () {
     Route::controller(UserViews::class)->group(function () {
         Route::get('/dashboard', 'dashboard')->name('user.dashboard');

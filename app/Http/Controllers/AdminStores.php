@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AllProduct;
 use App\Models\Blog;
 use App\Models\InvestSetting;
 use App\Models\Lead;
@@ -273,5 +274,71 @@ class AdminStores extends Controller
             return response()->json(['success' => true]);
         }
         return response()->json(['success' => false], 404);
+    }
+
+    public function insertProduct(Request $request){
+        try {
+            // Handle the thumbnail image
+            $thumbnailFilename = null;
+            if ($request->hasFile('thumbnailImages')) {
+                $request->validate([
+                    'thumbnailImages' => 'required|mimes:jpeg,png,jpg',
+                ]);
+
+                $file = $request->file('thumbnailImages');
+                $thumbnailFilename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/images/Products'), $thumbnailFilename);
+            }
+
+            // Handle multiple gallery images
+            $galleryImages = [];
+            if ($request->hasFile('galleryImages')) {
+                $request->validate([
+                    'galleryImages.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+                $files = $request->file('galleryImages');
+                foreach ($files as $file) {
+                    $imageName = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $imageFullName = $imageName . '.' . $extension;
+
+                    // Define the upload path
+                    $uploadedPath = public_path('assets/images/Products');
+
+                    // Move the file to the desired location
+                    $file->move($uploadedPath, $imageFullName);
+
+                    // Store the path for the image
+                    $galleryImages[] = 'assets/images/Products/' . $imageFullName;
+                }
+                //    dd( $galleryImages);
+            }
+
+            // Create the product
+            $data = AllProduct::create([
+                'productname' => $request->productname,
+                'regularprice' => $request->regularprice,
+                'category' => $request->category,
+                'saleprice' => $request->saleprice,
+                'description' => $request->description,
+                'thumbnailImages' => $thumbnailFilename,
+                'galleryImages' => json_encode($galleryImages),
+                'productstatus' => $request->status
+            ]);
+
+            return response()->json(['data' => $data, 'message' => 'Product inserted successfully!']);
+        } catch (Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+    public function deleteProduct($id)
+    {
+        try {
+            $data = AllProduct::find($id);
+            $data->delete();
+            return back()->with('success', "Deleted..!!!");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

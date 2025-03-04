@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AllProduct;
 use App\Models\Blog;
 use App\Models\Lead;
 use App\Models\Master;
@@ -45,5 +46,20 @@ class AdminViews extends Controller
     }
     public function media(){
         return view('AdminPanelPages.media');
+    }
+    public function addProduct(){
+        $categories = Master::where('type', 'Product Categories')->get();
+        return view('AdminPanelPages.addProduct',compact('categories'));
+    }
+    public function allproducts(){
+        $data = AllProduct::orderBy('created_at','DESC')->get();
+        $productcnt = AllProduct::count();
+        return view('AdminPanelPages.allproducts',compact('data','productcnt'));
+    }
+    public function editproduct($id){
+        $categories = Master::where('type', 'Product Categories')->get();
+        $data = AllProduct::find($id);
+        $productname = $data->productname;
+        return view('AdminPanelPages.editproduct',compact('data','categories','productname'));
     }
 }

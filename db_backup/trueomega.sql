@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 03, 2025 at 11:14 AM
+-- Generation Time: Mar 04, 2025 at 02:13 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,33 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `all_products`
+--
+
+CREATE TABLE `all_products` (
+  `id` int(11) NOT NULL,
+  `productname` varchar(255) DEFAULT NULL,
+  `category` varchar(255) DEFAULT NULL,
+  `regularprice` varchar(255) DEFAULT NULL,
+  `saleprice` varchar(255) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `galleryImages` varchar(255) DEFAULT NULL,
+  `thumbnailImages` varchar(255) DEFAULT NULL,
+  `productstatus` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `all_products`
+--
+
+INSERT INTO `all_products` (`id`, `productname`, `category`, `regularprice`, `saleprice`, `description`, `galleryImages`, `thumbnailImages`, `productstatus`, `created_at`, `updated_at`) VALUES
+(4, 'AEROSHELL ASG64 (3-KG-TIN)', 'Chemicals', '500', '450', '<p>AeroShell Grease 64 is a high-performance lubricant, combining the reliability of AeroShell Grease 33 with 5% molybdenum disulphide for extreme pressure properties. This long-lasting grease ensures optimal lubrication for heavily loaded, sliding steel surfaces, enhancing component longevity and reducing maintenance costs.</p>', '[\"assets\\/images\\/Products\\/80fee67c8a4c4989bf8a580b4bbb0cd2.jpg\"]', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', 'unpublished', '2025-03-04 06:04:59', '2025-03-04 11:58:55');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `cache`
 --
 
@@ -32,6 +59,14 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('8944f453e124ebd47c963edc5bb4d779', 'i:3;', 1741080725),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1741080725;', 1741080725);
 
 -- --------------------------------------------------------
 
@@ -116,10 +151,10 @@ CREATE TABLE `masters` (
 --
 
 INSERT INTO `masters` (`id`, `label`, `type`, `categoryimage`, `created_at`, `updated_at`) VALUES
-(44, 'Chemicals', 'Master', '', '2025-03-01 00:46:50', '2025-03-01 00:46:50'),
-(46, 'Henkel BONDERITE-C-AK 4181 AERO (25-kg)', 'Chemicals', '', '2025-03-01 00:47:36', '2025-03-01 00:47:36'),
-(47, 'AEROSHELL ASG64 (3-KG-TIN)', 'Chemicals', '', '2025-03-01 00:47:52', '2025-03-01 00:47:52'),
-(48, 'MOBIL-JET-2 (1-USQT-CAN)', 'Chemicals', '', '2025-03-01 00:48:11', '2025-03-01 00:48:11');
+(44, 'Product Categories', 'Master', '', '2025-03-01 00:46:50', '2025-03-04 04:54:16'),
+(49, 'Chemicals', 'Product Categories', '', '2025-03-04 05:01:18', '2025-03-04 05:01:18'),
+(50, 'Clearners', 'Product Categories', '', '2025-03-04 05:01:34', '2025-03-04 05:01:34'),
+(51, 'Washers', 'Product Categories', '', '2025-03-04 05:01:46', '2025-03-04 05:01:46');
 
 -- --------------------------------------------------------
 
@@ -245,7 +280,7 @@ CREATE TABLE `register_users` (
 --
 
 INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `created_at`, `updated_at`) VALUES
-(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$8aKQROfc9nCA5CtLAce3OOz.9mAOTxz8rI1uAsdQ1Bli1rOUQ63jG', '1001', NULL, NULL, '', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-01 07:14:10');
+(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$8aKQROfc9nCA5CtLAce3OOz.9mAOTxz8rI1uAsdQ1Bli1rOUQ63jG', '1001', NULL, NULL, '', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-04 01:00:56');
 
 -- --------------------------------------------------------
 
@@ -267,7 +302,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('AEv47LxKiZELf71Q4AhNs9baevBqqnUBlBX3IzEu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiS2ZVdEF1T2tLWTd4Z0cxSktCZWVDYlNoVXE3c2Vpd1dxWWJaZ3VhZCI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9tZWRpYSI7fXM6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHVWQWZ2VElWRnh2VUdsN3NRQlQ1WGVYTm55VXRFVmtGczc4TTh6dnFIRmFKRmw4R3pPdXRhIjtzOjM6InVybCI7YTowOnt9czo1MDoibG9naW5fd2ViXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTt9', 1740834374);
+('2BuUpY1kN7oYS10xrKpc1pM5mplffF7YSLz44bEN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoieTBiMjJDdm55SkhydXd5MWt1YjNndjR1SmJaUzFjVTUwekllTFZrRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxwcm9kdWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO30=', 1741093977),
+('wDriTluQxkyg2J0Ux1SHkRlbSc4CcOHvh0TyNcxu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTnFCWlIxUzNXaUhFWEpNdkx0cGZ4dE9YV1k0bmxRNU5RcGt2RXpydCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHVWQWZ2VElWRnh2VUdsN3NRQlQ1WGVYTm55VXRFVmtGczc4TTh6dnFIRmFKRmw4R3pPdXRhIjt9', 1741080680);
 
 -- --------------------------------------------------------
 
@@ -306,6 +342,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `tw
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `all_products`
+--
+ALTER TABLE `all_products`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `cache`
@@ -397,6 +439,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `all_products`
+--
+ALTER TABLE `all_products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -412,7 +460,7 @@ ALTER TABLE `jobs`
 -- AUTO_INCREMENT for table `masters`
 --
 ALTER TABLE `masters`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `migrations`

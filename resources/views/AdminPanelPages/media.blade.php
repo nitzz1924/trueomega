@@ -16,13 +16,6 @@
                             </ol>
                         </nav>
                     </div>
-                    <div class="col-md-2 d-flex justify-content-end align-items-center">
-                        <div class="">
-                            <a href="#" class="btn btn-outline-primary">
-                                <i class="ti ti-arrow-narrow-left"></i> Go Back
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
