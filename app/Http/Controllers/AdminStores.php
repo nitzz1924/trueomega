@@ -243,12 +243,13 @@ class AdminStores extends Controller
                     $uploadedPath = public_path('assets/images/Media');
                     $file->move($uploadedPath, $imageFullName);
                     $mediaImages[] = asset('assets/images/Media/' . $imageFullName);
+                    $Imagenames[] =  $imageFullName;
                 }
             }
 
             return response()->json([
                 'message' => 'Media inserted successfully!',
-                'images' => $mediaImages // Return images list to AJAX
+                'images' => $mediaImages, // Return images list to AJAX
             ]);
         } catch (Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
@@ -258,14 +259,16 @@ class AdminStores extends Controller
     {
         $directory = public_path('assets/images/Media');
         $storedImages = [];
+        $Imagesnames = [];
 
         if (File::exists($directory)) {
             $files = File::files($directory);
             foreach ($files as $file) {
                 $storedImages[] = asset('assets/images/Media/' . $file->getFilename());
+                $Imagesnames[] =$file->getFilename();
             }
         }
-        return response()->json(['storedImages' => $storedImages]);
+        return response()->json(['storedImages' => $storedImages,'Imagesnames' => $Imagesnames]);
     }
     public function removegalleryitem(Request $request){
         $filename = public_path('assets/images/Media/' . basename($request->url));
@@ -340,5 +343,13 @@ class AdminStores extends Controller
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+    }
+    public function filterbycategory($category){
+        $data = AllProduct::where('category',$category)->get();
+        return response()->json(['data' => $data]);
+    }
+    public function filterbystatus($status){
+        $data = AllProduct::where('productstatus',$status)->get();
+        return response()->json(['data' => $data]);
     }
 }

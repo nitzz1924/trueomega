@@ -26,6 +26,51 @@
                 </div>
             </div>
         </div>
+        @if(session('error'))
+        <div class="alert alert-danger rounded  fs-5" style="height: 120px; overflow-y: auto;">
+            {!! session('error') !!}
+        </div>
+        @endif
+        <div class="card bg-white shadow-sm position-relative overflow-hidden mb-4">
+            <div class="card-body px-4 py-3">
+                <div class="row align-items-center">
+                    <div class="col-md-7 d-flex">
+                        <div class="mb-3">
+                            <label for="formFile" class="form-label text-muted">Filter by category</label>
+                            <select name="category" class="form-select mr-sm-2  mb-2" id="categorydropdown" required>
+                                <option value="3" selected="">--Filter by category--</option>
+                                @foreach ($categories as $datacat)
+                                <option value="{{$datacat->label}}">{{$datacat->label}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="ms-3 mb-3">
+                            <label for="formFile" class="form-label text-muted">Filter by Product Status</label>
+                            <select name="status" class="form-select mr-sm-2  mb-2" id="statusdropdown" required>
+                                <option selected="">--Filter by Product Status--</option>
+                                <option value="unpublished">Unpublished</option>
+                                <option value="published">Published</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-md-5">
+                        <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                                <label for="formFile" class="form-label text-muted">Bulk Upload</label>
+                            <div class="input-group mb-3">
+                                <input class="form-control" name="file" type="file" id="formFile" />
+                                <button type="submit" id="" class="btn btn-primary">
+                                    Upload
+                                </button>
+                            </div>
+                             @error('file')
+                            <div class="text-danger fs-5">{{ $message }}</div>
+                            @enderror
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="card">
             <div class="card-body">
                 <div class="">
@@ -40,13 +85,13 @@
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="tablebody">
                             @foreach ($data as $row)
                             <tr>
                                 <td>#Pro00{{ $row->id}}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-6">
-                                        <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="45" class="rounded">
+                                        <img src="{{asset('assets/images/Media/'.$row->thumbnailImages)}}" width="45" class="rounded">
                                         <h6 class="mb-0">{{ $row->productname}}</h6>
                                     </div>
                                 </td>
@@ -97,6 +142,147 @@
                     }
                 });
         }
+
+    </script>
+
+    {{-- Filter By category--}}
+    <script>
+        $(document).ready(function() {
+            $('#categorydropdown').change(function() {
+                var category = $("#categorydropdown").val();
+                console.log(category);
+
+                //Ajax call
+                var finalurl = '{{ route("admin.filterbycategory", ":category") }}'.replace(':category', category);
+                $.ajax({
+                    url: finalurl
+                    , type: 'GET'
+                    , data: {
+                        _token: '{{ csrf_token() }}'
+                    }
+                    , success: function(response) {
+                        console.log("Filtered Data : ", response);
+                        $("#tablebody").empty();
+                        if (response.data.length > 0) {
+                            $.each(response.data, function(index, item) {
+                                var editUrl = '{{ route("admin.editproduct", ":id") }}'.replace(':id', item.id);
+                                var tr = `
+                                        <tr>
+                                        <td>#Pro00${item.id}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-6">
+                                                <img src="{{asset('assets/images/Media/${item.thumbnailImages}')}}" width="45" class="rounded">
+                                                <h6 class="mb-0">${item.productname}</h6>
+                                            </div>
+                                        </td>
+                                        <td>${item.category}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-6">
+                                                <div class="text-muted text-decoration-line-through">₹${item.regularprice}/-</div>
+                                                <div class="fw-bold text-primary">₹${item.saleprice}/-</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <span class="mb-1 badge ${item.productstatus == 'published' ? 'text-bg-success' : 'text-bg-danger' }">
+                                                    ${item.productstatus}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="hstack gap-3 flex-wrap">
+                                                <a href="${editUrl}" class="link-dark  fs-6"><i class="ti ti-edit"></i></a>
+                                                <button onclick="confirmDelete('${item.id}')" class="link-danger  fs-6"><i class="ti ti-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    `;
+                                $("#tablebody").append(tr);
+                            });
+                        } else {
+                            var noDataTr = `
+                                    <tr>
+                                        <td colspan="6" class="text-center">No products found</td>
+                                    </tr>
+                                `;
+                            $("#tablebody").append(noDataTr);
+                        }
+                    }
+                });
+            });
+        });
+
+    </script>
+
+    {{-- Filter By Status--}}
+    <script>
+        $(document).ready(function() {
+            $('#statusdropdown').change(function() {
+                var status = $("#statusdropdown").val();
+                console.log(status);
+
+                //Ajax call
+                var finalurl = '{{ route("admin.filterbystatus", ":status") }}'.replace(':status', status);
+                $.ajax({
+                    url: finalurl
+                    , type: 'GET'
+                    , data: {
+                        _token: '{{ csrf_token() }}'
+                    }
+                    , success: function(response) {
+                        console.log("Filtered Data : ", response);
+                        $("#tablebody").empty();
+                        $.each(response.data, function(index, item) {
+                            var editUrl = '{{ route("admin.editproduct", ":id") }}'.replace(':id', item.id);
+                            if (response.data.length > 0) {
+                                $.each(response.data, function(index, item) {
+                                    var editUrl = '{{ route("admin.editproduct", ":id") }}'.replace(':id', item.id);
+                                    var tr = `
+                                        <tr>
+                                        <td>#Pro00${item.id}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-6">
+                                                <img src="{{asset('assets/images/Media/${item.thumbnailImages}')}}" width="45" class="rounded">
+                                                <h6 class="mb-0">${item.productname}</h6>
+                                            </div>
+                                        </td>
+                                        <td>${item.category}</td>
+                                        <td>
+                                            <div class="d-flex align-items-center gap-6">
+                                                <div class="text-muted text-decoration-line-through">₹${item.regularprice}/-</div>
+                                                <div class="fw-bold text-primary">₹${item.saleprice}/-</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="form-check form-switch">
+                                                <span class="mb-1 badge ${item.productstatus == 'published' ? 'text-bg-success' : 'text-bg-danger' }">
+                                                    ${item.productstatus}
+                                                </span>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="hstack gap-3 flex-wrap">
+                                                <a href="${editUrl}" class="link-dark  fs-6"><i class="ti ti-edit"></i></a>
+                                                <button onclick="confirmDelete('${item.id}')" class="link-danger  fs-6"><i class="ti ti-trash"></i></button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    `;
+                                    $("#tablebody").append(tr);
+                                });
+                            } else {
+                                var noDataTr = `
+                                    <tr>
+                                        <td colspan="6" class="text-center">No products found</td>
+                                    </tr>
+                                `;
+                                $("#tablebody").append(noDataTr);
+                            }
+                        });
+                    }
+                });
+            });
+        });
 
     </script>
 </x-app-layout>

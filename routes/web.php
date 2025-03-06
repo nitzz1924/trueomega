@@ -3,6 +3,7 @@
 use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GoogleAuthentication;
 use App\Http\Controllers\UserViews;
+use App\Http\Controllers\ExcelProductSheet;
 use App\Http\Controllers\WebsiteStores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -54,6 +55,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/allproducts', [AdminViews::class, 'allproducts'])->name('admin.allproducts');
     Route::get('/deleteProduct', [AdminStores::class, 'deleteProduct'])->name('admin.deleteProduct');
     Route::get('/editproduct/{id}', [AdminViews::class, 'editproduct'])->name('admin.editproduct');
+    Route::get('/filterbycategory/{category}', [AdminStores::class, 'filterbycategory'])->name('admin.filterbycategory');
+    Route::get('/filterbystatus/{status}', [AdminStores::class, 'filterbystatus'])->name('admin.filterbystatus');
 
 });
 
@@ -76,5 +79,9 @@ Route::prefix('user')->middleware('customer.auth')->group(function () {
     });
 });
 
+
+//Excel Routes
+Route::get('/import-excel', [ExcelProductSheet::class, 'index'])->name('import.excel');
+Route::post('/import-excel', [ExcelProductSheet::class, 'import']);
 
 

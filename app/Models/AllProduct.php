@@ -14,6 +14,6 @@ class AllProduct extends Model
         'description',
         'galleryImages',
         'thumbnailImages',
-        'status',
+        'productstatus',
     ];
 }

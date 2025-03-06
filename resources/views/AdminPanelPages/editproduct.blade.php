@@ -68,7 +68,7 @@
                             <div class=" d-flex">
                                 @foreach (json_decode($data->galleryImages) as $galleryimg)
                                 <div class="mx-2">
-                                    <img src="{{ asset($galleryimg) }}" class="rounded-3 img-fluid" alt="Thumbnail" style="max-height: 100px;">
+                                    <img src="{{ asset('assets/images/Media/'.$galleryimg) }}" class="rounded-3 img-fluid" alt="Thumbnail" style="max-height: 100px;">
                                 </div>
                                 @endforeach
                             </div>
@@ -115,7 +115,7 @@
                                 </div>
                             </form>
                              <div id="thumbnailPreview" class="mt-3">
-                                <img src="{{asset('assets/images/Products/'.$data->thumbnailImages)}}" alt="Thumbnail Preview" class="img-fluid rounded-3" style="max-height: 100px; display: {{$data->thumbnailImages ? 'block' : 'none'}};">
+                                <img src="{{asset('assets/images/Media/'.$data->thumbnailImages)}}" alt="Thumbnail Preview" class="img-fluid rounded-3" style="max-height: 100px; display: {{$data->thumbnailImages ? 'block' : 'none'}};">
                             </div>
                             <p class="fs-3 text-left text-danger mb-0 fw-bold">
                                 Set the Product thumbnail image. Only *.png, *.jpg and *.jpeg image files are accepted.

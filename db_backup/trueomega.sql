@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 04, 2025 at 02:13 PM
+-- Generation Time: Mar 06, 2025 at 02:22 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,8 @@ CREATE TABLE `all_products` (
 --
 
 INSERT INTO `all_products` (`id`, `productname`, `category`, `regularprice`, `saleprice`, `description`, `galleryImages`, `thumbnailImages`, `productstatus`, `created_at`, `updated_at`) VALUES
-(4, 'AEROSHELL ASG64 (3-KG-TIN)', 'Chemicals', '500', '450', '<p>AeroShell Grease 64 is a high-performance lubricant, combining the reliability of AeroShell Grease 33 with 5% molybdenum disulphide for extreme pressure properties. This long-lasting grease ensures optimal lubrication for heavily loaded, sliding steel surfaces, enhancing component longevity and reducing maintenance costs.</p>', '[\"assets\\/images\\/Products\\/80fee67c8a4c4989bf8a580b4bbb0cd2.jpg\"]', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', 'unpublished', '2025-03-04 06:04:59', '2025-03-04 11:58:55');
+(15, 'AEROSHELL ASG64 (3-KG-TIN)', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(16, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44');
 
 -- --------------------------------------------------------
 
@@ -65,8 +66,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('8944f453e124ebd47c963edc5bb4d779', 'i:3;', 1741080725),
-('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1741080725;', 1741080725);
+('8944f453e124ebd47c963edc5bb4d779', 'i:1;', 1741256713),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1741256713;', 1741256713);
 
 -- --------------------------------------------------------
 
@@ -153,7 +154,7 @@ CREATE TABLE `masters` (
 INSERT INTO `masters` (`id`, `label`, `type`, `categoryimage`, `created_at`, `updated_at`) VALUES
 (44, 'Product Categories', 'Master', '', '2025-03-01 00:46:50', '2025-03-04 04:54:16'),
 (49, 'Chemicals', 'Product Categories', '', '2025-03-04 05:01:18', '2025-03-04 05:01:18'),
-(50, 'Clearners', 'Product Categories', '', '2025-03-04 05:01:34', '2025-03-04 05:01:34'),
+(50, 'Cleaners', 'Product Categories', '', '2025-03-04 05:01:34', '2025-03-05 06:16:30'),
 (51, 'Washers', 'Product Categories', '', '2025-03-04 05:01:46', '2025-03-04 05:01:46');
 
 -- --------------------------------------------------------
@@ -280,7 +281,7 @@ CREATE TABLE `register_users` (
 --
 
 INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `created_at`, `updated_at`) VALUES
-(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$8aKQROfc9nCA5CtLAce3OOz.9mAOTxz8rI1uAsdQ1Bli1rOUQ63jG', '1001', NULL, NULL, '', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-04 01:00:56');
+(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$8aKQROfc9nCA5CtLAce3OOz.9mAOTxz8rI1uAsdQ1Bli1rOUQ63jG', '1001', NULL, NULL, '', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-04 23:24:35');
 
 -- --------------------------------------------------------
 
@@ -302,8 +303,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('2BuUpY1kN7oYS10xrKpc1pM5mplffF7YSLz44bEN', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoieTBiMjJDdm55SkhydXd5MWt1YjNndjR1SmJaUzFjVTUwekllTFZrRyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxwcm9kdWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO30=', 1741093977),
-('wDriTluQxkyg2J0Ux1SHkRlbSc4CcOHvh0TyNcxu', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiTnFCWlIxUzNXaUhFWEpNdkx0cGZ4dE9YV1k0bmxRNU5RcGt2RXpydCI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9kYXNoYm9hcmQiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHVWQWZ2VElWRnh2VUdsN3NRQlQ1WGVYTm55VXRFVmtGczc4TTh6dnFIRmFKRmw4R3pPdXRhIjt9', 1741080680);
+('PyAoAOpqWDRgRie7nPJl5RAE6cJHd0friIi5U0gn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUjJjSFM0TnJ2N1BOT0I4bEZCRVFhS1QzN2hrNmpCNHlsUW1qdkR6WiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxwcm9kdWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO30=', 1741267324);
 
 -- --------------------------------------------------------
 
@@ -442,7 +442,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `all_products`
 --
 ALTER TABLE `all_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

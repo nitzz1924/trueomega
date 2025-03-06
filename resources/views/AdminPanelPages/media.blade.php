@@ -181,6 +181,7 @@
             url: "/admin/showMediaGallery"
             , method: "GET"
             , success: function(response) {
+                console.log(response);
                 let gallery = $("#mediaGallery");
                 response.storedImages.forEach(imgUrl => {
                     let imgContainer = `<div class="col-3 position-relative">
@@ -198,9 +199,9 @@
         
           //Getting path of Image url and show it in div
         function GetPath(event) {
-            var imgUrl = event.target.getAttribute('data-url');
+            var imgUrl = event.target.getAttribute('data-url').split('/').pop();
             document.querySelector('input[name="imageUrl"]').value = imgUrl;
-            document.getElementById('imagePreview').querySelector('img').src = imgUrl;
+            document.getElementById('imagePreview').querySelector('img').src = "{{ asset('assets/images/Media') }}/" + imgUrl;
         }
 
 

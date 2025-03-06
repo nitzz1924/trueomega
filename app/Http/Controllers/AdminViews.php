@@ -54,7 +54,8 @@ class AdminViews extends Controller
     public function allproducts(){
         $data = AllProduct::orderBy('created_at','DESC')->get();
         $productcnt = AllProduct::count();
-        return view('AdminPanelPages.allproducts',compact('data','productcnt'));
+        $categories = Master::where('type', 'Product Categories')->get();
+        return view('AdminPanelPages.allproducts',compact('data','productcnt','categories'));
     }
     public function editproduct($id){
         $categories = Master::where('type', 'Product Categories')->get();
