@@ -4,6 +4,7 @@ use App\Http\Controllers\EmailController;
 use App\Http\Controllers\GoogleAuthentication;
 use App\Http\Controllers\UserViews;
 use App\Http\Controllers\ExcelProductSheet;
+use App\Http\Controllers\WebsiteController;
 use App\Http\Controllers\WebsiteStores;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -12,7 +13,7 @@ use App\Http\Controllers\WebsiteViews;
 use App\Http\Controllers\AdminStores;
 
 
-Route::get('/', function () {
+Route::get('admin/login', function () {
     return view('auth.login');
 });
 
@@ -20,7 +21,7 @@ Route::get('/', function () {
 
 Route::post('/logout', function () {
     Auth::logout();
-    return redirect('/');
+    return redirect('admin/login');
 })->name('logout');
 
 
@@ -83,5 +84,13 @@ Route::prefix('user')->middleware('customer.auth')->group(function () {
 //Excel Routes
 Route::get('/import-excel', [ExcelProductSheet::class, 'index'])->name('import.excel');
 Route::post('/import-excel', [ExcelProductSheet::class, 'import']);
+
+
+//Website Routes
+Route::name('website.')->group(function () {
+    Route::get('/', [WebsiteController::class, 'homepage'])->name('homepage');
+    Route::get('/about-us', [WebsiteController::class, 'aboutpage'])->name('aboutpage');
+});
+
 
 
