@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 06, 2025 at 02:22 PM
+-- Generation Time: Mar 20, 2025 at 11:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -47,7 +47,38 @@ CREATE TABLE `all_products` (
 
 INSERT INTO `all_products` (`id`, `productname`, `category`, `regularprice`, `saleprice`, `description`, `galleryImages`, `thumbnailImages`, `productstatus`, `created_at`, `updated_at`) VALUES
 (15, 'AEROSHELL ASG64 (3-KG-TIN)', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
-(16, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44');
+(16, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(17, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(18, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(19, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(20, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'published', '2025-03-06 07:31:44', '2025-03-19 13:12:17'),
+(21, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'unpublished', '2025-03-06 07:31:44', '2025-03-06 07:31:44'),
+(22, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'published', '2025-03-06 07:31:44', '2025-03-19 13:12:22'),
+(23, 'AEROSHELL ASG64 (3-KG-TIN) Second', 'Chemicals', '500', '450', 'AeroShell Grease 6', '[\"1741073559_1739002812_Ajmer_Museum.jpg\",\"1741073559_1739008152_jpg.jpg\",\"1741073559_1737549230_p-3.jpg\",\"1741073559_1739007574_scale_1200.png\"]', '1741080728_e046cbb371a979a6893456eee7f00703.jpg', 'published', '2025-03-06 07:31:44', '2025-03-19 13:12:20');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `blogs`
+--
+
+CREATE TABLE `blogs` (
+  `id` int(11) NOT NULL,
+  `blogname` varchar(255) DEFAULT NULL,
+  `blogcategories` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL CHECK (json_valid(`blogcategories`)),
+  `blogthumbnail` varchar(255) DEFAULT NULL,
+  `blogdescription` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `blogs`
+--
+
+INSERT INTO `blogs` (`id`, `blogname`, `blogcategories`, `blogthumbnail`, `blogdescription`, `created_at`, `updated_at`) VALUES
+(7, 'How to Showcase Your Property for Maximum Buyer Appeal', '[\"Business\",\"Computer Software\",\"Fashion\"]', '1737013391_2.png', '<div class=\"ql-editor\" data-gramm=\"false\" contenteditable=\"true\"><p>When selling your property, the first impression can make all the difference. Buyers often form opinions within seconds of viewing a home, whether in person or online. To maximize your property’s appeal, it’s essential to present it in the best possible light. Here are some actionable tips to help you showcase your property and attract the right buyers.</p><p><br></p><h4>1. <strong>Enhance Curb Appeal</strong></h4><p>The exterior of your property sets the tone for what’s inside. Make sure it leaves a lasting impression.</p><ul><li><strong>Landscaping:</strong> Keep the lawn trimmed, bushes manicured, and pathways clear. Add fresh mulch, seasonal flowers, or potted plants for a welcoming touch.</li><li><strong>Exterior Maintenance:</strong> Repaint faded walls, fix broken fences, and ensure the gutters are clean.</li><li><strong>Lighting:</strong> Install outdoor lighting to highlight your home’s features and provide a safe, inviting feel during evening viewings.</li></ul><p><br></p><h4>2. <strong>Declutter and Depersonalize</strong></h4><p>Buyers want to envision themselves in the space. Decluttering and depersonalizing your home can make it easier for them to do so.</p><ul><li><strong>Declutter:</strong> Remove excess furniture and items that make the space look cramped.</li><li><strong>Depersonalize:</strong> Take down personal photos, mementos, and unique decor. Neutral spaces appeal to a broader audience.</li><li><strong>Storage:</strong> Organize closets and cabinets. Buyers will likely peek inside, and neat storage suggests the home is well-maintained.</li></ul><p><br></p></div><div class=\"ql-clipboard\" contenteditable=\"true\" tabindex=\"-1\"></div><div class=\"ql-tooltip ql-hidden\" style=\"margin-top: -33px;\"><a class=\"ql-preview\" rel=\"noopener noreferrer\" target=\"_blank\" href=\"about:blank\"></a><a class=\"ql-action\"></a><a class=\"ql-remove\"></a></div>', '2025-01-15 07:33:12', '2025-01-23 10:17:27'),
+(10, 'Simple Tips to Increase the Value of Your Property', '[\"Business\",\"Health\"]', '1737614935_blog.jpg', '<p>Selling your property can be both exciting and challenging. Whether you’re planning to put it on the market or simply looking to increase its long-term value, making smart improvements can significantly enhance its appeal. Here are seven practical tips to boost your property’s value and attract potential buyers.</p><p><br></p><h3><strong>1. Refresh the Paintwork</strong></h3><p>A fresh coat of paint can transform your property, giving it a clean and modern look.</p><ul><li><strong>Neutral Colors</strong>: Opt for neutral tones like beige, gray, or white to appeal to a broader audience.</li><li><strong>Accent Walls</strong>: Add character to your living space with a single, subtle accent wall.</li></ul><p><br></p><h3><strong>2. Improve Energy Efficiency</strong></h3><p>Energy-efficient homes are in high demand. Implementing these changes can save future buyers money while increasing your property’s value:</p><ul><li><strong>LED Lighting</strong>: Replace outdated bulbs with energy-efficient LED options.</li><li><strong>Insulation</strong>: Ensure your walls and attic are properly insulated to reduce energy consumption.</li><li><strong>Smart Thermostats</strong>: Install a smart thermostat for more efficient heating and cooling.</li></ul><p><br></p><h3><strong>3. Upgrade the Kitchen</strong></h3><p>The kitchen is often the heart of the home. Upgrades here can provide the best return on investment.</p><ul><li>Replace old cabinet handles with sleek, modern designs.</li><li>Add a stylish backsplash to enhance the space’s appeal.</li><li>Consider upgrading appliances to energy-efficient models.</li></ul><p><br></p><h3><strong>4. Beautify the Bathrooms</strong></h3><p>Modernizing your bathrooms can make a huge difference.</p><ul><li>Install new fixtures such as faucets, showerheads, and towel racks.</li><li>Replace outdated mirrors with elegant, framed alternatives.</li><li>Upgrade lighting to add a touch of luxury.</li></ul>', '2025-01-23 01:18:55', '2025-01-23 01:18:55');
 
 -- --------------------------------------------------------
 
@@ -60,14 +91,6 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `cache`
---
-
-INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('8944f453e124ebd47c963edc5bb4d779', 'i:1;', 1741256713),
-('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1741256713;', 1741256713);
 
 -- --------------------------------------------------------
 
@@ -281,7 +304,7 @@ CREATE TABLE `register_users` (
 --
 
 INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `created_at`, `updated_at`) VALUES
-(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$8aKQROfc9nCA5CtLAce3OOz.9mAOTxz8rI1uAsdQ1Bli1rOUQ63jG', '1001', NULL, NULL, '', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-04 23:24:35');
+(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '1001', NULL, NULL, '1742462839_avatar-3.jpg', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-20 04:24:25');
 
 -- --------------------------------------------------------
 
@@ -303,7 +326,9 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('PyAoAOpqWDRgRie7nPJl5RAE6cJHd0friIi5U0gn', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiUjJjSFM0TnJ2N1BOT0I4bEZCRVFhS1QzN2hrNmpCNHlsUW1qdkR6WiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxwcm9kdWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO30=', 1741267324);
+('96iMPcFzpnUeuJoxawu35TJXF3R1MTLazsAyRWZA', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiem8waHJJSXoxcHVPTjNIa3Y3dmR6MjZEMEN2ekFBN0lOZ29NZG9KeSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czozOToiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2FsbHByb2R1Y3RzIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzk6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxwcm9kdWN0cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1742455811),
+('PD6PuS8wIcjRU6Xs2eoXQem77VjLwoaBt5MESeLr', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiY3c4ek1WT0daekxhNzF4SEpkU2tISzZYMGxLM0lINjBLZ0hVcGczRiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hYm91dC11cyI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1742455811),
+('V0Zaa5UKBDmVB6EZdcO4tOZvOVOk2W8wYU13VacJ', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYUVOejFvMTJEdFdiZ2tjVUZaOGtpV1BqbEVjamt1UUQyZlJzdHVieiI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjIxOiJodHRwOi8vMTI3LjAuMC4xOjgwMDAiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1742465442);
 
 -- --------------------------------------------------------
 
@@ -347,6 +372,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `tw
 -- Indexes for table `all_products`
 --
 ALTER TABLE `all_products`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `blogs`
+--
+ALTER TABLE `blogs`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -442,7 +473,13 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `all_products`
 --
 ALTER TABLE `all_products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+
+--
+-- AUTO_INCREMENT for table `blogs`
+--
+ALTER TABLE `blogs`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

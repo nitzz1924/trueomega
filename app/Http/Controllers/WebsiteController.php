@@ -12,4 +12,7 @@ class WebsiteController extends Controller
     public function aboutpage(){
         return view('WebsitePages.aboutpage');
     }
+    public function contactpage(){
+        return view('WebsitePages.contactus');
+    }
 }

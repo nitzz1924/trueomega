@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Nortification;
 use Illuminate\Http\Request;
 use Session;
-use Auth,Validator,Hash,Http;
+use Auth, Validator, Hash, Http;
 use App\Models\RegisterUser;
 use Exception;
 use App\Models\Master;
@@ -71,10 +71,12 @@ class UserViews extends Controller
         }
     }
 
-    public function userloginpage(){
+    public function userloginpage()
+    {
         return view('auth.UserPanel.login');
     }
-    public function userregistration(){
+    public function userregistration()
+    {
         return view('auth.UserPanel.registration');
     }
 
@@ -93,7 +95,7 @@ class UserViews extends Controller
             if ($validator->fails()) {
                 return back()->withErrors($validator)->withInput();
             }
-        
+
             // Create user record
             RegisterUser::create([
                 'name' => $request->fullname,
@@ -138,18 +140,22 @@ class UserViews extends Controller
         }
     }
 
-    public function updatepassword(Request $request){
-        try{
+    public function updatepassword(Request $request)
+    {
+        try {
             $user = Auth::guard('customer')->user();
+
             if (Hash::check($request->oldpassword, $user->password)) {
-                $udpatedpassword = $user->password = Hash::make($request->newpassword);
+                $user->update([
+                    'password' => Hash::make($request->newpassword),
+                ]);
+                return back()->with('success', "Password Updated..!!!");
+            } else {
+                return back()->with('error', "Old password is incorrect.");
             }
-            $user->update([
-                'password' => $udpatedpassword ?? $user->password,
-            ]);
-            return back()->with('success', "Password Updated..!!!");
-        }catch (Exception $e) {
+        } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
     }
+
 }

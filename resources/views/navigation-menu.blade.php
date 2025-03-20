@@ -76,6 +76,24 @@
                           <span class="hide-menu">All Products</span>
                       </a>
                   </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
+                          <span class="d-flex">
+                              <i class="ti ti-article"></i>
+                          </span>
+                          <span class="hide-menu">Blogs</span>
+                      </a>
+                      <ul aria-expanded="false" class="collapse first-level">
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.blogslist')}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">All Blogs</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
               </ul>
           </nav>
 

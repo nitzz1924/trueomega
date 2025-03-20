@@ -13,23 +13,11 @@
     <meta name="author" content="SW-THEMES">
 
     <!-- Favicon -->
-       <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/faviomega.png') }}" />
+    <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/faviomega.png') }}" />
 
-    <script>
-        WebFontConfig = {
-            google: {
-                families: ['Open+Sans:300,400,600,700,800', 'Poppins:300,400,500,600,700,800', 'Oswald:300,400,500,600,700,800']
-            }
-        };
-        (function(d) {
-            var wf = d.createElement('script')
-                , s = d.scripts[0];
-            wf.src = 'assets/js/webfont.js';
-            wf.async = true;
-            s.parentNode.insertBefore(wf, s);
-        })(document);
+ 
 
-    </script>
+
 
     <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{asset('website-assets/css/bootstrap.min.css')}}">
@@ -38,6 +26,8 @@
     <link rel="stylesheet" href="{{asset('website-assets/css/style.min.css')}}">
     <link rel="stylesheet" href="{{asset('website-assets/css/demo4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/fontawesome-free/css/all.min.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/simple-line-icons/css/simple-line-icons.min.css')}}">
+
 </head>
 
 <body>
@@ -123,7 +113,7 @@
 
                         <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                             <img alt="phone" src="{{asset('website-assets/images/phone.png')}}" width="30" height="30" class="pb-1">
-                            <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+123 5678 890</a></h6>
+                            <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+91-8302389039</a></h6>
                         </div>
 
                         <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a>
@@ -236,56 +226,37 @@
                 <div class="container">
                     <nav class="main-nav w-100">
                         <ul class="menu">
-                            <li class="active">
+                            <li class="{{ request()->routeIs('website.homepage') ? 'active' : '' }}">
                                 <a href="{{route('website.homepage')}}">Home</a>
                             </li>
-                            <li>
-                                <a href="category.html">Categories</a>
-                                <div class="megamenu megamenu-fixed-width megamenu-3cols">
-                                    <div class="row">
-                                        <div class="col-lg-12">
-                                            <a href="#" class="nolink">VARIATION 1</a>
-                                            <ul class="submenu">
-                                                <li><a href="category.html">Fullwidth Banner</a></li>
-                                                <li><a href="category-banner-boxed-slider.html">Boxed Slider Banner</a>
-                                                </li>
-                                                <li><a href="category-banner-boxed-image.html">Boxed Image Banner</a>
-                                                </li>
-                                                <li><a href="category.html">Left Sidebar</a></li>
-                                                <li><a href="category-sidebar-right.html">Right Sidebar</a></li>
-                                                <li><a href="category-off-canvas.html">Off Canvas Filter</a></li>
-                                                <li><a href="category-horizontal-filter1.html">Horizontal Filter1</a>
-                                                </li>
-                                                <li><a href="category-horizontal-filter2.html">Horizontal Filter2</a>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- End .megamenu -->
-                            </li>
-                            <li>
+                            <li class="{{ request()->routeIs('website.aboutpage') ? 'active' : '' }}">
                                 <a href="{{route('website.aboutpage')}}">About Us</a>
                             </li>
                             <li>
                                 <a href="product.html">Shop</a>
                             </li>
                             <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contact.html">Contact Us</a></li>
-                            <li class="float-right"><a href="#" class="pl-5">Log in</a></li>
+                            <li class="{{ request()->routeIs('website.contactpage') ? 'active' : '' }}">
+                            <a href="{{route('website.contactpage')}}">Contact Us</a>
+                            </li>
+                            <li class="float-right">
+                                <a href="{{route('user.userregistration')}}" class="pl-5">Register</a>
+                            </li>
+                            <li class="float-right">
+                                <a href="{{route('user.userloginpage')}}" class="pl-5">Log in</a>
+                            </li>
                         </ul>
                     </nav>
                 </div>
-                <!-- End .container -->
             </div>
-            <!-- End .header-bottom -->
         </header>
-        <!-- End .header -->
 
         <!-- Start .main -->
-        <main class="main">
-            @yield('content')
-        </main>
+        <div class="page-wrapper">
+            <main class="main">
+                @yield('content')
+            </main>
+        </div>
         <!-- End .main -->
 
         <footer class="footer bg-dark">
@@ -604,7 +575,7 @@
     <script src="{{asset('website-assets/js/optional/isotope.pkgd.min.js')}}"></script>
     <script src="{{asset('website-assets/js/plugins.min.js')}}"></script>
     <script src="{{asset('website-assets/js/jquery.appear.min.js')}}"></script>
-	<script src="{{asset('website-assets/js/plugins/jquery.countTo.js')}}"></script>
+    <script src="{{asset('website-assets/js/plugins/jquery.countTo.js')}}"></script>
 
 
     <!-- Main JS File -->

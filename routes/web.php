@@ -58,6 +58,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/editproduct/{id}', [AdminViews::class, 'editproduct'])->name('admin.editproduct');
     Route::get('/filterbycategory/{category}', [AdminStores::class, 'filterbycategory'])->name('admin.filterbycategory');
     Route::get('/filterbystatus/{status}', [AdminStores::class, 'filterbystatus'])->name('admin.filterbystatus');
+    Route::get('/addblog', [AdminViews::class, 'addblog'])->name('admin.addblog');
+    Route::get('/blogslist', [AdminViews::class, 'blogslist'])->name('admin.blogslist');
+    Route::post('/submitblog', [AdminStores::class, 'submitblog'])->name('admin.submitblog');
+    Route::get('/editblog/{id}', [AdminViews::class, 'editblog'])->name('admin.editblog');
+    Route::post('/updateblog', [AdminStores::class, 'updateblog'])->name('admin.updateblog');
+    Route::get('/deleteblog/{id}', [AdminStores::class, 'deleteblog'])->name('admin.deleteblog');
 
 });
 
@@ -90,6 +96,7 @@ Route::post('/import-excel', [ExcelProductSheet::class, 'import']);
 Route::name('website.')->group(function () {
     Route::get('/', [WebsiteController::class, 'homepage'])->name('homepage');
     Route::get('/about-us', [WebsiteController::class, 'aboutpage'])->name('aboutpage');
+    Route::get('/contact-us', [WebsiteController::class, 'contactpage'])->name('contactpage');
 });
 
 

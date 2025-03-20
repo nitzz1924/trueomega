@@ -63,4 +63,24 @@ class AdminViews extends Controller
         $productname = $data->productname;
         return view('AdminPanelPages.editproduct',compact('data','categories','productname'));
     }
+    public function blogslist()
+    {
+        $blogs = Blog::orderBy('created_at', 'DESC')->get();
+        $blogcount = Blog::count();
+        return view('AdminPanelPages.bloglists', compact('blogs', 'blogcount'));
+    }
+
+    public function addblog()
+    {
+        $categories = Master::where('type', 'Blog Categories')->get();
+        return view('AdminPanelPages.addblog', compact('categories'));
+    }
+
+    public function editblog($id)
+    {
+        // dd($id);
+        $blogs = Blog::find($id);
+        $categories = Master::where('type', 'Blog Categories')->get();
+        return view('AdminPanelPages.editblog', compact('blogs', 'categories'));
+    }
 }
