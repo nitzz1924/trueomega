@@ -67,6 +67,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/website-settings', [AdminViews::class, 'websitesettings'])->name('admin.websitesettings');
     Route::post('/submitWebsiteSettings', [AdminStores::class, 'submitWebsiteSettings'])->name('admin.submitWebsiteSettings');
     Route::get('editWebsiteSettings', [AdminViews::class, 'editWebsiteSettings'])->name('admin.editWebsiteSettings');
+    Route::post('/delete-slider-image', [AdminStores::class, 'deleteSliderImage'])->name('delete.slider.image');
+    Route::post('updateWebsiteSettings', [AdminStores::class, 'updateWebsiteSettings'])->name('admin.updateWebsiteSettings');
+    Route::post('/deleteoffer-slider-image', [AdminStores::class, 'deleteOfferSliderImage'])->name('deleteoffer.slider.image');
+
 });
 
 
@@ -99,6 +103,7 @@ Route::name('website.')->group(function () {
     Route::get('/', [WebsiteController::class, 'homepage'])->name('homepage');
     Route::get('/about-us', [WebsiteController::class, 'aboutpage'])->name('aboutpage');
     Route::get('/contact-us', [WebsiteController::class, 'contactpage'])->name('contactpage');
+    Route::get('/blog-details/{id}', [WebsiteController::class, 'blogdetails'])->name('blogdetails');
 });
 
 

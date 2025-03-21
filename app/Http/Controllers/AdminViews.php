@@ -94,6 +94,6 @@ class AdminViews extends Controller
     {
         $id = $request->query('id');
         $websitedata = WebsiteSetting::find($id);
-        return view('AdminPanelPages.websiteSettings', compact('websitedata'));
+        return view('AdminPanelPages.editWebsiteSettings', compact('websitedata'));
     }
 }

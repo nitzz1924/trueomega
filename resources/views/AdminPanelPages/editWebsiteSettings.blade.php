@@ -1,5 +1,5 @@
 {{----------------------------------------------------🔱🙏HAR HAR MAHADEV🔱🙏----------------------------------------------------}}
-@section('title', 'Website Settings')
+@section('title', 'Edit Home Page Banners')
 <x-app-layout>
     <div class="container-fluid">
         <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
@@ -16,13 +16,6 @@
                             </ol>
                         </nav>
                     </div>
-                     <div class="col-md-2 d-flex justify-content-end align-items-center">
-                        <div class="">
-                            <a href="{{ route('admin.editWebsiteSettings',['id' => 7])}}" class="btn btn-outline-primary" id="editSettingsroute">
-                                <i class="ti ti-arrow-narrow-left"></i> Edit Settings
-                            </a>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -37,6 +30,19 @@
                                     to upload</button>
                             </div>
                         </form>
+                        <div id="thumbnailPreview" class="mt-3">
+                            @if ($websitedata->mainslideriamges)
+                            <div class="d-flex">
+                                @foreach (json_decode($websitedata->mainslideriamges) as $main)
+                                <div class="mx-2 position-relative image-container" style="display: inline-block;">
+                                    <img src="{{ asset($main) }}" class="rounded-3 img-fluid" alt="Thumbnail" style="max-height: 100px;">
+                                    <button data-image="{{ $main }}"  class="btn btn-danger pe-2 ps-2 rounded text-black delete-image-btn" style="position: absolute; top: -2px; right: 0px;">X
+                                    </button>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
                         <p class="fs-2 text-center text-danger mb-0">
                             Set the main banner slider images. Only *.png, *.jpg and *.jpeg image files are accepted.
                         </p>
@@ -51,6 +57,19 @@
                                     to upload</button>
                             </div>
                         </form>
+                        <div id="thumbnailPreview" class="mt-3">
+                            @if ($websitedata->offersliderimages)
+                            <div class=" d-flex">
+                                @foreach (json_decode($websitedata->offersliderimages) as $offer)
+                                <div class="mx-2 position-relative image-containeroffer" style="display: inline-block;">
+                                    <img src="{{ asset($offer) }}" class="rounded-3 img-fluid" alt="Thumbnail" style="max-height: 100px;" alt="Thumbnail" style="max-height: 100px;">
+                                     <button data-imageoffer="{{ $offer }}" class="btn btn-danger pe-2 ps-2 rounded text-black deleteoffer-image-btn" style="position: absolute; top: -2px; right: 0px;">X
+                                    </button>
+                                </div>
+                                @endforeach
+                            </div>
+                            @endif
+                        </div>
                         <p class="fs-2 text-center text-danger mb-0">
                             Set the Offer slider images. Only *.png, *.jpg and *.jpeg image files are accepted.
                         </p>
@@ -68,6 +87,9 @@
                                         to upload</button>
                                 </div>
                             </form>
+                            <div id="thumbnailPreview" class="mt-3">
+                                <img src="{{asset('assets/images/Media/'.$websitedata->firstofferimage)}}" alt="Thumbnail Preview" class="img-fluid rounded-3" style="max-height: 100px; display: {{$websitedata->firstofferimage ? 'block' : 'none'}};">
+                            </div>
                             <p class="fs-2 text-center text-danger mb-0">
                                 Set First Offer Banner Image. Only *.png, *.jpg and *.jpeg image files are accepted.
                             </p>
@@ -82,6 +104,9 @@
                                         to upload</button>
                                 </div>
                             </form>
+                            <div id="thumbnailPreview" class="mt-3">
+                                <img src="{{asset('assets/images/Media/'.$websitedata->secondofferimage)}}" alt="Thumbnail Preview" class="img-fluid rounded-3" style="max-height: 100px; display: {{$websitedata->secondofferimage ? 'block' : 'none'}};">
+                            </div>
                             <p class="fs-2 text-center text-danger mb-0">
                                 Set Second Offer Banner Image. Only *.png, *.jpg and *.jpeg image files are accepted.
                             </p>
@@ -91,7 +116,7 @@
             </div>
             <div class="d-flex justify-content-start mb-5">
                 <button type="button" id="submitAllForms" class="btn btn-primary">
-                    Save changes
+                    Update changes
                 </button>
             </div>
         </div>
@@ -151,7 +176,7 @@
 
             // Send AJAX request with CSRF token
             $.ajax({
-                url: '/admin/submitWebsiteSettings'
+                url: '/admin/updateWebsiteSettings'
                 , method: 'POST'
                 , data: combinedFormData
                 , processData: false
@@ -176,7 +201,7 @@
                                 , showCloseButton: true
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    window.location.href = "/admin/editWebsiteSettings?id=" + data.data.id;
+                                    window.location.reload();
                                 }
                             });
                         } else {
@@ -206,5 +231,64 @@
         });
 
     </script>
+    
 
+    {{-- Delete Main Slider Particular Images Code......... --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.delete-image-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    let imagePath = this.getAttribute('data-image'); // Get image path
+                    let imageContainer = this.closest('.image-container'); // Get image div
+
+                    // Send AJAX request to delete the image
+                    fetch("{{ route('delete.slider.image') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ image: imagePath })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            imageContainer.remove(); // Remove image from UI
+                        } else {
+                            alert("Error deleting image");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function () {
+            document.querySelectorAll('.deleteoffer-image-btn').forEach(button => {
+                button.addEventListener('click', function () {
+                    let imagePath = this.getAttribute('data-imageoffer'); // Get image path
+                    let imageContainer = this.closest('.image-containeroffer'); // Get image div
+
+                    // Send AJAX request to delete the image
+                    fetch("{{ route('deleteoffer.slider.image') }}", {
+                        method: "POST",
+                        headers: {
+                            "X-CSRF-TOKEN": "{{ csrf_token() }}",
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ image: imagePath })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            imageContainer.remove(); // Remove image from UI
+                        } else {
+                            alert("Error deleting image");
+                        }
+                    })
+                    .catch(error => console.error("Error:", error));
+                });
+            });
+        });
+</script>
 </x-app-layout>

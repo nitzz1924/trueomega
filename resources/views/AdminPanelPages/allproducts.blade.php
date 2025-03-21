@@ -91,8 +91,8 @@
                                 <td>#Pro00{{ $row->id}}</td>
                                 <td>
                                     <div class="d-flex align-items-center gap-6">
-                                        <img src="{{asset('assets/images/Media/'.$row->thumbnailImages)}}" width="45" class="rounded">
-                                        <h6 class="mb-0">{{ $row->productname}}</h6>
+                                        <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="45" class="rounded">
+                                        <h6 class="mb-0">{{ Str::limit($row->productname,20)}}</h6>
                                     </div>
                                 </td>
                                 <td>{{ $row->category}}</td>

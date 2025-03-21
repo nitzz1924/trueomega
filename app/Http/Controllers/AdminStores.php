@@ -244,7 +244,7 @@ class AdminStores extends Controller
                     $uploadedPath = public_path('assets/images/Media');
                     $file->move($uploadedPath, $imageFullName);
                     $mediaImages[] = asset('assets/images/Media/' . $imageFullName);
-                    $Imagenames[] =  $imageFullName;
+                    $Imagenames[] = $imageFullName;
                 }
             }
 
@@ -266,12 +266,13 @@ class AdminStores extends Controller
             $files = File::files($directory);
             foreach ($files as $file) {
                 $storedImages[] = asset('assets/images/Media/' . $file->getFilename());
-                $Imagesnames[] =$file->getFilename();
+                $Imagesnames[] = $file->getFilename();
             }
         }
-        return response()->json(['storedImages' => $storedImages,'Imagesnames' => $Imagesnames]);
+        return response()->json(['storedImages' => $storedImages, 'Imagesnames' => $Imagesnames]);
     }
-    public function removegalleryitem(Request $request){
+    public function removegalleryitem(Request $request)
+    {
         $filename = public_path('assets/images/Media/' . basename($request->url));
         if (File::exists($filename)) {
             File::delete($filename);
@@ -280,7 +281,8 @@ class AdminStores extends Controller
         return response()->json(['success' => false], 404);
     }
 
-    public function insertProduct(Request $request){
+    public function insertProduct(Request $request)
+    {
         try {
             // Handle the thumbnail image
             $thumbnailFilename = null;
@@ -345,12 +347,14 @@ class AdminStores extends Controller
             return back()->with('error', $e->getMessage());
         }
     }
-    public function filterbycategory($category){
-        $data = AllProduct::where('category',$category)->get();
+    public function filterbycategory($category)
+    {
+        $data = AllProduct::where('category', $category)->get();
         return response()->json(['data' => $data]);
     }
-    public function filterbystatus($status){
-        $data = AllProduct::where('productstatus',$status)->get();
+    public function filterbystatus($status)
+    {
+        $data = AllProduct::where('productstatus', $status)->get();
         return response()->json(['data' => $data]);
     }
     public function submitblog(Request $request)
@@ -433,7 +437,7 @@ class AdminStores extends Controller
 
     public function submitWebsiteSettings(Request $request)
     {
-    
+
         try {
             $firstofferimage = null;
             if ($request->hasFile('firstofferimage')) {
@@ -443,7 +447,7 @@ class AdminStores extends Controller
 
                 $file = $request->file('firstofferimage');
                 $firstofferimage = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('assets/images/WebsiteSettings/'), $firstofferimage);
+                $file->move(public_path('assets/images/Media/'), $firstofferimage);
             }
             $secondofferimage = null;
             if ($request->hasFile('secondofferimage')) {
@@ -453,7 +457,7 @@ class AdminStores extends Controller
 
                 $file = $request->file('secondofferimage');
                 $secondofferimage = time() . '_' . $file->getClientOriginalName();
-                $file->move(public_path('assets/images/WebsiteSettings/'), $secondofferimage);
+                $file->move(public_path('assets/images/Media/'), $secondofferimage);
             }
 
             $mainslideriamges = [];
@@ -466,9 +470,9 @@ class AdminStores extends Controller
                     $imageName = md5(rand(1000, 10000));
                     $extension = strtolower($file->getClientOriginalExtension());
                     $imageFullName = $imageName . '.' . $extension;
-                    $uploadedPath = public_path('assets/images/WebsiteSettings/');
+                    $uploadedPath = public_path('assets/images/Media/');
                     $file->move($uploadedPath, $imageFullName);
-                    $mainslideriamges[] = 'assets/images/WebsiteSettings' . $imageFullName;
+                    $mainslideriamges[] = 'assets/images/Media/' . $imageFullName;
                 }
             }
             $offersliderimages = [];
@@ -481,14 +485,14 @@ class AdminStores extends Controller
                     $imageName = md5(rand(1000, 10000));
                     $extension = strtolower($file->getClientOriginalExtension());
                     $imageFullName = $imageName . '.' . $extension;
-                    $uploadedPath = public_path('assets/images/WebsiteSettings/');
+                    $uploadedPath = public_path('assets/images/Media/');
                     $file->move($uploadedPath, $imageFullName);
-                    $offersliderimages[] = 'assets/images/WebsiteSettings/' . $imageFullName;
+                    $offersliderimages[] = 'assets/images/Media/' . $imageFullName;
                 }
             }
             // Create the property listing
             $data = WebsiteSetting::create([
-                'mainslideriamges' => json_encode( $mainslideriamges) ?? NULL,
+                'mainslideriamges' => json_encode($mainslideriamges) ?? NULL,
                 'offersliderimages' => json_encode($offersliderimages) ?? NULL,
                 'firstofferimage' => $firstofferimage,
                 'secondofferimage' => $secondofferimage,
@@ -498,5 +502,133 @@ class AdminStores extends Controller
         } catch (Exception $e) {
             return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
+    }
+
+    public function deleteSliderImage(Request $request)
+    {
+        $image = $request->image;
+        $websitedata = WebsiteSetting::first(); // Fetch the website data (modify based on your logic)
+
+        if ($websitedata) {
+            $images = json_decode($websitedata->mainslideriamges, true);
+           
+            // Remove the image from the array
+            if (($key = array_search($image, $images)) !== false) {
+                unset($images[$key]);
+            }
+            // dd( $images);
+            // Update the database with the new images array
+            $websitedata->mainslideriamges = json_encode(array_values($images));
+            $websitedata->save();
+
+            // Delete image file from public/assets/images/Media directory
+            $publicImagePath = public_path('assets/images/Media/' . basename($image));
+            if (File::exists($publicImagePath)) {
+                File::delete($publicImagePath);
+            }
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        }
+        return response()->json(['success' => false, 'message' => 'Image not found'], 404);
+    }
+
+    public function updateWebsiteSettings(Request $request)
+    {
+        try {
+            $websitedata = WebsiteSetting::first(); // Fetch the existing website settings
+
+            $firstofferimage = $websitedata->firstofferimage ?? null;
+            if ($request->hasFile('firstofferimage')) {
+                $request->validate([
+                    'firstofferimage' => 'required|mimes:jpeg,png,jpg',
+                ]);
+
+                $file = $request->file('firstofferimage');
+                $firstofferimage = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/images/Media/'), $firstofferimage);
+            }
+
+            $secondofferimage = $websitedata->secondofferimage ?? null;
+            if ($request->hasFile('secondofferimage')) {
+                $request->validate([
+                    'secondofferimage' => 'required|mimes:jpeg,png,jpg',
+                ]);
+
+                $file = $request->file('secondofferimage');
+                $secondofferimage = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/images/Media/'), $secondofferimage);
+            }
+
+            $mainslideriamges = json_decode($websitedata->mainslideriamges, true) ?? [];
+            if ($request->hasFile('mainslideriamges')) {
+                $request->validate([
+                    'mainslideriamges.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+                $files = $request->file('mainslideriamges');
+                foreach ($files as $file) {
+                    $imageName = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $imageFullName = $imageName . '.' . $extension;
+                    $uploadedPath = public_path('assets/images/Media/');
+                    $file->move($uploadedPath, $imageFullName);
+                    $mainslideriamges[] = 'assets/images/Media/' . $imageFullName;
+                }
+            }
+
+            $offersliderimages = json_decode($websitedata->offersliderimages, true) ?? [];
+            if ($request->hasFile('offersliderimages')) {
+                $request->validate([
+                    'offersliderimages.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+                $files = $request->file('offersliderimages');
+                foreach ($files as $file) {
+                    $imageName = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $imageFullName = $imageName . '.' . $extension;
+                    $uploadedPath = public_path('assets/images/Media/');
+                    $file->move($uploadedPath, $imageFullName);
+                    $offersliderimages[] = 'assets/images/Media/' . $imageFullName;
+                }
+            }
+
+            // Update the website settings
+            $websitedata->update([
+                'mainslideriamges' => json_encode($mainslideriamges),
+                'offersliderimages' => json_encode($offersliderimages),
+                'firstofferimage' => $firstofferimage,
+                'secondofferimage' => $secondofferimage,
+            ]);
+
+            return response()->json(['data' => $websitedata, 'message' => 'Website Settings Updated Successfully!']);
+        } catch (Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function deleteOfferSliderImage(Request $request)
+    {
+        $image = $request->image;
+        $websitedata = WebsiteSetting::first(); // Fetch the website data (modify based on your logic)
+
+        if ($websitedata) {
+            $images = json_decode($websitedata->offersliderimages, true);
+           
+            // Remove the image from the array
+            if (($key = array_search($image, $images)) !== false) {
+                unset($images[$key]);
+            }
+            // dd( $images);
+            // Update the database with the new images array
+            $websitedata->offersliderimages = json_encode(array_values($images));
+            $websitedata->save();
+
+            // Delete image file from public/assets/images/Media directory
+            $publicImagePath = public_path('assets/images/Media/' . basename($image));
+            if (File::exists($publicImagePath)) {
+                File::delete($publicImagePath);
+            }
+            
+            return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
+        }
+        return response()->json(['success' => false, 'message' => 'Image not found'], 404);
     }
 }
