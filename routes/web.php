@@ -64,7 +64,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/editblog/{id}', [AdminViews::class, 'editblog'])->name('admin.editblog');
     Route::post('/updateblog', [AdminStores::class, 'updateblog'])->name('admin.updateblog');
     Route::get('/deleteblog/{id}', [AdminStores::class, 'deleteblog'])->name('admin.deleteblog');
-
+    Route::get('/website-settings', [AdminViews::class, 'websitesettings'])->name('admin.websitesettings');
+    Route::post('/submitWebsiteSettings', [AdminStores::class, 'submitWebsiteSettings'])->name('admin.submitWebsiteSettings');
+    Route::get('editWebsiteSettings', [AdminViews::class, 'editWebsiteSettings'])->name('admin.editWebsiteSettings');
 });
 
 

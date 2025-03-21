@@ -31,9 +31,9 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
                           <span class="d-flex">
-                              <i class="ti ti-settings"></i>
+                              <i class="ti ti-adjustments-alt"></i>
                           </span>
-                          <span class="hide-menu">Settings</span>
+                          <span class="hide-menu">Others</span>
                       </a>
                       <ul aria-expanded="false" class="collapse first-level">
                           <li class="sidebar-item">
@@ -55,7 +55,7 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link" href="{{route ('admin.allusers')}}" aria-expanded="false">
                           <span>
-                            <i class="ti ti-users"></i>
+                              <i class="ti ti-users"></i>
                           </span>
                           <span class="hide-menu">Registered Users</span>
                       </a>
@@ -63,7 +63,7 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link" href="{{route ('admin.media')}}" aria-expanded="false">
                           <span>
-                           <i class="ti ti-camera-plus"></i>
+                              <i class="ti ti-camera-plus"></i>
                           </span>
                           <span class="hide-menu">Media</span>
                       </a>
@@ -71,7 +71,7 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link" href="{{route ('admin.allproducts')}}" aria-expanded="false">
                           <span>
-                            <i class="ti ti-notes"></i>
+                              <i class="ti ti-notes"></i>
                           </span>
                           <span class="hide-menu">All Products</span>
                       </a>
@@ -93,6 +93,14 @@
                               </a>
                           </li>
                       </ul>
+                  </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('admin.websitesettings')}}" aria-expanded="false">
+                          <span>
+                              <i class="ti ti-device-ipad-horizontal-cog"></i>
+                          </span>
+                          <span class="hide-menu">Website Settings</span>
+                      </a>
                   </li>
               </ul>
           </nav>

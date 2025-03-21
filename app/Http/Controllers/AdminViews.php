@@ -11,6 +11,7 @@ use App\Models\Project;
 use App\Models\PropertyListing;
 use App\Models\RegisterCompany;
 use App\Models\RegisterUser;
+use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 use Auth;
 use Notification;
@@ -82,5 +83,17 @@ class AdminViews extends Controller
         $blogs = Blog::find($id);
         $categories = Master::where('type', 'Blog Categories')->get();
         return view('AdminPanelPages.editblog', compact('blogs', 'categories'));
+    }
+
+    public function websitesettings(){
+    
+        return view('AdminPanelPages.websiteSettings');
+    }
+
+    public function editWebsiteSettings(Request $request)
+    {
+        $id = $request->query('id');
+        $websitedata = WebsiteSetting::find($id);
+        return view('AdminPanelPages.websiteSettings', compact('websitedata'));
     }
 }

@@ -12,6 +12,7 @@ use App\Models\PropertyListing;
 use App\Models\RegisterCompany;
 use App\Models\Notification;
 use App\Models\RegisterUser;
+use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
 use App\Models\Master;
 use Exception;
@@ -427,6 +428,75 @@ class AdminStores extends Controller
             return back()->with('success', "Deleted..!!!");
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function submitWebsiteSettings(Request $request)
+    {
+    
+        try {
+            $firstofferimage = null;
+            if ($request->hasFile('firstofferimage')) {
+                $request->validate([
+                    'firstofferimage' => 'required|mimes:jpeg,png,jpg',
+                ]);
+
+                $file = $request->file('firstofferimage');
+                $firstofferimage = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/images/WebsiteSettings/'), $firstofferimage);
+            }
+            $secondofferimage = null;
+            if ($request->hasFile('secondofferimage')) {
+                $request->validate([
+                    'secondofferimage' => 'required|mimes:jpeg,png,jpg',
+                ]);
+
+                $file = $request->file('secondofferimage');
+                $secondofferimage = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('assets/images/WebsiteSettings/'), $secondofferimage);
+            }
+
+            $mainslideriamges = [];
+            if ($request->hasFile('mainslideriamges')) {
+                $request->validate([
+                    'mainslideriamges.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+                $files = $request->file('mainslideriamges');
+                foreach ($files as $file) {
+                    $imageName = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $imageFullName = $imageName . '.' . $extension;
+                    $uploadedPath = public_path('assets/images/WebsiteSettings/');
+                    $file->move($uploadedPath, $imageFullName);
+                    $mainslideriamges[] = 'assets/images/WebsiteSettings' . $imageFullName;
+                }
+            }
+            $offersliderimages = [];
+            if ($request->hasFile('offersliderimages')) {
+                $request->validate([
+                    'offersliderimages.*' => 'required|image|mimes:jpeg,png,jpg',
+                ]);
+                $files = $request->file('offersliderimages');
+                foreach ($files as $file) {
+                    $imageName = md5(rand(1000, 10000));
+                    $extension = strtolower($file->getClientOriginalExtension());
+                    $imageFullName = $imageName . '.' . $extension;
+                    $uploadedPath = public_path('assets/images/WebsiteSettings/');
+                    $file->move($uploadedPath, $imageFullName);
+                    $offersliderimages[] = 'assets/images/WebsiteSettings/' . $imageFullName;
+                }
+            }
+            // Create the property listing
+            $data = WebsiteSetting::create([
+                'mainslideriamges' => json_encode( $mainslideriamges) ?? NULL,
+                'offersliderimages' => json_encode($offersliderimages) ?? NULL,
+                'firstofferimage' => $firstofferimage,
+                'secondofferimage' => $secondofferimage,
+            ]);
+            return response()->json(['data' => $data, 'message' => 'Website Settings Updated.....!']);
+
+        } catch (Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
         }
     }
 }
