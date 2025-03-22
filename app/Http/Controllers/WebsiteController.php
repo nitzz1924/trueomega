@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\PolicyPage;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSetting;
 class WebsiteController extends Controller
@@ -22,5 +24,15 @@ class WebsiteController extends Controller
         $blogdata = Blog::find($id);
         $blogname = $blogdata->blogname;
         return view('WebsitePages.blogdetails',compact('blogdata','blogname'));
+    }
+    public function policies(Request $request){
+        $pagname = $request->query('p');
+        $privacydata = PolicyPage::where('pagename', $pagname)->first();
+        return view('WebsitePages.policies',compact('privacydata','pagname'));
+    }
+    public function productdetails($id){
+        $productdata = AllProduct::find($id);
+        $relatedproducts = AllProduct::where('category',$productdata->category)->where('id','!=',$id)->get();
+        return view('WebsitePages.productDetails',compact('productdata','relatedproducts'));
     }
 }

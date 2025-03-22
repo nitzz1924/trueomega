@@ -5,7 +5,7 @@
             @foreach ($products as $row)
             <div class="product-default appear-animate" data-animation-name="fadeInRightShorter">
                 <figure>
-                    <a href="#">
+                    <a href="{{route('website.productdetails',['id'=>$row->id])}}">
                         <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="280" height="280" alt="product">
                         <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="280" height="280" alt="product">
                     </a>
@@ -19,7 +19,7 @@
                         <a href="#" class="product-category">{{$row->category}}</a>
                     </div>
                     <h3 class="product-title">
-                        <a href="#">{{$row->productname}}</a>
+                        <a href="{{route('website.productdetails',['id'=>$row->id])}}">{{$row->productname}}</a>
                     </h3>
                     <div class="ratings-container">
                         <div class="product-ratings">
@@ -32,9 +32,8 @@
                         <span class="product-price">₹ {{$row->saleprice}}</span>
                     </div>
                     <div class="product-action">
-                        <a href="#" class="btn-icon-wish" title="wishlist"><i class="icon-heart"></i></a>
                         <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
-                        <a href="#" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                        <a href="{{route('website.productdetails',['id'=>$row->id])}}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
             </div>

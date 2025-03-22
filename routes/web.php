@@ -70,6 +70,9 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/delete-slider-image', [AdminStores::class, 'deleteSliderImage'])->name('delete.slider.image');
     Route::post('updateWebsiteSettings', [AdminStores::class, 'updateWebsiteSettings'])->name('admin.updateWebsiteSettings');
     Route::post('/deleteoffer-slider-image', [AdminStores::class, 'deleteOfferSliderImage'])->name('deleteoffer.slider.image');
+    Route::get('/policypages', [AdminViews::class, 'policypages'])->name('admin.policypages');
+    Route::post('/policypagesinsert', [AdminStores::class, 'policypagesinsert'])->name('admin.policypagesinsert');
+    Route::post('/policypagesgetdata', [AdminStores::class, 'policypagesgetdata'])->name('admin.policypagesgetdata');
 
 });
 
@@ -104,6 +107,8 @@ Route::name('website.')->group(function () {
     Route::get('/about-us', [WebsiteController::class, 'aboutpage'])->name('aboutpage');
     Route::get('/contact-us', [WebsiteController::class, 'contactpage'])->name('contactpage');
     Route::get('/blog-details/{id}', [WebsiteController::class, 'blogdetails'])->name('blogdetails');
+    Route::get('/policies', [WebsiteController::class, 'policies'])->name('policies');
+    Route::get('/product-details/{id}', [WebsiteController::class, 'productdetails'])->name('productdetails');
 });
 
 

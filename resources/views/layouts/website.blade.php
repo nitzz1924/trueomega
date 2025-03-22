@@ -16,10 +16,6 @@
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/faviomega.png') }}" />
 
  
-
-
-
-    <!-- Plugins CSS File -->
     <link rel="stylesheet" href="{{asset('website-assets/css/bootstrap.min.css')}}">
 
     <!-- Main CSS File -->
@@ -36,7 +32,7 @@
             <div class="header-top">
                 <div class="container">
                     <div class="header-left d-none d-sm-block">
-                        <p class="top-message text-uppercase">FREE Returns. Standard Shipping Orders $99+</p>
+                        <p class="top-message text-uppercase">Call us now : +91-8302389039</p>
                     </div>
                     <!-- End .header-left -->
 
@@ -45,8 +41,7 @@
                             <a href="#">Links</a>
                             <div class="header-menu">
                                 <ul>
-                                    <li><a href="wishlist.html">My Wishlist</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
+                                    <li><a href="cart.html">My Cart</a></li>
                                 </ul>
                             </div>
                             <!-- End .header-menu -->
@@ -72,8 +67,8 @@
                         <button class="mobile-menu-toggler text-primary mr-2" type="button">
                             <i class="fas fa-bars"></i>
                         </button>
-                        <a href="demo4.html" class="logo">
-                            <img src="{{asset('assets/images/omegafinallogo.png')}}" width="60" height="60" alt="Porto Logo">
+                        <a href="{{url('/')}}" class="logo">
+                            <img class="rounded-5" src="{{asset('assets/images/omegafinallogo.png')}}" width="60" height="60" alt="Porto Logo">
                         </a>
                     </div>
                     <!-- End .header-left -->
@@ -111,14 +106,14 @@
                         </div>
                         <!-- End .header-search -->
 
-                        <div class="header-contact d-none d-lg-flex pl-4 pr-4">
+                        {{-- <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                             <img alt="phone" src="{{asset('website-assets/images/phone.png')}}" width="30" height="30" class="pb-1">
                             <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+91-8302389039</a></h6>
-                        </div>
+                        </div> --}}
 
-                        <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a>
+                        {{-- <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a> --}}
 
-                        <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a>
+                        {{-- <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> --}}
 
                         <div class="dropdown cart-dropdown">
                             <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
@@ -290,50 +285,31 @@
                             </div>
                             <!-- End .widget -->
                         </div>
-                        <!-- End .col-lg-3 -->
 
                         <div class="col-lg-3 col-sm-6">
                             <div class="widget">
-                                <h4 class="widget-title">Customer Service</h4>
+                                <h4 class="widget-title">Quick Links</h4>
 
                                 <ul class="links">
-                                    <li><a href="#">Help & FAQs</a></li>
-                                    <li><a href="#">Order Tracking</a></li>
-                                    <li><a href="#">Shipping & Delivery</a></li>
-                                    <li><a href="#">Orders History</a></li>
-                                    <li><a href="#">Advanced Search</a></li>
-                                    <li><a href="dashboard.html">My Account</a></li>
-                                    <li><a href="#">Careers</a></li>
-                                    <li><a href="about.html">About Us</a></li>
-                                    <li><a href="#">Corporate Sales</a></li>
-                                    <li><a href="#">Privacy</a></li>
+                                    <li><a href="#">Home</a></li>
+                                    <li><a href="#">About</a></li>
+                                    <li><a href="#">Shop</a></li>
+                                    <li><a href="#">Contact Us</a></li>
                                 </ul>
                             </div>
-                            <!-- End .widget -->
                         </div>
-                        <!-- End .col-lg-3 -->
-
                         <div class="col-lg-3 col-sm-6">
                             <div class="widget">
-                                <h4 class="widget-title">Popular Tags</h4>
+                                <h4 class="widget-title">Important Links</h4>
 
-                                <div class="tagcloud">
-                                    <a href="#">Bag</a>
-                                    <a href="#">Black</a>
-                                    <a href="#">Blue</a>
-                                    <a href="#">Clothes</a>
-                                    <a href="#">Fashion</a>
-                                    <a href="#">Hub</a>
-                                    <a href="#">Shirt</a>
-                                    <a href="#">Shoes</a>
-                                    <a href="#">Skirt</a>
-                                    <a href="#">Sports</a>
-                                    <a href="#">Sweater</a>
-                                </div>
+                                <ul class="links">
+                                    <li><a href="{{route('website.policies',['p'=>'privacy-policy'])}}">Privacy Policy</a></li>
+                                    <li><a href="{{route('website.policies',['p'=>'shipping-policy'])}}">Shipping Policy</a></li>
+                                    <li><a href="{{route('website.policies',['p'=>'refund-policy'])}}">Refund Policy</a></li>
+                                    <li><a href="{{route('website.policies',['p'=>'terms-and-conditions'])}}">Terms & Conditions</a></li>
+                                </ul>
                             </div>
-                            <!-- End .widget -->
                         </div>
-                        <!-- End .col-lg-3 -->
 
                         <div class="col-lg-3 col-sm-6">
                             <div class="widget widget-newsletter">
@@ -346,36 +322,20 @@
                                     <input type="submit" class="btn btn-primary shadow-none" value="Subscribe">
                                 </form>
                             </div>
-                            <!-- End .widget -->
                         </div>
-                        <!-- End .col-lg-3 -->
                     </div>
-                    <!-- End .row -->
                 </div>
-                <!-- End .container -->
             </div>
-            <!-- End .footer-middle -->
 
             <div class="container">
                 <div class="footer-bottom">
-                    <div class="container d-sm-flex align-items-center">
-                        <div class="footer-left">
-                            <span class="footer-copyright">© Porto eCommerce. 2021. All Rights Reserved</span>
-                        </div>
-
-                        <div class="footer-right ml-auto mt-1 mt-sm-0">
-                            <div class="payment-icons">
-                                <span class="payment-icon visa" style="background-image: url(assets/images/payments/payment-visa.svg)"></span>
-                                <span class="payment-icon paypal" style="background-image: url(assets/images/payments/payment-paypal.svg)"></span>
-                                <span class="payment-icon stripe" style="background-image: url(assets/images/payments/payment-stripe.png)"></span>
-                                <span class="payment-icon verisign" style="background-image:  url(assets/images/payments/payment-verisign.svg)"></span>
-                            </div>
+                    <div class="container d-sm-flex justify-content-center align-items-center">
+                        <div class="text-center">
+                            <span class="footer-copyright">© Truomega. 2025. All Rights Reserved</span>
                         </div>
                     </div>
                 </div>
-                <!-- End .footer-bottom -->
             </div>
-            <!-- End .container -->
         </footer>
     </div>
 

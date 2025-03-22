@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\InvestSetting;
 use App\Models\Lead;
 use App\Models\Nortification;
+use App\Models\PolicyPage;
 use App\Models\Project;
 use App\Models\PropertyListing;
 use App\Models\RegisterCompany;
@@ -511,7 +512,7 @@ class AdminStores extends Controller
 
         if ($websitedata) {
             $images = json_decode($websitedata->mainslideriamges, true);
-           
+
             // Remove the image from the array
             if (($key = array_search($image, $images)) !== false) {
                 unset($images[$key]);
@@ -611,7 +612,7 @@ class AdminStores extends Controller
 
         if ($websitedata) {
             $images = json_decode($websitedata->offersliderimages, true);
-           
+
             // Remove the image from the array
             if (($key = array_search($image, $images)) !== false) {
                 unset($images[$key]);
@@ -626,9 +627,30 @@ class AdminStores extends Controller
             if (File::exists($publicImagePath)) {
                 File::delete($publicImagePath);
             }
-            
+
             return response()->json(['success' => true, 'message' => 'Image deleted successfully']);
         }
         return response()->json(['success' => false, 'message' => 'Image not found'], 404);
+    }
+
+    public function policypagesinsert(Request $request)
+    {
+        try {
+            // Create the property listing
+            $data = PolicyPage::updateOrCreate(
+                ['pagename' => $request->pagename],  // this is checking duplicacy
+                ['pagediscription' => $request->pagediscription ?? '']
+            );
+            return response()->json(['data' => $data, 'message' => 'Page Created.!!!!!!']);
+
+        } catch (Exception $e) {
+            return response()->json(['error' => true, 'message' => $e->getMessage()]);
+        }
+    }
+
+    public function policypagesgetdata(Request $request)
+    {
+        $data = PolicyPage::where('pagename', $request->pagename)->first();
+        return response()->json(['data' => $data]);
     }
 }

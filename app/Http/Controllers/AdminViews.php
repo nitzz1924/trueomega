@@ -96,4 +96,9 @@ class AdminViews extends Controller
         $websitedata = WebsiteSetting::find($id);
         return view('AdminPanelPages.editWebsiteSettings', compact('websitedata'));
     }
+
+    public function policypages(){
+    
+        return view('AdminPanelPages.policypages');
+    }
 }

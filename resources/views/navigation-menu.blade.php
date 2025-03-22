@@ -7,7 +7,7 @@
           <div class="brand-logo d-flex align-items-center justify-content-between">
               <a href="{{route('admin.admindashboard')}}" class="text-nowrap text-center fw-bolder fs-6 logo-img">
                   {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/dark-logo.svg" class="dark-logo" alt="Logo-Dark" /> --}}
-                  <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">True Omega</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
+                  <span style="color: #4F73D9; font-weight:bolder; font-size: xx-large;">Truomega</span> {{-- <img src="https://bootstrapdemos.adminmart.com/modernize/dist/assets/images/logos/light-logo.svg" class="light-logo" alt="Logo-light" /> --}}
               </a>
               <a href="javascript:void(0)" class="sidebartoggler ms-auto text-decoration-none fw-bolder fs-5 d-block d-xl-none">
                   IL
@@ -108,6 +108,14 @@
                                       <i class="ti ti-circle"></i>
                                   </div>
                                   <span class="hide-menu">Home Page Banners</span>
+                              </a>
+                          </li>
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.policypages')}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Policy Pages</span>
                               </a>
                           </li>
                       </ul>
