@@ -107,7 +107,7 @@
                                   <div class="round-16 d-flex align-items-center justify-content-center">
                                       <i class="ti ti-circle"></i>
                                   </div>
-                                  <span class="hide-menu">Home Page Banners</span>
+                                  <span class="hide-menu">Website Banners</span>
                               </a>
                           </li>
                           <li class="sidebar-item">

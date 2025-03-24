@@ -109,6 +109,8 @@ Route::name('website.')->group(function () {
     Route::get('/blog-details/{id}', [WebsiteController::class, 'blogdetails'])->name('blogdetails');
     Route::get('/policies', [WebsiteController::class, 'policies'])->name('policies');
     Route::get('/product-details/{id}', [WebsiteController::class, 'productdetails'])->name('productdetails');
+    Route::get('/shop', [WebsiteController::class, 'shop'])->name('shop');
+    Route::post('/shopcategoryfilter', [WebsiteController::class, 'shopcategoryfilter'])->name('shopcategoryfilter');
 });
 
 

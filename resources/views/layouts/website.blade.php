@@ -227,8 +227,8 @@
                             <li class="{{ request()->routeIs('website.aboutpage') ? 'active' : '' }}">
                                 <a href="{{route('website.aboutpage')}}">About Us</a>
                             </li>
-                            <li>
-                                <a href="product.html">Shop</a>
+                            <li class="{{ request()->routeIs('website.shop') ? 'active' : '' }}">
+                                <a href="{{route('website.shop')}}">Shop</a>
                             </li>
                             <li><a href="blog.html">Blog</a></li>
                             <li class="{{ request()->routeIs('website.contactpage') ? 'active' : '' }}">

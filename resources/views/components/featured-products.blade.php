@@ -28,8 +28,8 @@
                         </div>
                     </div>
                     <div class="price-box">
-                        <del class="old-price">₹ {{$row->regularprice}}</del>
-                        <span class="product-price">₹ {{$row->saleprice}}</span>
+                        <del class="old-price">₹ {{$row->regularprice}} /-</del>
+                        <span class="product-price">₹ {{$row->saleprice}} /-</span>
                     </div>
                     <div class="product-action">
                         <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
