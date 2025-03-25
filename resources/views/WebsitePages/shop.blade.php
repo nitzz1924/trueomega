@@ -52,10 +52,10 @@
                         <label>Sort By:</label>
 
                         <div class="select-custom">
-                            <select name="orderby" class="form-control">
-                                <option value="menu_order" selected="selected">Sort By Category</option>
-                                <option value="menu_order" selected="selected">Sort By Category</option>
-                                <option value="menu_order" selected="selected">Sort By Category</option>
+                            <select name="sortbydrop" class="form-control" id="sortbydrop">
+                                <option selected>--select to sort--</option>
+                                <option value="lowtohigh">Sort By Price Low to High</option>
+                                <option value="hightolow">Sort By Price High to Low</option>
                             </select>
                         </div>
 
@@ -180,29 +180,34 @@
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+{{-- Filter by Category --}}
 <script>
     $(document).ready(function() {
         $('.category-onclick').click(function() {
             var category = $(this).data('categoryname');
             let productContainer = $('#productContainer');
-            
+
             // Show loader
             productContainer.html(
-                '<div id="loader" class="d-flex justify-content-center align-items-center"><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div>'
+                '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div>'
             );
-            
+
             $('#loader').show();
-            
+
             setTimeout(function() {
                 $.ajax({
-                    url: "{{ route('website.shopcategoryfilter') }}", // Ensure Laravel processes this correctly
-                    type: "POST",
-                    headers: { "X-CSRF-TOKEN": "{{ csrf_token() }}" }, // Correct way to pass CSRF token
-                    data: { category: category },
-                    success: function(data) {
-                        console.log("Received Data:", data); // Check the response
+                    url: "{{ route('website.shopcategoryfilter') }}"
+                    , type: "POST"
+                    , headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    }
+                    , data: {
+                        category: category
+                    }
+                    , success: function(data) {
+                        console.log("Received Data:", data);
                         let products = data.data;
-                        productContainer.empty(); // Clear previous content
+                        productContainer.empty();
 
                         if (Array.isArray(products) && products.length > 0) {
                             products.forEach(function(product) {
@@ -249,8 +254,8 @@
                         } else {
                             productContainer.html('<p class="text-center">No products found in this category.</p>');
                         }
-                    },
-                    error: function(xhr) {
+                    }
+                    , error: function(xhr) {
                         console.error("Error fetching data:", xhr.responseText);
                         productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
                     }
@@ -258,6 +263,87 @@
             }, 500);
         });
     });
+
 </script>
 
+{{-- Filter by Category --}}
+<script>
+    $(document).ready(function() {
+        $('#sortbydrop').change(function() {
+            var filtername = $(this).val();
+            let productContainer = $('#productContainer');
+            productContainer.html(
+                '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div></div>'
+            );
+            $('#loader').show();
+
+            setTimeout(function() {
+                $.ajax({
+                    url: "{{ route('website.sortByPriceFilter') }}",
+                    type: "POST",
+                    headers: {
+                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                    },
+                    data: {
+                        filtername: filtername
+                    },
+                    success: function(data) {
+                        console.log("Received Data:", data);
+                        let products = data.data;
+                        productContainer.empty();
+
+                        if (Array.isArray(products) && products.length > 0) {
+                            products.forEach(function(product) {
+                                let productHTML = `
+                                    <div class="col-6 col-sm-4">
+                                        <div class="product-default" data-animation-name="fadeInRightShorter">
+                                            <figure>
+                                                <a href="/product-details/${product.id}">
+                                                    <img src="/assets/images/Products/${product.thumbnailImages}" width="280" height="280" alt="${product.productname}">
+                                                    <img src="/assets/images/Products/${product.thumbnailImages}" width="280" height="280" alt="${product.productname}">
+                                                </a>
+                                                <div class="label-group">
+                                                    <div class="product-label label-hot">HOT</div>
+                                                    <div class="product-label label-sale">-20%</div>
+                                                </div>
+                                            </figure>
+                                            <div class="product-details">
+                                                <div class="category-list">
+                                                    <a href="#" class="product-category">${product.category}</a>
+                                                </div>
+                                                <h3 class="product-title">
+                                                    <a href="/product-details/${product.id}">${product.productname}</a>
+                                                </h3>
+                                                <div class="ratings-container">
+                                                    <div class="product-ratings">
+                                                        <span class="ratings" style="width:80%"></span>
+                                                        <span class="tooltiptext tooltip-top"></span>
+                                                    </div>
+                                                </div>
+                                                <div class="price-box">
+                                                    <del class="old-price">₹ ${product.regularprice} /-</del>
+                                                    <span class="product-price">₹ ${product.saleprice} /-</span>
+                                                </div>
+                                                <div class="product-action">
+                                                    <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
+                                                    <a href="/product-details/${product.id}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>`;
+                                productContainer.append(productHTML);
+                            });
+                        } else {
+                            productContainer.html('<p class="text-center">No products found for the selected filter.</p>');
+                        }
+                    },
+                    error: function(xhr) {
+                        console.error("Error fetching data:", xhr.responseText);
+                        productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
+                    }
+                });
+            }, 300);
+        });
+    });
+</script>
 @endsection

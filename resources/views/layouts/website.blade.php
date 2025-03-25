@@ -15,14 +15,14 @@
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/png" href="{{ asset('assets/images/faviomega.png') }}" />
 
- 
+
     <link rel="stylesheet" href="{{asset('website-assets/css/bootstrap.min.css')}}">
 
     <!-- Main CSS File -->
     <link rel="stylesheet" href="{{asset('website-assets/css/style.min.css')}}">
     <link rel="stylesheet" href="{{asset('website-assets/css/demo4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/fontawesome-free/css/all.min.css')}}">
-	<link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/simple-line-icons/css/simple-line-icons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/simple-line-icons/css/simple-line-icons.min.css')}}">
 
 </head>
 
@@ -108,235 +108,258 @@
 
                         {{-- <div class="header-contact d-none d-lg-flex pl-4 pr-4">
                             <img alt="phone" src="{{asset('website-assets/images/phone.png')}}" width="30" height="30" class="pb-1">
-                            <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+91-8302389039</a></h6>
-                        </div> --}}
+                        <h6><span>Call us now</span><a href="tel:#" class="text-dark font1">+91-8302389039</a></h6>
+                    </div> --}}
 
-                        {{-- <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a> --}}
+                    {{-- <a href="login.html" class="header-icon" title="login"><i class="icon-user-2"></i></a> --}}
 
-                        {{-- <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> --}}
+                    {{-- <a href="wishlist.html" class="header-icon" title="wishlist"><i class="icon-wishlist-2"></i></a> --}}
 
-                        <div class="dropdown cart-dropdown">
-                            <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
-                                <i class="minicart-icon"></i>
-                                <span class="cart-count badge-circle">3</span>
-                            </a>
+                    <div class="dropdown cart-dropdown">
+                        <a href="#" title="Cart" class="dropdown-toggle dropdown-arrow cart-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                            <i class="minicart-icon"></i>
+                            <span class="cart-count badge-circle">3</span>
+                        </a>
 
-                            <div class="cart-overlay"></div>
+                        <div class="cart-overlay"></div>
 
-                            <div class="dropdown-menu mobile-cart">
-                                <a href="#" title="Close (Esc)" class="btn-close">×</a>
+                        <div class="dropdown-menu mobile-cart">
+                            <a href="#" title="Close (Esc)" class="btn-close">×</a>
 
-                                <div class="dropdownmenu-wrapper custom-scrollbar">
-                                    <div class="dropdown-cart-header">Shopping Cart</div>
-                                    <!-- End .dropdown-cart-header -->
+                            <div class="dropdownmenu-wrapper custom-scrollbar">
+                                <div class="dropdown-cart-header">Shopping Cart</div>
+                                <!-- End .dropdown-cart-header -->
 
-                                    <div class="dropdown-cart-products">
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
-                                                </h4>
+                                <div class="dropdown-cart-products">
+                                    <div class="product">
+                                        <div class="product-details">
+                                            <h4 class="product-title">
+                                                <a href="product.html">Ultimate 3D Bluetooth Speaker</a>
+                                            </h4>
 
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $99.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
-
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="{{asset('website-assets/images/products/product-1.jpg')}}" alt="product" width="80" height="80">
-                                                </a>
-
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span> × $99.00
+                                            </span>
                                         </div>
-                                        <!-- End .product -->
+                                        <!-- End .product-details -->
 
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Brown Women Casual HandBag</a>
-                                                </h4>
+                                        <figure class="product-image-container">
+                                            <a href="product.html" class="product-image">
+                                                <img src="{{asset('website-assets/images/products/product-1.jpg')}}" alt="product" width="80" height="80">
+                                            </a>
 
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
+                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                        </figure>
+                                    </div>
+                                    <!-- End .product -->
 
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="assets/images/products/product-2.jpg" alt="product" width="80" height="80">
-                                                </a>
+                                    <div class="product">
+                                        <div class="product-details">
+                                            <h4 class="product-title">
+                                                <a href="product.html">Brown Women Casual HandBag</a>
+                                            </h4>
 
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span> × $35.00
+                                            </span>
                                         </div>
-                                        <!-- End .product -->
+                                        <!-- End .product-details -->
 
-                                        <div class="product">
-                                            <div class="product-details">
-                                                <h4 class="product-title">
-                                                    <a href="product.html">Circled Ultimate 3D Speaker</a>
-                                                </h4>
+                                        <figure class="product-image-container">
+                                            <a href="product.html" class="product-image">
+                                                <img src="assets/images/products/product-2.jpg" alt="product" width="80" height="80">
+                                            </a>
 
-                                                <span class="cart-product-info">
-                                                    <span class="cart-product-qty">1</span> × $35.00
-                                                </span>
-                                            </div>
-                                            <!-- End .product-details -->
+                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                        </figure>
+                                    </div>
+                                    <!-- End .product -->
 
-                                            <figure class="product-image-container">
-                                                <a href="product.html" class="product-image">
-                                                    <img src="assets/images/products/product-3.jpg" alt="product" width="80" height="80">
-                                                </a>
-                                                <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
-                                            </figure>
+                                    <div class="product">
+                                        <div class="product-details">
+                                            <h4 class="product-title">
+                                                <a href="product.html">Circled Ultimate 3D Speaker</a>
+                                            </h4>
+
+                                            <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span> × $35.00
+                                            </span>
                                         </div>
-                                        <!-- End .product -->
-                                    </div>
-                                    <!-- End .cart-product -->
+                                        <!-- End .product-details -->
 
-                                    <div class="dropdown-cart-total">
-                                        <span>SUBTOTAL:</span>
-
-                                        <span class="cart-total-price float-right">$134.00</span>
+                                        <figure class="product-image-container">
+                                            <a href="product.html" class="product-image">
+                                                <img src="assets/images/products/product-3.jpg" alt="product" width="80" height="80">
+                                            </a>
+                                            <a href="#" class="btn-remove" title="Remove Product"><span>×</span></a>
+                                        </figure>
                                     </div>
-                                    <!-- End .dropdown-cart-total -->
+                                    <!-- End .product -->
+                                </div>
+                                <!-- End .cart-product -->
 
-                                    <div class="dropdown-cart-action">
-                                        <a href="cart.html" class="btn btn-gray btn-block view-cart">View
-                                            Cart</a>
-                                        <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
-                                    </div>
+                                <div class="dropdown-cart-total">
+                                    <span>SUBTOTAL:</span>
+
+                                    <span class="cart-total-price float-right">$134.00</span>
+                                </div>
+                                <!-- End .dropdown-cart-total -->
+
+                                <div class="dropdown-cart-action">
+                                    <a href="cart.html" class="btn btn-gray btn-block view-cart">View
+                                        Cart</a>
+                                    <a href="checkout.html" class="btn btn-dark btn-block">Checkout</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+    </div>
 
-            <div class="header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
-                <div class="container">
-                    <nav class="main-nav w-100">
-                        <ul class="menu">
-                            <li class="{{ request()->routeIs('website.homepage') ? 'active' : '' }}">
-                                <a href="{{route('website.homepage')}}">Home</a>
-                            </li>
-                            <li class="{{ request()->routeIs('website.aboutpage') ? 'active' : '' }}">
-                                <a href="{{route('website.aboutpage')}}">About Us</a>
-                            </li>
-                            <li class="{{ request()->routeIs('website.shop') ? 'active' : '' }}">
-                                <a href="{{route('website.shop')}}">Shop</a>
-                            </li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li class="{{ request()->routeIs('website.contactpage') ? 'active' : '' }}">
-                            <a href="{{route('website.contactpage')}}">Contact Us</a>
-                            </li>
-                            <li class="float-right">
-                                <a href="{{route('user.userregistration')}}" class="pl-5">Register</a>
-                            </li>
-                            <li class="float-right">
-                                <a href="{{route('user.userloginpage')}}" class="pl-5">Log in</a>
-                            </li>
-                        </ul>
-                    </nav>
-                </div>
-            </div>
-        </header>
-
-        <!-- Start .main -->
-        <div class="page-wrapper">
-            <main class="main">
-                @yield('content')
-            </main>
+    <div class="header-bottom sticky-header d-none d-lg-block" data-sticky-options="{'mobile': false}">
+        <div class="container">
+            <nav class="main-nav w-100">
+                <ul class="menu">
+                    <li class="{{ request()->routeIs('website.homepage') ? 'active' : '' }}">
+                        <a href="{{route('website.homepage')}}">Home</a>
+                    </li>
+                    <li class="{{ request()->routeIs('website.aboutpage') ? 'active' : '' }}">
+                        <a href="{{route('website.aboutpage')}}">About Us</a>
+                    </li>
+                    <li class="{{ request()->routeIs('website.shop') ? 'active' : '' }}">
+                        <a href="{{route('website.shop')}}">Shop</a>
+                    </li>
+                    <li {{ request()->routeIs('website.blogs') ? 'active' : '' }}>
+                        <a href="{{route('website.blogs')}}">Blog</a>
+                    </li>
+                    <li class="{{ request()->routeIs('website.contactpage') ? 'active' : '' }}">
+                        <a href="{{route('website.contactpage')}}">Contact Us</a>
+                    </li>
+                    @if(Auth::guard('customer')->check())
+                    <li class="nav-item dropdown ml-auto float-right">
+                        <a href="#" class="nav-link dropdown-toggle d-flex align-items-center" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <img src="{{ Auth::guard('customer')->user()->profile_photo_path ? asset('website-assets/images/'. Auth::guard('customer')->user()->profile_photo_path) : asset('assets/website-assets/images/defaultuser.png') }}" alt="Profile" class="rounded-circle border" width="35" height="35">
+                            <span class="ml-2 text-dark">{{ Auth::guard('customer')->user()->name }}</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="#">My Orders</a>
+                            <a class="dropdown-item text-danger" href="{{route('user.logoutuserpanel')}}">Logout</a>
+                        </div>
+                    </li>
+                    @else
+                    <li class="nav-item ml-auto ">
+                        <a href="{{ route('user.userloginpage') }}" class="nav-link text-dark">Log in</a>
+                    </li>
+                    @endif
+                    <li class="float-right">
+                        <a href="{{route('user.userregistration')}}" class="pl-5">Register</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <!-- End .main -->
+    </div>
+    </header>
 
-        <footer class="footer bg-dark">
-            <div class="footer-middle">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="widget">
-                                <h4 class="widget-title">Contact Info</h4>
-                                <ul class="contact-info">
-                                    <li>
-                                        <span class="contact-info-label">Address:</span>123 Street Name, City, England
-                                    </li>
-                                    <li>
-                                        <span class="contact-info-label">Phone:</span><a href="tel:">(123)
-                                            456-7890</a>
-                                    </li>
-                                    <li>
-                                        <span class="contact-info-label">Email:</span> <a href="https://portotheme.com/cdn-cgi/l/email-protection#3459555d5874514c55594458511a575b59"><span class="__cf_email__" data-cfemail="e08d81898ca08598818d908c85ce838f8d">[email&#160;protected]</span></a>
-                                    </li>
-                                    <li>
-                                        <span class="contact-info-label">Working Days/Hours:</span> Mon - Sun / 9:00 AM - 8:00 PM
-                                    </li>
-                                </ul>
-                                <div class="social-icons">
-                                    <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
-                                    <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
-                                    <a href="#" class="social-icon social-instagram icon-instagram" target="_blank" title="Instagram"></a>
-                                </div>
-                                <!-- End .social-icons -->
-                            </div>
-                            <!-- End .widget -->
-                        </div>
+    <!-- Start .main -->
+    <div class="page-wrapper">
+        <main class="main">
+            @yield('content')
+        </main>
+    </div>
+    <!-- End .main -->
 
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="widget">
-                                <h4 class="widget-title">Quick Links</h4>
-
-                                <ul class="links">
-                                    <li><a href="#">Home</a></li>
-                                    <li><a href="#">About</a></li>
-                                    <li><a href="#">Shop</a></li>
-                                    <li><a href="#">Contact Us</a></li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="widget">
-                                <h4 class="widget-title">Important Links</h4>
-
-                                <ul class="links">
-                                    <li><a href="{{route('website.policies',['p'=>'privacy-policy'])}}">Privacy Policy</a></li>
-                                    <li><a href="{{route('website.policies',['p'=>'shipping-policy'])}}">Shipping Policy</a></li>
-                                    <li><a href="{{route('website.policies',['p'=>'refund-policy'])}}">Refund Policy</a></li>
-                                    <li><a href="{{route('website.policies',['p'=>'terms-and-conditions'])}}">Terms & Conditions</a></li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="col-lg-3 col-sm-6">
-                            <div class="widget widget-newsletter">
-                                <h4 class="widget-title">Subscribe newsletter</h4>
-                                <p>Get all the latest information on events, sales and offers. Sign up for newsletter:
-                                </p>
-                                <form action="#" class="mb-0">
-                                    <input type="email" class="form-control m-b-3" placeholder="Email address" required>
-
-                                    <input type="submit" class="btn btn-primary shadow-none" value="Subscribe">
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+    <footer class="footer bg-dark">
+        <div class="footer-middle">
             <div class="container">
-                <div class="footer-bottom">
-                    <div class="container d-sm-flex justify-content-center align-items-center">
-                        <div class="text-center">
-                            <span class="footer-copyright">© Truomega. 2025. All Rights Reserved</span>
+                <div class="row">
+                    <!-- Logo & Description Section -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget text-center">
+                            <img src="http://127.0.0.1:8000/assets/images/omegafinallogo.png" alt="Truomega Logo" style="width: 100px; height: 100px; border-radius: 50%; object-fit: cover;">
+                            <p class="text-light text-start mt-3">
+                                Truomega is committed to delivering high-quality products and services with excellence and reliability.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget">
+                            <h4 class="widget-title text-light">Quick Links</h4>
+                            <ul class="links">
+                                <li class="{{ request()->routeIs('website.homepage') ? 'active' : '' }}">
+                                    <a href="{{route('website.homepage')}}">Home</a>
+                                </li>
+                                <li class="{{ request()->routeIs('website.aboutpage') ? 'active' : '' }}">
+                                    <a href="{{route('website.aboutpage')}}">About Us</a>
+                                </li>
+                                <li class="{{ request()->routeIs('website.shop') ? 'active' : '' }}">
+                                    <a href="{{route('website.shop')}}">Shop</a>
+                                </li>
+                                <li {{ request()->routeIs('website.blogs') ? 'active' : '' }}>
+                                    <a href="{{route('website.blogs')}}">Blog</a>
+                                </li>
+                                <li class="{{ request()->routeIs('website.contactpage') ? 'active' : '' }}">
+                                    <a href="{{route('website.contactpage')}}">Contact Us</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Important Links -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget">
+                            <h4 class="widget-title text-light">Important Links</h4>
+                            <ul class="links">
+                                <li><a href="{{route('website.policies',['p'=>'privacy-policy'])}}">Privacy Policy</a></li>
+                                <li><a href="{{route('website.policies',['p'=>'shipping-policy'])}}">Shipping Policy</a></li>
+                                <li><a href="{{route('website.policies',['p'=>'refund-policy'])}}">Refund Policy</a></li>
+                                <li><a href="{{route('website.policies',['p'=>'terms-and-conditions'])}}">Terms & Conditions</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Contact Info (Moved from Logo Section) -->
+                    <div class="col-lg-3 col-sm-6">
+                        <div class="widget">
+                            <h4 class="widget-title text-light">Contact Info</h4>
+                            <ul class="contact-info">
+                                <li>
+                                    <span class="contact-info-label">Address:</span> Near Sultanpur Metro Station, New Delhi, Delhi
+                                </li>
+                                <li>
+                                    <span class="contact-info-label">Phone:</span><a href="tel:+1234567890">(+91) 8302389039</a>
+                                </li>
+                                <li>
+                                    <span class="contact-info-label">Email:</span>
+                                    <a href="mailto:info@truomega.in">info@truomega.in</a>
+                                </li>
+                            </ul>
+                            <div class="social-icons mt-3">
+                                <a href="#" class="social-icon social-facebook icon-facebook" target="_blank" title="Facebook"></a>
+                                <a href="#" class="social-icon social-twitter icon-twitter" target="_blank" title="Twitter"></a>
+                                <a href="#" class="social-icon social-instagram icon-instagram" target="_blank" title="Instagram"></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </footer>
+        </div>
+
+        <!-- Footer Bottom -->
+        <div class="container">
+            <div class="footer-bottom">
+                <div class="container d-sm-flex justify-content-center align-items-center">
+                    <div class="text-center">
+                        <span class="footer-copyright text-light">© Truomega. 2025. All Rights Reserved</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
     </div>
 
     <div class="loading-overlay">

@@ -6,8 +6,10 @@ use App\Models\AllProduct;
 use App\Models\Blog;
 use App\Models\Master;
 use App\Models\PolicyPage;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSetting;
+use Exception;
 class WebsiteController extends Controller
 {
     public function homepage(){
@@ -34,7 +36,9 @@ class WebsiteController extends Controller
     public function productdetails($id){
         $productdata = AllProduct::find($id);
         $relatedproducts = AllProduct::where('category',$productdata->category)->where('id','!=',$id)->get();
-        return view('WebsitePages.productDetails',compact('productdata','relatedproducts'));
+        $productreviews = Review::where('productid',$id)->get();
+        $productreviewscnt = Review::where('productid',$id)->count();
+        return view('WebsitePages.productDetails',compact('productdata','relatedproducts','productreviews','productreviewscnt'));
     }
     public function shop(){
         $featuredproducts = AllProduct::orderBy('created_at', 'desc')
@@ -56,5 +60,40 @@ class WebsiteController extends Controller
             ->where('productstatus', '=', 'published')
             ->paginate(6);
         return response()->json( $products);
+    }
+    public function sortByPriceFilter(Request $request){
+        $filtername = $request->input('filtername');
+        if ($filtername === 'lowtohigh') {
+            $products = AllProduct::orderByRaw('CAST(regularprice AS UNSIGNED) ASC')    //This will cast the regularprice as unsigned integer and then sort it
+                ->where('productstatus', '=', 'published')
+                ->paginate(6);
+        } elseif($filtername === 'hightolow') {
+            $products = AllProduct::orderByRaw('CAST(regularprice AS UNSIGNED) DESC')
+                ->where('productstatus', '=', 'published')
+                ->paginate(6);
+        }
+        return response()->json( $products);
+    }
+    public function blogs(){
+        $blogcategories = Master::where('type','Blog Categories')->get();
+        $blogs = Blog::orderBy('created_at', 'desc')->paginate(6);
+        return view('WebsitePages.blogs',compact('blogs','blogcategories'));
+    }
+    public function giveProductReview(Request $request)
+    { 
+        try {
+            $data = Review::create([
+                'ratings' => $request->input('rating'),
+                'name' => $request->input('name'),
+                'email' => $request->input('email'),
+                'reviewtxt' => $request->input('reviewtxt'),
+                'productid' => $request->input('productid'),
+                'userid' => $request->input('userid'),
+            ]);
+            // dd($data);
+            return back()->with('success', "Your Review has been added.!!");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

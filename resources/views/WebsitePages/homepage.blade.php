@@ -75,7 +75,7 @@
                 <h2 class="mb-md-0 text-black">Premium Aviation <br> Supplies</h2>
             </div>
             <div class="col-md-4 col-xl-3 pb-4 pb-md-0 appear-animate" data-animation-name="fadeIn" data-animation-delay="300">
-                <a href="products.html" class="btn btn-dark btn-black ls-10">Explore Now</a>
+                <a href="{{route('website.shop')}}" class="btn btn-dark btn-black ls-10">Explore Now</a>
             </div>
             <div class="col-md-4 mr-xl-auto text-md-left appear-animate" data-animation-name="fadeInLeftShorter" data-animation-delay="600">
                 <h4 class="mb-1 mt-1 font1 coupon-sale-text p-0 d-block ls-n-10 text-transform-none">

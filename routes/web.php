@@ -111,6 +111,9 @@ Route::name('website.')->group(function () {
     Route::get('/product-details/{id}', [WebsiteController::class, 'productdetails'])->name('productdetails');
     Route::get('/shop', [WebsiteController::class, 'shop'])->name('shop');
     Route::post('/shopcategoryfilter', [WebsiteController::class, 'shopcategoryfilter'])->name('shopcategoryfilter');
+    Route::post('/sortByPriceFilter', [WebsiteController::class, 'sortByPriceFilter'])->name('sortByPriceFilter');
+    Route::get('/blogs', [WebsiteController::class, 'blogs'])->name('blogs');
+    Route::post('/giveProductReview', [WebsiteController::class, 'giveProductReview'])->name('giveProductReview');
 });
 
 

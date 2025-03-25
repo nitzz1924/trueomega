@@ -20,7 +20,7 @@ class UserViews extends Controller
     public function logoutuserpanel()
     {
         Auth::guard('customer')->logout();
-        return redirect()->route('user.userloginpage');
+        return redirect('/');
     }
 
     public function myprofile()
@@ -104,7 +104,7 @@ class UserViews extends Controller
                 'sponserid' => $request->sponserid,
                 'company_name' => $request->company_name,
                 'password' => Hash::make($request->password),
-                'profile_photo_path' => '/defaultuser.png',
+                'profile_photo_path' => 'defaultuser.png',
                 'userstatus' => 'disabled',
             ]);
 
@@ -125,7 +125,7 @@ class UserViews extends Controller
                     if (Auth::guard('customer')->check()) {
                         $user->verification_status = 1;
                         $user->save();
-                        return redirect()->route('user.dashboard');
+                        return redirect('/');
                     } else {
                         return back()->with('error', "Invalid Credentials..!!!");
                     }

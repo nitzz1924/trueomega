@@ -124,7 +124,7 @@
             </li> --}}
 
             <li class="nav-item">
-                <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews (1)</a>
+                <a class="nav-link" id="product-tab-reviews" data-toggle="tab" href="#product-reviews-content" role="tab" aria-controls="product-reviews-content" aria-selected="false">Reviews ({{$productreviewscnt}})</a>
             </li>
         </ul>
 
@@ -163,37 +163,51 @@
 
             <div class="tab-pane fade" id="product-reviews-content" role="tabpanel" aria-labelledby="product-tab-reviews">
                 <div class="product-reviews-content">
-                    <h3 class="reviews-title">1 review for Men Black Sports Shoes</h3>
 
                     <div class="comment-list">
                         <div class="comments">
-                            <div class="comment-block">
-                                <div class="comment-header">
-                                    <div class="comment-arrow"></div>
-                                    <div class="ratings-container float-sm-right">
-                                        <div class="product-ratings">
-                                            <span class="ratings" style="width:60%"></span>
-                                            <span class="tooltiptext tooltip-top"></span>
+                            @if ($productreviews->isNotEmpty())
+                                @foreach ($productreviews as $review) 
+                                    <div class="comment-block mt-1">
+                                        <div class="comment-header">
+                                            <div class="comment-arrow"></div>
+                                            <div class="ratings-container float-sm-right">
+                                                <div class="product-ratings">
+                                                    <span class="ratings" style="width: {{ ($review->rating / 5) * 100 }}%">★★★★★</span> <!-- Filled stars -->
+                                                </div>
+                                            </div>
+                                            <span class="comment-by">
+                                                <strong>{{ $review->name }}</strong> – {{ \Carbon\Carbon::parse($review->created_at)->format('F d, Y') }}
+                                            </span>
+                                        </div>
+
+                                        <div class="comment-content">
+                                            <p>{{ $review->reviewtxt }}</p>
                                         </div>
                                     </div>
-                                    <span class="comment-by">
-                                        <strong>Joe Doe</strong> – April 12, 2018
-                                    </span>
-                                </div>
-
-                                <div class="comment-content">
-                                    <p>Excellent.</p>
-                                </div>
-                            </div>
+                                @endforeach
+                            @else
+                                <p>No reviews for this product till now.</p>
+                            @endif
                         </div>
                     </div>
 
                     <div class="divider"></div>
-
+                    @if(Auth::guard('customer')->check())
                     <div class="add-product-review">
+                        @if ($message = Session::get('success'))
+                        <div class="alert border-0 alert-success text-center" role="alert" id="successAlert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
+                        @if ($message = Session::get('error'))
+                        <div class="alert border-0 alert-danger text-center" role="alert" id="dangerAlert">
+                            <strong>{{ $message }}</strong>
+                        </div>
+                        @endif
                         <h3 class="review-title">Add a review</h3>
-
-                        <form action="#" class="comment-form m-0">
+                        <form action="{{route('website.giveProductReview')}}" class="comment-form m-0" method="POST">
+                            @csrf
                             <div class="rating-form">
                                 <label for="rating">Your rating <span class="required">*</span></label>
                                 <span class="rating-stars">
@@ -203,6 +217,8 @@
                                     <a class="star-4" href="#">4</a>
                                     <a class="star-5" href="#">5</a>
                                 </span>
+                                <input type="hidden" name="userid" value="{{ Auth::guard('customer')->check() ? Auth::guard('customer')->user()->id : '' }}">
+                                <input type="hidden" name="productid" value="{{$productdata->id}}">
 
                                 <select name="rating" id="rating" required="" style="display: none;">
                                     <option value="">Rate…</option>
@@ -216,51 +232,31 @@
 
                             <div class="form-group">
                                 <label>Your review <span class="required">*</span></label>
-                                <textarea cols="5" rows="6" class="form-control form-control-sm"></textarea>
+                                <textarea cols="5" rows="6" name="reviewtxt" class="form-control form-control-sm"></textarea>
                             </div>
-                            <!-- End .form-group -->
-
-
                             <div class="row">
                                 <div class="col-md-6 col-xl-12">
                                     <div class="form-group">
                                         <label>Name <span class="required">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" required>
+                                        <input type="text" name="name" class="form-control form-control-sm" required>
                                     </div>
-                                    <!-- End .form-group -->
                                 </div>
 
                                 <div class="col-md-6 col-xl-12">
                                     <div class="form-group">
                                         <label>Email <span class="required">*</span></label>
-                                        <input type="text" class="form-control form-control-sm" required>
-                                    </div>
-                                    <!-- End .form-group -->
-                                </div>
-
-                                <div class="col-md-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="save-name" />
-                                        <label class="custom-control-label mb-0" for="save-name">Save my
-                                            name, email, and website in this browser for the next time I
-                                            comment.</label>
+                                        <input type="email" name="email" class="form-control form-control-sm" required>
                                     </div>
                                 </div>
                             </div>
-
                             <input type="submit" class="btn btn-primary" value="Submit">
                         </form>
                     </div>
-                    <!-- End .add-product-review -->
+                    @endif
                 </div>
-                <!-- End .product-reviews-content -->
             </div>
-            <!-- End .tab-pane -->
         </div>
-        <!-- End .tab-content -->
     </div>
-    <!-- End .product-single-tabs -->
-
     <div class="products-section pt-0">
         <h2 class="section-title">Related Products</h2>
 
@@ -304,4 +300,14 @@
         </div>
     </div>
 </div>
+<script>
+    setTimeout(function() {
+        $('#successAlert').fadeOut('slow');
+    }, 3000);
+
+    setTimeout(function() {
+        $('#dangerAlert').fadeOut('slow');
+    }, 3000);
+
+</script>
 @endsection

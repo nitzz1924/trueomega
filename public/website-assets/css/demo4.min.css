@@ -892,7 +892,7 @@
     background: url("../../../../../www.portotheme.com/html/porto_ecommerce/assets/images/owl.video.play.html") no-repeat;
     cursor: pointer;
     z-index: 1;
-    -webkit-backface-visibility: hidden;
+    --webkit-backface-visibility: hidden;
     transition: transform 100ms ease
 }
 
@@ -5943,7 +5943,7 @@ label {
 .toolbox {
     flex-wrap: wrap;
     -ms-flex-wrap: wrap;
-    justify-content: space-between;
+    justify-content: end;
     -ms-flex-pack: justify;
     margin-bottom: 1rem;
     font-size: 1.2rem;
@@ -5957,7 +5957,7 @@ label {
 }
 
 .toolbox .select-custom .form-control {
-    max-width: 160px;
+    max-width: 210px;
     padding-right: 2.5rem;
     padding-left: 0.8rem;
     font-size: 1.3rem;
