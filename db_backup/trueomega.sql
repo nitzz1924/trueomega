@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 25, 2025 at 02:11 PM
+-- Generation Time: Mar 27, 2025 at 06:32 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,8 +99,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('8944f453e124ebd47c963edc5bb4d779', 'i:2;', 1742886694),
-('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1742886694;', 1742886694);
+('8944f453e124ebd47c963edc5bb4d779', 'i:1;', 1742965176),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1742965176;', 1742965176);
 
 -- --------------------------------------------------------
 
@@ -218,6 +218,24 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2025_01_02_080358_add_two_factor_columns_to_users_table', 1),
 (5, '2025_01_02_080436_create_personal_access_tokens_table', 1),
 (6, '2025_01_09_070838_add_website_link_to_users_table', 2);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `my_carts`
+--
+
+CREATE TABLE `my_carts` (
+  `id` int(11) NOT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  `productid` varchar(255) DEFAULT NULL,
+  `productname` varchar(255) DEFAULT NULL,
+  `productimage` varchar(255) DEFAULT NULL,
+  `price` varchar(255) DEFAULT NULL,
+  `quantity` varchar(255) DEFAULT '1',
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -391,7 +409,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('LCAJXC39YwnLEWZOG5GfsVi5UbPDEyIRfbixNSuf', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNUMxREZmeU9IUGpoM2sybzMyY0ZjWHF2RVVmeEdzNlVxRlRBandzRCI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM5OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXNlci9yZWdpc3RyYXRpb24iO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO30=', 1742907808);
+('gJcP6SBt4njUPVS1EE2Fas1iaCAGNylgxK8ZJix0', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoibFVzWWxGUUpRVFpRWEhWOFJpSHpQUWNpdW9YVVB6aE96bldrOW8zWSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0LWRldGFpbHMvMjIiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjU1OiJsb2dpbl9jdXN0b21lcl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjEwMDE7fQ==', 1742994761);
 
 -- --------------------------------------------------------
 
@@ -511,6 +529,12 @@ ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `my_carts`
+--
+ALTER TABLE `my_carts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -608,6 +632,12 @@ ALTER TABLE `masters`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `my_carts`
+--
+ALTER TABLE `my_carts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

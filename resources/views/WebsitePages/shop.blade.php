@@ -95,7 +95,11 @@
                                 <span class="product-price">₹ {{$row->saleprice}} /-</span>
                             </div>
                             <div class="product-action">
-                                <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
+                                @if(Auth::guard('customer')->check())
+                                    <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='@json($row)'><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                @else
+                                    <a href="javascript:void(0)" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                @endif
                                 <a href="{{route('website.productdetails',['id'=>$row->id])}}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                             </div>
                         </div>
@@ -123,95 +127,95 @@
                     <div class="collapse show" id="widget-body-2">
                         <div class="widget-body">
                             <ul class="cat-list">
-                                @foreach($featuredproducts->unique('category') as $key => $value)
-                                <li><a class="category-onclick" data-categoryname="{{$value->category}}">{{$value->category}}<span class="products-count">({{$value->category_count}})</span></a></li>
-                                @endforeach
-                            </ul>
+                                @foreach($featuredproducts->unique(' category') as $key=> $value)
+                                    <li><a class="category-onclick" data-categoryname="{{$value->category}}">{{$value->category}}<span class="products-count">({{$value->category_count}})</span></a></li>
+                                    @endforeach
+                                    </ul>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="widget widget-featured">
-                    <h3 class="widget-title">Featured</h3>
+                    <div class="widget widget-featured">
+                        <h3 class="widget-title">Featured</h3>
 
-                    <div class="widget-body">
-                        <div class="owl-carousel widget-featured-products">
-                            @foreach($featuredproducts as $key => $row)
-                            <div class="featured-col">
-                                <div class="product-default left-details product-widget">
-                                    <figure>
-                                        <a href={{route('website.productdetails',['id'=>$row->id])}}">
-                                            <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="75" height="75" alt="product" />
-                                            <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="75" height="75" alt="product" />
-                                        </a>
-                                    </figure>
-                                    <div class="product-details">
-                                        <h3 class="product-title">
-                                            <a href="{{route('website.productdetails',['id'=>$row->id])}}">{{$row->productname}}</a>
-                                        </h3>
-                                        <div class="ratings-container">
-                                            <div class="product-ratings">
-                                                <span class="ratings" style="width:100%"></span>
-                                                <span class="tooltiptext tooltip-top"></span>
+                        <div class="widget-body">
+                            <div class="owl-carousel widget-featured-products">
+                                @foreach($featuredproducts as $key => $row)
+                                <div class="featured-col">
+                                    <div class="product-default left-details product-widget">
+                                        <figure>
+                                            <a href={{route('website.productdetails',['id'=>$row->id])}}">
+                                                <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="75" height="75" alt="product" />
+                                                <img src="{{asset('assets/images/Products/'.$row->thumbnailImages)}}" width="75" height="75" alt="product" />
+                                            </a>
+                                        </figure>
+                                        <div class="product-details">
+                                            <h3 class="product-title">
+                                                <a href="{{route('website.productdetails',['id'=>$row->id])}}">{{$row->productname}}</a>
+                                            </h3>
+                                            <div class="ratings-container">
+                                                <div class="product-ratings">
+                                                    <span class="ratings" style="width:100%"></span>
+                                                    <span class="tooltiptext tooltip-top"></span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="price-box">
-                                            <span class="product-price">₹ {{$row->saleprice}} /-</span>
+                                            <div class="price-box">
+                                                <span class="product-price">₹ {{$row->saleprice}} /-</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
+                                @endforeach
                             </div>
-                            @endforeach
                         </div>
                     </div>
-                </div>
 
-                <div class="widget widget-block">
-                    <h3 class="widget-title">Why Choose Truomega?</h3>
-                    <h5>Discover high-quality products with the best deals and seamless shopping experience.</h5>
-                    <p>✅ <strong>Fast & Secure Shipping</strong> – Get your orders delivered quickly and safely.</p>
-                    <p>✅ <strong>100% Authentic Products</strong> – We ensure premium quality in every purchase.</p>
-                    <p>✅ <strong>24/7 Customer Support</strong> – Have questions? We're here to help anytime!</p>
-                    <p>✅ <strong>Exclusive Discounts</strong> – Unlock special offers and seasonal sales.</p>
-                    <p>Shop now and enjoy a hassle-free experience !</p>
+                    <div class="widget widget-block">
+                        <h3 class="widget-title">Why Choose Truomega?</h3>
+                        <h5>Discover high-quality products with the best deals and seamless shopping experience.</h5>
+                        <p>✅ <strong>Fast & Secure Shipping</strong> – Get your orders delivered quickly and safely.</p>
+                        <p>✅ <strong>100% Authentic Products</strong> – We ensure premium quality in every purchase.</p>
+                        <p>✅ <strong>24/7 Customer Support</strong> – Have questions? We're here to help anytime!</p>
+                        <p>✅ <strong>Exclusive Discounts</strong> – Unlock special offers and seasonal sales.</p>
+                        <p>Shop now and enjoy a hassle-free experience !</p>
+                    </div>
                 </div>
+                </aside>
             </div>
-        </aside>
-    </div>
-</div>
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-{{-- Filter by Category --}}
-<script>
-    $(document).ready(function() {
-        $('.category-onclick').click(function() {
-            var category = $(this).data('categoryname');
-            let productContainer = $('#productContainer');
+        </div>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+        {{-- Filter by Category --}}
+        <script>
+            $(document).ready(function() {
+                $('.category-onclick').click(function() {
+                    var category = $(this).data('categoryname');
+                    let productContainer = $('#productContainer');
 
-            // Show loader
-            productContainer.html(
-                '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div>'
-            );
+                    // Show loader
+                    productContainer.html(
+                        '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div>'
+                    );
 
-            $('#loader').show();
+                    $('#loader').show();
 
-            setTimeout(function() {
-                $.ajax({
-                    url: "{{ route('website.shopcategoryfilter') }}"
-                    , type: "POST"
-                    , headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    }
-                    , data: {
-                        category: category
-                    }
-                    , success: function(data) {
-                        console.log("Received Data:", data);
-                        let products = data.data;
-                        productContainer.empty();
+                    setTimeout(function() {
+                        $.ajax({
+                            url: "{{ route('website.shopcategoryfilter') }}"
+                            , type: "POST"
+                            , headers: {
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            }
+                            , data: {
+                                category: category
+                            }
+                            , success: function(data) {
+                                console.log("Received Data:", data);
+                                let products = data.data;
+                                productContainer.empty();
 
-                        if (Array.isArray(products) && products.length > 0) {
-                            products.forEach(function(product) {
-                                let productHTML = `
+                                if (Array.isArray(products) && products.length > 0) {
+                                    products.forEach(function(product) {
+                                        let productHTML = `
                                     <div class="col-6 col-sm-4">
                                         <div class="product-default" data-animation-name="fadeInRightShorter">
                                             <figure>
@@ -242,59 +246,63 @@
                                                     <span class="product-price">₹ ${product.saleprice} /-</span>
                                                 </div>
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
+                                                    @if(Auth::guard('customer')->check())
+                                                        <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='${JSON.stringify(product)}''><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                                    @else
+                                                        <a href="/product-details/${product.id}" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                                    @endif
                                                     <a href="/product-details/${product.id}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>`;
-                                productContainer.append(productHTML);
-                                console.log("Product container after append:", productContainer.html());
-                            });
-                        } else {
-                            productContainer.html('<p class="text-center">No products found in this category.</p>');
-                        }
-                    }
-                    , error: function(xhr) {
-                        console.error("Error fetching data:", xhr.responseText);
-                        productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
-                    }
+                                        productContainer.append(productHTML);
+                                        console.log("Product container after append:", productContainer.html());
+                                    });
+                                } else {
+                                    productContainer.html('<p class="text-center">No products found in this category.</p>');
+                                }
+                            }
+                            , error: function(xhr) {
+                                console.error("Error fetching data:", xhr.responseText);
+                                productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
+                            }
+                        });
+                    }, 500);
                 });
-            }, 500);
-        });
-    });
+            });
 
-</script>
+        </script>
 
-{{-- Filter by Category --}}
-<script>
-    $(document).ready(function() {
-        $('#sortbydrop').change(function() {
-            var filtername = $(this).val();
-            let productContainer = $('#productContainer');
-            productContainer.html(
-                '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div></div>'
-            );
-            $('#loader').show();
+        {{-- Filter by Category --}}
+        <script>
+            $(document).ready(function() {
+                $('#sortbydrop').change(function() {
+                    var filtername = $(this).val();
+                    let productContainer = $('#productContainer');
+                    productContainer.html(
+                        '<div id="loader" class="d-flex justify-content-center align-items-center"><div><img src="/website-assets/images/loading.gif" alt="Loading..." width="100"></div></div>'
+                    );
+                    $('#loader').show();
 
-            setTimeout(function() {
-                $.ajax({
-                    url: "{{ route('website.sortByPriceFilter') }}",
-                    type: "POST",
-                    headers: {
-                        "X-CSRF-TOKEN": "{{ csrf_token() }}"
-                    },
-                    data: {
-                        filtername: filtername
-                    },
-                    success: function(data) {
-                        console.log("Received Data:", data);
-                        let products = data.data;
-                        productContainer.empty();
+                    setTimeout(function() {
+                        $.ajax({
+                            url: "{{ route('website.sortByPriceFilter') }}"
+                            , type: "POST"
+                            , headers: {
+                                "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                            }
+                            , data: {
+                                filtername: filtername
+                            }
+                            , success: function(data) {
+                                console.log("Received Data:", data);
+                                let products = data.data;
+                                productContainer.empty();
 
-                        if (Array.isArray(products) && products.length > 0) {
-                            products.forEach(function(product) {
-                                let productHTML = `
+                                if (Array.isArray(products) && products.length > 0) {
+                                    products.forEach(function(product) {
+                                        let productHTML = `
                                     <div class="col-6 col-sm-4">
                                         <div class="product-default" data-animation-name="fadeInRightShorter">
                                             <figure>
@@ -325,25 +333,98 @@
                                                     <span class="product-price">₹ ${product.saleprice} /-</span>
                                                 </div>
                                                 <div class="product-action">
-                                                    <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
+                                                    @if(Auth::guard('customer')->check())
+                                                        <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='${JSON.stringify(product)}''><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                                    @else
+                                                        <a href="/product-details/${product.id}" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                                                    @endif
                                                     <a href="/product-details/${product.id}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>`;
-                                productContainer.append(productHTML);
-                            });
-                        } else {
-                            productContainer.html('<p class="text-center">No products found for the selected filter.</p>');
-                        }
-                    },
-                    error: function(xhr) {
-                        console.error("Error fetching data:", xhr.responseText);
-                        productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
-                    }
+                                        productContainer.append(productHTML);
+                                    });
+                                } else {
+                                    productContainer.html('<p class="text-center">No products found for the selected filter.</p>');
+                                }
+                            }
+                            , error: function(xhr) {
+                                console.error("Error fetching data:", xhr.responseText);
+                                productContainer.html('<p class="text-center text-danger">Failed to load products.</p>');
+                            }
+                        });
+                    }, 300);
                 });
-            }, 300);
-        });
-    });
-</script>
-@endsection
+            });
+
+        </script>
+
+        {{-- Add to Cart --}}
+        <script>
+            $(document).ready(function() {
+                $(document).on('click', '.addtoCartbtn', function(e) {
+                    e.preventDefault();
+                    var productdata = $(this).data('product');
+                     if (typeof productdata === "string") {
+                        productdata = JSON.parse(productdata);
+                    }
+                    console.log(productdata);
+                    var _token = "{{ csrf_token() }}";
+
+                    $.ajax({
+                        url: "{{ route('website.addtocart') }}" ,
+                        type: "POST",
+                         data: {
+                            productid: productdata.id,
+                            productname: productdata.productname,
+                            productimage: productdata.thumbnailImages,
+                            price: productdata.saleprice,
+                            quantity: 1,
+                            _token: _token
+                        },
+                        success: function(response) {
+                            console.log(response);
+                            $('#cartCount').html(response.count);
+                            $('#cartTotal').html(response.total);
+                            Toastify({
+                                node: createCustomToast(productdata),
+                                duration: 4000,
+                                close: true,
+                                gravity: "bottom",
+                                position: "right",
+                                stopOnFocus: true,
+                                style: {
+                                    background: "#fff",
+                                    borderRadius: "8px",
+                                    boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)",
+                                    padding: "20px",
+                                    minWidth: "280px"
+                                }
+                            }).showToast();
+                        }
+                    });
+                });
+                    // Function to create custom toast HTML structure
+                        function createCustomToast(product) {
+                            let toast = document.createElement("div");
+                            toast.innerHTML = `
+                                <div style="display: flex; align-items: center;">
+                                    <img src="assets/images/Products/${product.thumbnailImages}" alt="${product.productname}" 
+                                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                                    <div>
+                                        <strong style="color: #333;">${product.productname}</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #777;">has been added to your cart.</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 10px; display: flex; justify-content: center;">
+                                    <a href="cart.html" class="btn btn-dark viewcart btn-sm" style="margin-right: 10px;">View Cart</a>
+                                    <a href="checkout.html" class="btn btn-dark checkout btn-sm">Checkout</a>
+                                </div>
+                            `;
+                            return toast;
+                        }
+            });
+
+        </script>
+        @endsection

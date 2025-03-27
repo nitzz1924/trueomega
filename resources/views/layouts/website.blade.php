@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="{{asset('website-assets/css/demo4.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/fontawesome-free/css/all.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('website-assets/vendor/simple-line-icons/css/simple-line-icons.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 
 </head>
 
@@ -559,6 +560,7 @@
     <script src="{{asset('website-assets/js/plugins.min.js')}}"></script>
     <script src="{{asset('website-assets/js/jquery.appear.min.js')}}"></script>
     <script src="{{asset('website-assets/js/plugins/jquery.countTo.js')}}"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
 
     <!-- Main JS File -->

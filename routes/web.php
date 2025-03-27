@@ -114,6 +114,7 @@ Route::name('website.')->group(function () {
     Route::post('/sortByPriceFilter', [WebsiteController::class, 'sortByPriceFilter'])->name('sortByPriceFilter');
     Route::get('/blogs', [WebsiteController::class, 'blogs'])->name('blogs');
     Route::post('/giveProductReview', [WebsiteController::class, 'giveProductReview'])->name('giveProductReview');
+    Route::post('/addtoCart', [WebsiteController::class, 'addtoCart'])->name('addtocart');
 });
 
 

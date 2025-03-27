@@ -87,10 +87,8 @@
                     </div>
                     <!-- End .product-single-qty -->
 
-                    <a href="javascript:;" class="btn btn-dark add-cart mr-2" title="Add to Cart">Add to
+                    <a href="javascript:;" class="btn btn-dark add-cart mr-2 addtoCartbtn" data-product="{{$productdata}}" title="Add to Cart">Add to
                         Cart</a>
-
-                    <a href="cart.html" class="btn btn-gray view-cart d-none">View cart</a>
                 </div>
                 <!-- End .product-action -->
 
@@ -167,27 +165,27 @@
                     <div class="comment-list">
                         <div class="comments">
                             @if ($productreviews->isNotEmpty())
-                                @foreach ($productreviews as $review) 
-                                    <div class="comment-block mt-1">
-                                        <div class="comment-header">
-                                            <div class="comment-arrow"></div>
-                                            <div class="ratings-container float-sm-right">
-                                                <div class="product-ratings">
-                                                    <span class="ratings" style="width: {{ ($review->rating / 5) * 100 }}%">★★★★★</span> <!-- Filled stars -->
-                                                </div>
-                                            </div>
-                                            <span class="comment-by">
-                                                <strong>{{ $review->name }}</strong> – {{ \Carbon\Carbon::parse($review->created_at)->format('F d, Y') }}
-                                            </span>
-                                        </div>
-
-                                        <div class="comment-content">
-                                            <p>{{ $review->reviewtxt }}</p>
+                            @foreach ($productreviews as $review)
+                            <div class="comment-block mt-1">
+                                <div class="comment-header">
+                                    <div class="comment-arrow"></div>
+                                    <div class="ratings-container float-sm-right">
+                                        <div class="product-ratings">
+                                            <span class="ratings" style="width: {{ ($review->rating / 5) * 100 }}%">★★★★★</span> <!-- Filled stars -->
                                         </div>
                                     </div>
-                                @endforeach
+                                    <span class="comment-by">
+                                        <strong>{{ $review->name }}</strong> – {{ \Carbon\Carbon::parse($review->created_at)->format('F d, Y') }}
+                                    </span>
+                                </div>
+
+                                <div class="comment-content">
+                                    <p>{{ $review->reviewtxt }}</p>
+                                </div>
+                            </div>
+                            @endforeach
                             @else
-                                <p>No reviews for this product till now.</p>
+                            <p>No reviews for this product till now.</p>
                             @endif
                         </div>
                     </div>
@@ -291,7 +289,11 @@
                         <span class="product-price">₹ {{$row->saleprice}}</span>
                     </div>
                     <div class="product-action">
-                        <a href="#" class="btn-icon btn-add-cart"><i class="fa fa-arrow-right"></i><span>SELECT OPTIONS</span></a>
+                        @if(Auth::guard('customer')->check())
+                            <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='@json($row)'><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                        @else
+                            <a href="javascript:void(0)" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                        @endif
                         <a href="{{route('website.productdetails',['id'=>$row->id])}}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                     </div>
                 </div>
@@ -300,6 +302,72 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+{{-- Add to Cart --}}
+<script>
+    $(document).ready(function() {
+        $(document).on('click', '.addtoCartbtn', function(e) {
+            e.preventDefault();
+            var productdata = $(this).data('product');
+            console.log("Product Details : ", productdata);
+            var _token = "{{ csrf_token() }}";
+
+            $.ajax({
+                url: "{{ route('website.addtocart') }}"
+                , type: "POST"
+                , data: {
+                    productid: productdata.id
+                    , productname: productdata.productname
+                    , productimage: productdata.thumbnailImages
+                    , price: productdata.saleprice
+                    , quantity: 1
+                    , _token: _token
+                }
+                , success: function(response) {
+                    console.log(response);
+                    $('#cartCount').html(response.count);
+                    $('#cartTotal').html(response.total);
+                    Toastify({
+                        node: createCustomToast(productdata)
+                        , duration: 4000
+                        , close: true
+                        , gravity: "bottom"
+                        , position: "right"
+                        , stopOnFocus: true
+                        , style: {
+                            background: "#fff"
+                            , borderRadius: "8px"
+                            , boxShadow: "0px 0px 10px rgba(0, 0, 0, 0.1)"
+                            , padding: "20px"
+                            , minWidth: "280px"
+                        }
+                    }).showToast();
+                }
+            });
+        });
+        // Function to create custom toast HTML structure
+        function createCustomToast(product) {
+            let toast = document.createElement("div");
+            toast.innerHTML = `
+                                <div style="display: flex; align-items: center;">
+                                    <img src="assets/images/Products/${product.thumbnailImages}" alt="${product.productname}" 
+                                        style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
+                                    <div>
+                                        <strong style="color: #333;">${product.productname}</strong>
+                                        <p style="margin: 0; font-size: 14px; color: #777;">has been added to your cart.</p>
+                                    </div>
+                                </div>
+                                <div style="margin-top: 10px; display: flex; justify-content: center;">
+                                    <a href="cart.html" class="btn btn-dark viewcart btn-sm" style="margin-right: 10px;">View Cart</a>
+                                    <a href="checkout.html" class="btn btn-dark checkout btn-sm">Checkout</a>
+                                </div>
+                            `;
+            return toast;
+        }
+    });
+
+</script>
 <script>
     setTimeout(function() {
         $('#successAlert').fadeOut('slow');
