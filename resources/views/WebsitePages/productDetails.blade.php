@@ -83,10 +83,15 @@
                             <button class="btn btn-outline-dark p-3 border border-secondary" type="button" id="increase">+</button>
                         </div>
                     </div>
-
-                    <a href="javascript:;" class="btn btn-dark add-cart addtoCartbtn" data-product="{{$productdata}}" title="Add to Cart">
+                    @if(Auth::guard('customer')->check())
+                    <a href="javascript:;" class="btn btn-dark add-cart addtoCartbtn" data-product="{{$productdata}}">
                         Add to Cart
                     </a>
+                    @else
+                    <a href="javascript:void(0);" class="btn btn-dark" data-product="{{$productdata}}" data-toggle="tooltip" title="You need to login first">
+                        Add to Cart
+                    </a>
+                    @endif
                 </div>
 
                 <hr class="divider mb-0 mt-0">

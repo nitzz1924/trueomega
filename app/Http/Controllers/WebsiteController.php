@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\Country;
 use App\Models\Master;
 use App\Models\MyCart;
 use App\Models\PolicyPage;
@@ -136,7 +137,49 @@ class WebsiteController extends Controller
     public function mycart()
     {
         $mycartproducts = MyCart::where('userid', Auth::guard('customer')->user()->id)->get();
-        return view('WebsitePages.cart',compact('mycartproducts'));
+        return view('WebsitePages.cart', compact('mycartproducts'));
+    }
+    public function removeFromCart()
+    {
+        $cartid = request()->input('cartid');
+        try {
+            MyCart::where('id', $cartid)->delete();
+            return response()->json([
+                'success' => true,
+                'message' => "Product removed from cart successfully!"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "Failed to remove product from cart.",
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function updateQuantity()
+    {
+        $cartid = request()->input('cartid');
+        $quantity = request()->input('quantity');
+        try {
+            MyCart::where('id', $cartid)->update([
+                'quantity' => $quantity,
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => "Updated"
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "Failed to update",
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function checkout()
+    {
+        $countries = Country::pluck('nicename');
+        return view('WebsitePages.checkout', compact('countries'));
     }
 }
 
