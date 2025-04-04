@@ -11,11 +11,6 @@
     </nav>
 
     <div class="product-single-container product-single-default">
-        <div class="cart-message d-none">
-            <strong class="single-cart-notice">“Men Black Sports Shoes”</strong>
-            <span>has been added to your cart.</span>
-        </div>
-
         <div class="row">
             <div class="col-lg-5 col-md-6 product-single-gallery">
                 <div class="product-slider-container">
@@ -80,17 +75,19 @@
                         CATEGORY: <strong><a href="#" class="product-category">{{$productdata->category}}</a></strong>
                     </li>
                 </ul>
-
-                <div class="product-action">
-                    <div class="product-single-qty">
-                        <input class="horizontal-quantity form-control" type="text">
+                <div class="product-action d-flex align-items-center gap-3">
+                    <div class="input-group">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <button class="btn btn-outline-dark p-3 border border-secondary" type="button" id="decrease">−</button>
+                            <input type="text" class="text-black py-2 form-control border border-secondary text-center mb-0 bg-transparent" id="numberInput" value="1" readonly style="width: 60px; height: 42px;">
+                            <button class="btn btn-outline-dark p-3 border border-secondary" type="button" id="increase">+</button>
+                        </div>
                     </div>
-                    <!-- End .product-single-qty -->
 
-                    <a href="javascript:;" class="btn btn-dark add-cart mr-2 addtoCartbtn" data-product="{{$productdata}}" title="Add to Cart">Add to
-                        Cart</a>
+                    <a href="javascript:;" class="btn btn-dark add-cart addtoCartbtn" data-product="{{$productdata}}" title="Add to Cart">
+                        Add to Cart
+                    </a>
                 </div>
-                <!-- End .product-action -->
 
                 <hr class="divider mb-0 mt-0">
 
@@ -290,9 +287,9 @@
                     </div>
                     <div class="product-action">
                         @if(Auth::guard('customer')->check())
-                            <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='@json($row)'><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                        <a href="" class="btn-icon btn-add-cart product-type-simple addtoCartbtn" data-product='@json($row)'><i class="icon-shopping-cart"></i>ADD TO CART</a>
                         @else
-                            <a href="javascript:void(0)" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
+                        <a href="javascript:void(0)" class="btn-icon btn-add-cart disabled" data-toggle="tooltip" title="You need to login first"><i class="icon-shopping-cart"></i>ADD TO CART</a>
                         @endif
                         <a href="{{route('website.productdetails',['id'=>$row->id])}}" class="btn-quickview" title="Quick View"><i class="fas fa-external-link-alt"></i></a>
                     </div>
@@ -307,11 +304,24 @@
 {{-- Add to Cart --}}
 <script>
     $(document).ready(function() {
+        $("#increase").click(function() {
+            let val = parseInt($("#numberInput").val());
+            $("#numberInput").val(val + 1);
+        });
+
+        $("#decrease").click(function() {
+            let val = parseInt($("#numberInput").val());
+            if (val > 1) {
+                $("#numberInput").val(val - 1);
+            }
+        });
+
         $(document).on('click', '.addtoCartbtn', function(e) {
             e.preventDefault();
             var productdata = $(this).data('product');
             console.log("Product Details : ", productdata);
             var _token = "{{ csrf_token() }}";
+            var quantity = parseInt($("#numberInput").val());
 
             $.ajax({
                 url: "{{ route('website.addtocart') }}"
@@ -321,7 +331,7 @@
                     , productname: productdata.productname
                     , productimage: productdata.thumbnailImages
                     , price: productdata.saleprice
-                    , quantity: 1
+                    , quantity: quantity
                     , _token: _token
                 }
                 , success: function(response) {
@@ -330,7 +340,7 @@
                     $('#cartTotal').html(response.total);
                     Toastify({
                         node: createCustomToast(productdata)
-                        , duration: 4000
+                        , duration: 40000
                         , close: true
                         , gravity: "bottom"
                         , position: "right"
@@ -351,7 +361,7 @@
             let toast = document.createElement("div");
             toast.innerHTML = `
                                 <div style="display: flex; align-items: center;">
-                                    <img src="assets/images/Products/${product.thumbnailImages}" alt="${product.productname}" 
+                                    <img src="{{asset('assets/images/Products/${product.thumbnailImages}')}}" alt="${product.productname}" 
                                         style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px; margin-right: 10px;">
                                     <div>
                                         <strong style="color: #333;">${product.productname}</strong>
@@ -359,7 +369,7 @@
                                     </div>
                                 </div>
                                 <div style="margin-top: 10px; display: flex; justify-content: center;">
-                                    <a href="cart.html" class="btn btn-dark viewcart btn-sm" style="margin-right: 10px;">View Cart</a>
+                                    <a href="/mycart" class="btn btn-dark viewcart btn-sm" style="margin-right: 10px;">View Cart</a>
                                     <a href="checkout.html" class="btn btn-dark checkout btn-sm">Checkout</a>
                                 </div>
                             `;

@@ -42,7 +42,7 @@
                             <a href="#">Links</a>
                             <div class="header-menu">
                                 <ul>
-                                    <li><a href="cart.html">My Cart</a></li>
+                                    <li><a href="{{route('website.mycart')}}">My Cart</a></li>
                                 </ul>
                             </div>
                             <!-- End .header-menu -->

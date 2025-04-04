@@ -115,6 +115,7 @@ Route::name('website.')->group(function () {
     Route::get('/blogs', [WebsiteController::class, 'blogs'])->name('blogs');
     Route::post('/giveProductReview', [WebsiteController::class, 'giveProductReview'])->name('giveProductReview');
     Route::post('/addtoCart', [WebsiteController::class, 'addtoCart'])->name('addtocart');
+    Route::get('/mycart', [WebsiteController::class, 'mycart'])->name('mycart');
 });
 
 

@@ -18,119 +18,64 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="cart-table-container">
-                <table class="table table-cart">
-                    <thead>
-                        <tr>
-                            <th class="thumbnail-col"></th>
-                            <th class="product-col">Product</th>
-                            <th class="price-col">Price</th>
-                            <th class="qty-col">Quantity</th>
-                            <th class="text-right">Subtotal</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="product-row">
-                            <td>
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="assets/images/products/product-4.jpg" alt="product">
-                                    </a>
+                <form action="#" method="POST">
+                    @csrf
+                    <table class="table table-cart">
+                        <thead>
+                            <tr>
+                                <th class="thumbnail-col"></th>
+                                <th class="product-col">Product</th>
+                                <th class="price-col">Price</th>
+                                <th class="qty-col">Quantity</th>
+                                <th class="text-right">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mycartproducts as $data)
+                            <tr class="product-row">
+                                <td>
+                                    <figure class="product-image-container">
+                                        <a href="{{route('website.productdetails',['id'=>$data->id])}}" class="product-image">
+                                            <img src="{{asset('assets/images/Products/'.$data->productimage)}}" alt="product">
+                                        </a>
 
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                </figure>
-                            </td>
-                            <td class="product-col">
-                                <h5 class="product-title">
-                                    <a href="product.html">Men Watch</a>
-                                </h5>
-                            </td>
-                            <td>$17.90</td>
-                            <td>
-                                <div class="product-single-qty">
-                                    <input class="horizontal-quantity form-control" type="text">
-                                </div><!-- End .product-single-qty -->
-                            </td>
-                            <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                        </tr>
-
-                        <tr class="product-row">
-                            <td>
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="assets/images/products/product-3.jpg" alt="product">
-                                    </a>
-
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                </figure>
-                            </td>
-                            <td class="product-col">
-                                <h5 class="product-title">
-                                    <a href="product.html">Men Watch</a>
-                                </h5>
-                            </td>
-                            <td>$17.90</td>
-                            <td>
-                                <div class="product-single-qty">
-                                    <input class="horizontal-quantity form-control" type="text">
-                                </div><!-- End .product-single-qty -->
-                            </td>
-                            <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                        </tr>
-
-                        <tr class="product-row">
-                            <td>
-                                <figure class="product-image-container">
-                                    <a href="product.html" class="product-image">
-                                        <img src="assets/images/products/product-6.jpg" alt="product">
-                                    </a>
-
-                                    <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
-                                </figure>
-                            </td>
-                            <td class="product-col">
-                                <h5 class="product-title">
-                                    <a href="product.html">Men Black Gentle Belt</a>
-                                </h5>
-                            </td>
-                            <td>$17.90</td>
-                            <td>
-                                <div class="product-single-qty">
-                                    <input class="horizontal-quantity form-control" type="text">
-                                </div><!-- End .product-single-qty -->
-                            </td>
-                            <td class="text-right"><span class="subtotal-price">$17.90</span></td>
-                        </tr>
-                    </tbody>
-
-
-                    <tfoot>
-                        <tr>
-                            <td colspan="5" class="clearfix">
-                                <div class="float-left">
-                                    <div class="cart-discount">
-                                        <form action="#">
-                                            <div class="input-group">
-                                                <input type="text" class="form-control form-control-sm" placeholder="Coupon Code" required>
-                                                <div class="input-group-append">
-                                                    <button class="btn btn-sm" type="submit">Apply
-                                                        Coupon</button>
-                                                </div>
-                                            </div><!-- End .input-group -->
-                                        </form>
+                                        <a href="#" class="btn-remove icon-cancel" title="Remove Product"></a>
+                                    </figure>
+                                </td>
+                                <td class="product-col">
+                                    <h5 class="product-title">
+                                        <a href="{{route('website.productdetails',['id'=>$data->id])}}">{{$data->productname}}</a>
+                                    </h5>
+                                </td>
+                                <td>₹ {{ $data->price }} /-</td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="d-flex align-items-center justify-content-center">
+                                            <button class="btn btn-outline-dark p-3 border border-secondary decrease-btn" type="button" id="decrease">−</button>
+                                            <input type="text" class="quantity-input text-black py-2 form-control border border-secondary text-center mb-0 bg-transparent" id="numberInput" value="{{$data->quantity}}" readonly style="width: 60px; height: 42px;">
+                                            <button class="btn btn-outline-dark p-3 border border-secondary increase-btn" type="button" id="increase">+</button>
+                                        </div>
                                     </div>
-                                </div><!-- End .float-left -->
-
-                                <div class="float-right">
-                                    <button type="submit" class="btn btn-shop btn-update-cart">
-                                        Update Cart
-                                    </button>
-                                </div><!-- End .float-right -->
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
-            </div><!-- End .cart-table-container -->
-        </div><!-- End .col-lg-8 -->
+                                </td>
+                                <td class="text-right"><span class="subtotal-price">₹ {{$data->price * $data->quantity}}/-</span></td>    
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="5" class="clearfix">
+                                    <div class="float-right">
+                                        <button type="submit" class="btn btn-shop btn-update-cart">
+                                            Update Cart
+                                        </button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </form>
+            </div>
+        </div>
 
         <div class="col-lg-4">
             <div class="cart-summary">
@@ -216,4 +161,30 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $(".increase-btn, .decrease-btn").click(function () {
+            var row = $(this).closest("tr"); // Find the closest row
+            var quantityInput = row.find(".quantity-input"); // Quantity input
+            var subtotalElement = row.find(".subtotal-price"); // Subtotal price element
+            var unitPrice = parseFloat(subtotalElement.data("price")); // Get unit price from data attribute
+            var quantity = parseInt(quantityInput.val());
+
+            // Check if the increase or decrease button was clicked
+            if ($(this).hasClass("increase-btn")) {
+                quantity += 1;
+            } else if ($(this).hasClass("decrease-btn") && quantity > 1) {
+                quantity -= 1;
+            }
+
+            // Update quantity input field
+            quantityInput.val(quantity);
+
+            // Update subtotal price dynamically
+            var newSubtotal = quantity;
+        });
+    });
+</script>
+
 @endsection

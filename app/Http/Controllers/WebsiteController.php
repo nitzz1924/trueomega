@@ -133,6 +133,11 @@ class WebsiteController extends Controller
             ], 500);
         }
     }
+    public function mycart()
+    {
+        $mycartproducts = MyCart::where('userid', Auth::guard('customer')->user()->id)->get();
+        return view('WebsitePages.cart',compact('mycartproducts'));
+    }
 }
 
 
