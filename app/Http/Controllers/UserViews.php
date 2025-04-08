@@ -10,6 +10,8 @@ use App\Models\RegisterUser;
 use Exception;
 use App\Models\Master;
 use App\Models\PropertyListing;
+use Log;
+use Illuminate\Support\Facades\Cookie;
 class UserViews extends Controller
 {
     public function dashboard()
@@ -73,6 +75,13 @@ class UserViews extends Controller
 
     public function userloginpage()
     {
+        if (Cookie::has('auth_token')) {
+            $user = RegisterUser::where('remember_token', Cookie::get('auth_token'))->first();
+            if ($user) {
+                Auth::guard('customer')->login($user);
+                return redirect('/');
+            }
+        }
         return view('auth.UserPanel.login');
     }
     public function userregistration()
@@ -124,8 +133,18 @@ class UserViews extends Controller
                     Auth::guard('customer')->login($user);
                     if (Auth::guard('customer')->check()) {
                         $user->verification_status = 1;
+
+                        // Generate and store auth token in cookies
+                        $minutes = 43200; // 30 days
+                        $token = bin2hex(random_bytes(32)); // Generate secure token
+                        Cookie::queue('auth_token', $token, $minutes);
+                        Log::info('Auth token stored in cookies successfully for user: ' . $user->id);
+
+                        // Save the token in the database
+                        $user->remember_token = $token;
                         $user->save();
-                        return redirect('/');
+
+                        return redirect('/home');
                     } else {
                         return back()->with('error', "Invalid Credentials..!!!");
                     }

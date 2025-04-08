@@ -13,5 +13,6 @@ class MyCart extends Model
         'productimage',
         'price',
         'quantity',
+        'status',
     ];
 }

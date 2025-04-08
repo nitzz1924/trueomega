@@ -23,5 +23,6 @@ class RegisterUser extends Authenticatable
         'company_document',
         'userstatus',
         'profile_photo_path',
+        'remember_token',
     ];
 }

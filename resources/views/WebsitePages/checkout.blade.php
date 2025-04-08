@@ -51,7 +51,7 @@
                             <select name="b-country" class="form-control">
                                 <option value="" selected="selected">--select-country</option>
                                 @foreach ($countries as $name)
-                                     <option value="{{$name}}">{{$name}}</option>
+                                <option value="{{$name}}">{{$name}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -72,14 +72,10 @@
                             <input type="text" name="b-city" class="form-control" required />
                         </div>
 
-                        <div class="select-custom">
-                            <label>State / County <abbr class="required" title="required">*</abbr></label>
-                            <select name="b-state" class="form-control">
-                                <option value="" selected="selected">--select-country</option>
-                                 @foreach ($countries as $name)
-                                     <option value="{{$name}}">{{$name}}</option>
-                                @endforeach
-                            </select>
+                        <div class="form-group">
+                            <label>State
+                                <abbr class="required" title="required">*</abbr></label>
+                            <input type="text" name="b-state" class="form-control" required />
                         </div>
 
                         <div class="form-group">
@@ -141,12 +137,10 @@
                                 <div class="select-custom">
                                     <label>Country / Region <span class="required">*</span></label>
                                     <select name="s-country" class="form-control">
-                                        <option value="" selected="selected">Vanuatu</option>
-                                        <option value="1">Brunei</option>
-                                        <option value="2">Bulgaria</option>
-                                        <option value="3">Burkina Faso</option>
-                                        <option value="4">Burundi</option>
-                                        <option value="5">Cameroon</option>
+                                        <option value="" selected="selected">--select-country</option>
+                                        @foreach ($countries as $name)
+                                        <option value="{{$name}}">{{$name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
 
@@ -160,20 +154,14 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label>Town / City <abbr class="required" title="required">*</abbr></label>
-                                    <input type="text" name="s-city" class="form-control" required />
+                                    <label>State
+                                        <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" name="s-state" class="form-control" required />
                                 </div>
 
-                                <div class="select-custom">
-                                    <label>State / County <abbr class="required" title="required">*</abbr></label>
-                                    <select name="s-state" class="form-control">
-                                        <option value="" selected="selected">NY</option>
-                                        <option value="1">Brunei</option>
-                                        <option value="2">Bulgaria</option>
-                                        <option value="3">Burkina Faso</option>
-                                        <option value="4">Burundi</option>
-                                        <option value="5">Cameroon</option>
-                                    </select>
+                                <div class="form-group">
+                                    <label>Town / City <abbr class="required" title="required">*</abbr></label>
+                                    <input type="text" name="s-city" class="form-control" required />
                                 </div>
 
                                 <div class="form-group">
@@ -195,170 +183,140 @@
         </div>
 
         <div class="col-lg-5">
-            <div class="order-summary">
-                <h3>YOUR ORDER</h3>
+            <form action="">
+                <div class="order-summary">
+                    <h3>YOUR ORDER</h3>
 
-                <table class="table table-mini-cart">
-                    <thead>
-                        <tr>
-                            <th colspan="2">Product</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="product-col">
-                                <h3 class="product-title">
-                                    Circled Ultimate 3D Speaker ×
-                                    <span class="product-qty">4</span>
-                                </h3>
-                            </td>
+                    <table class="table table-mini-cart">
+                        <thead>
+                            <tr>
+                                <th colspan="2">Products</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($mycartproducts as $data)
+                            <tr>
+                                <td class="product-col">
+                                    <h3 class="product-title">
+                                        {{$data->productname}} ×
+                                        <span class="product-qty">{{$data->quantity}}</span>
+                                    </h3>
+                                </td>
 
-                            <td class="price-col">
-                                <span>$1,040.00</span>
-                            </td>
-                        </tr>
+                                <td class="price-col">
+                                    <span>₹ {{ $data->price * $data->quantity }} /-</span>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr class="cart-subtotal">
+                                <td>
+                                    <h4>Subtotal</h4>
+                                </td>
 
-                        <tr>
-                            <td class="product-col">
-                                <h3 class="product-title">
-                                    Fashion Computer Bag ×
-                                    <span class="product-qty">2</span>
-                                </h3>
-                            </td>
+                                <td class="price-col">
+                                    <span>₹ {{ $mycartproducts->sum(fn($data) => $data->price * $data->quantity) }} /-</span>
+                                </td>
+                            </tr>
+                            <tr class="order-shipping">
+                                <td class="text-left" colspan="2">
+                                    <h4 class="m-b-sm">Shipping</h4>
 
-                            <td class="price-col">
-                                <span>$418.00</span>
-                            </td>
-                        </tr>
-                    </tbody>
-                    <tfoot>
-                        <tr class="cart-subtotal">
-                            <td>
-                                <h4>Subtotal</h4>
-                            </td>
-
-                            <td class="price-col">
-                                <span>$1,458.00</span>
-                            </td>
-                        </tr>
-                        <tr class="order-shipping">
-                            <td class="text-left" colspan="2">
-                                <h4 class="m-b-sm">Shipping</h4>
-
-                                <div class="form-group form-group-custom-control">
-                                    <div class="custom-control custom-radio d-flex">
-                                        <input type="radio" class="custom-control-input" name="radio" checked />
-                                        <label class="custom-control-label">Local Pickup</label>
+                                    <div class="form-group form-group-custom-control">
+                                        <div class="custom-control custom-radio d-flex">
+                                            <input type="radio" class="custom-control-input" name="radio" checked />
+                                            <label class="custom-control-label">Local Pickup</label>
+                                        </div>
                                     </div>
-                                </div>
 
-                                <div class="form-group form-group-custom-control mb-0">
-                                    <div class="custom-control custom-radio d-flex mb-0">
-                                        <input type="radio" name="radio" class="custom-control-input">
-                                        <label class="custom-control-label">Flat Rate</label>
+                                    <div class="form-group form-group-custom-control mb-0">
+                                        <div class="custom-control custom-radio d-flex mb-0">
+                                            <input type="radio" name="radio" class="custom-control-input">
+                                            <label class="custom-control-label">Flat Rate</label>
+                                        </div>
                                     </div>
-                                </div>
-                            </td>
+                                </td>
 
-                        </tr>
+                            </tr>
 
-                        <tr class="order-total">
-                            <td>
-                                <h4>Total</h4>
-                            </td>
-                            <td>
-                                <b class="total-price"><span>$1,603.80</span></b>
-                            </td>
-                        </tr>
-                    </tfoot>
-                </table>
+                            <tr class="order-total">
+                                <td>
+                                    <h4>Total</h4>
+                                </td>
+                                <td>
+                                    <b class="total-price"><span>₹ {{ $mycartproducts->sum(fn($data) => $data->price * $data->quantity) }} /-</span></b>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
 
-                <div class="payment-methods">
+                    {{-- <div class="payment-methods">
                     <h4 class="">Payment methods</h4>
                     <div class="info-box with-icon p-0">
                         <p>
                             Sorry, it seems that there are no available payment methods for your state. Please contact us if you require assistance or wish to make alternate arrangements.
                         </p>
                     </div>
+                </div> --}}
+                    <input type="hidden" name="grandtotal" value="{{ $mycartproducts->sum(fn($data) => $data->price * $data->quantity) }}">
+                    <button type="button" id="submitAllForms" class="btn btn-dark btn-place-order">
+                        Place order
+                    </button>
                 </div>
-
-                <button type="button" id="submitAllForms" class="btn btn-dark btn-place-order">
-                    Place order
-                </button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    $("#submitAllForms").click(function() {
-        event.preventDefault();
-        const combinedFormData = new FormData();
-        const forms = document.querySelectorAll("form");
-        forms.forEach(form => {
-            const formData = new FormData(form);
-            for (let [key, value] of formData.entries()) {
-                combinedFormData.append(key, value);
-            }
-        });
-        // Log the combined form data to the console
-        for (let [key, value] of combinedFormData.entries()) {
-            console.log(key, value);
-        }
-        $.ajax({
-            url: '/admin/submitblog'
-            , method: 'POST'
-            , data: combinedFormData
-            , processData: false
-            , contentType: false
-            , headers: {
-                'X-CSRF-TOKEN': '{{ csrf_token() }}'
-            }
-            , success: function(data) {
-                console.log("%cRaw response:", "background: black; color: green; font-size: 14px;", data);
-                try {
-                    if (data.message) {
-                        Swal.fire({
-                            title: "Success!"
-                            , text: data.message
-                            , icon: "success"
-                            , confirmButtonText: "OK"
-                            , customClass: {
-                                confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                            }
-                            , buttonsStyling: true
-                            , showCancelButton: true
-                            , showCloseButton: true
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                window.location.href = "editblog/" + data.data.id;
-                            }
-                        });
-                    } else {
-                        Swal.fire({
-                            title: "Error!"
-                            , text: data.message
-                            , icon: "error"
-                            , confirmButtonText: "OK"
-                            , customClass: {
-                                confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                            }
-                            , buttonsStyling: true
-                            , showCancelButton: true
-                            , showCloseButton: true
-                        });
-                    }
-                } catch (e) {
-                    console.error("Failed to parse response:", e);
-                    Swal.fire({
-                        title: "Error!"
-                        , text: "The response from the server is not valid JSON."
-                        , icon: "error"
-                    });
+    $(document).ready(function() {
+        const products = {{ Js::from($mycartproducts) }};
+        console.log("Products in JSON format:", JSON.stringify(products, null, 2));
+
+        $("#submitAllForms").click(function(event) {
+            event.preventDefault();
+            const combinedFormData = new FormData();
+            const forms = document.querySelectorAll("form");
+            forms.forEach(form => {
+                const formData = new FormData(form);
+                for (let [key, value] of formData.entries()) {
+                    combinedFormData.append(key, value);
                 }
+            });
+
+            // Add products to the combined form data
+            combinedFormData.append('products', JSON.stringify(products));
+
+            // Log the combined form data to the console
+            for (let [key, value] of combinedFormData.entries()) {
+                console.log(key, value);
             }
+
+            $.ajax({
+                url: '/completeCheckout',
+                method: 'POST',
+                data: combinedFormData,
+                processData: false,
+                contentType: false,
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    console.log("%cRaw response:", "background: black; color: green; font-size: 14px;", data);
+                    try {
+                        if (data.success) {
+                            window.location.href = "/confirm-order";
+                        } else {
+                            alert(data.message || "An error occurred while processing your request.");
+                        }
+                    } catch (e) {
+                        console.error("Failed to parse response:", e);
+                        alert("The response from the server is not valid JSON.");
+                    }
+                }
+            });
         });
     });
-
 </script>
 @endsection

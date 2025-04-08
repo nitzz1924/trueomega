@@ -119,6 +119,8 @@ Route::name('website.')->group(function () {
     Route::post('/removeFromCart', [WebsiteController::class, 'removeFromCart'])->name('removeFromCart');
     Route::post('/updateQuantity', [WebsiteController::class, 'updateQuantity'])->name('updateQuantity');
     Route::get('/checkout', [WebsiteController::class, 'checkout'])->name('checkout');
+    Route::post('/completeCheckout', [WebsiteController::class, 'completeCheckout'])->name('completeCheckout');
+    Route::get('/confirm-order', [WebsiteController::class, 'confirmorder'])->name('confirmorder');
 });
 
 

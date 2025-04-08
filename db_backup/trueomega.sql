@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 04, 2025 at 03:15 PM
+-- Generation Time: Apr 08, 2025 at 06:33 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -93,6 +93,14 @@ CREATE TABLE `cache` (
   `value` mediumtext NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('8944f453e124ebd47c963edc5bb4d779', 'i:1;', 1743832709),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1743832709;', 1743832709);
 
 -- --------------------------------------------------------
 
@@ -485,6 +493,7 @@ CREATE TABLE `my_carts` (
   `productname` varchar(255) DEFAULT NULL,
   `productimage` varchar(255) DEFAULT NULL,
   `price` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
   `quantity` varchar(255) DEFAULT '1',
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -494,9 +503,34 @@ CREATE TABLE `my_carts` (
 -- Dumping data for table `my_carts`
 --
 
-INSERT INTO `my_carts` (`id`, `userid`, `productid`, `productname`, `productimage`, `price`, `quantity`, `created_at`, `updated_at`) VALUES
-(49, '1001', '18', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '987', '2', '2025-04-04 02:54:54', '2025-04-04 04:38:53'),
-(52, '1001', '20', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '75', '2', '2025-04-04 04:39:12', '2025-04-04 04:53:58');
+INSERT INTO `my_carts` (`id`, `userid`, `productid`, `productname`, `productimage`, `price`, `status`, `quantity`, `created_at`, `updated_at`) VALUES
+(49, '1001', '18', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '987', 'purchased', '2', '2025-04-04 02:54:54', '2025-04-05 02:55:22'),
+(52, '1001', '20', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '75', 'purchased', '2', '2025-04-04 04:39:12', '2025-04-05 02:55:22');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  `billing_address` text DEFAULT NULL,
+  `shipping_address` text DEFAULT NULL,
+  `grandtotal` varchar(255) DEFAULT NULL,
+  `products` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `orderstatus` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `userid`, `billing_address`, `shipping_address`, `grandtotal`, `products`, `created_at`, `updated_at`, `orderstatus`) VALUES
+(3, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"nitesh\",\"s-last-name\":\"sharma\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-05 02:55:22', '2025-04-05 02:55:22', 'processing');
 
 -- --------------------------------------------------------
 
@@ -613,6 +647,7 @@ CREATE TABLE `register_users` (
   `profile_photo_path` varchar(255) DEFAULT NULL,
   `verification_status` varchar(255) DEFAULT '0',
   `userstatus` varchar(255) DEFAULT NULL,
+  `remember_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -621,8 +656,8 @@ CREATE TABLE `register_users` (
 -- Dumping data for table `register_users`
 --
 
-INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `created_at`, `updated_at`) VALUES
-(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '1001', NULL, NULL, 'Anurag09.jpg', '1', 'enabled', '2025-03-01 04:09:51', '2025-03-25 10:08:00');
+INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '1001', NULL, NULL, 'Anurag09.jpg', '1', 'enabled', '394680ce103720d6fc29cdc4a6c6f5e9bb4b2ef56bd659a8fe9cb1b1936eb6cd', '2025-03-01 04:09:51', '2025-04-05 00:29:18');
 
 -- --------------------------------------------------------
 
@@ -670,7 +705,11 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('sw7MEwjzPX44OrRDbqS2RujA9LipfJQml4waK8x5', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiUlg3Z0dUMXZ6RWR1YmxkU3FsRndFZVZQVzdrMnU0MFVTYTdaMlBIUyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jaGVja291dCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTU6ImxvZ2luX2N1c3RvbWVyXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwMTt9', 1743770605);
+('AY7IFeB9z7tl0mwjFYus08G5jMtx6VInLWJFNgLp', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoianNQYVgya0s0MnF1WHAwd3BKRXN1dkFBY0QxM0dUNTVoaUplWGttbSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0LWRldGFpbHMvMjAiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1743828237),
+('DjFion58aSclhGu6Rke37DeIxBoqf10CV848ng5b', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNmhoVkp2c2N1RXJNclhHeG9nTWY2RVpmZXoyWUs3N1hUSmFmSXlFYiI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0LWRldGFpbHMvMjAiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1743828237),
+('ISBrOQ1afJbtZpVMTL670MZayEDSyPb2T746CklJ', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoidTlEa096N3ZSSWFsckZ5Q3Jnb0ZyaUwxOTlOczVMS1I3VlgwQXZqcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9wcm9kdWN0LWRldGFpbHMvMjAiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX19', 1743828237),
+('MvHntnI8kc8sI5bl2H8jeclBfSNdVuXcSHEmP4Ln', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiNGc3RDlBMEpSVnZSWmdQdDVjaTdhYm5vMjhPUm44Wm5McDRhTWVocyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9zaG9wIjt9czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO3M6NTU6ImxvZ2luX2N1c3RvbWVyXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwMTt9', 1743845629),
+('OMCIBTm5JfnGzNTvCbdoOK3m4ADGidMeCkDb76Sb', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiSVpMWkdJcDZ1N0x3ZnZhQWpxTEZPM3ZkUUJRbGowM1R5aHZRclNvNSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzA6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9jaGVja291dCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1743828237);
 
 -- --------------------------------------------------------
 
@@ -802,6 +841,12 @@ ALTER TABLE `my_carts`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `password_reset_tokens`
 --
 ALTER TABLE `password_reset_tokens`
@@ -911,6 +956,12 @@ ALTER TABLE `migrations`
 --
 ALTER TABLE `my_carts`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`

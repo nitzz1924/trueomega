@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\Country;
 use App\Models\Master;
 use App\Models\MyCart;
+use App\Models\Order;
 use App\Models\PolicyPage;
 use App\Models\Review;
 use Illuminate\Http\Request;
@@ -120,6 +121,7 @@ class WebsiteController extends Controller
                 'productimage' => $request->input('productimage'),
                 'price' => $request->input('price'),
                 'quantity' => $request->input('quantity'),
+                'status' => 'addedtocart',
             ]);
             return response()->json([
                 'success' => true,
@@ -136,7 +138,8 @@ class WebsiteController extends Controller
     }
     public function mycart()
     {
-        $mycartproducts = MyCart::where('userid', Auth::guard('customer')->user()->id)->get();
+        $mycartproducts = MyCart::where('userid', Auth::guard('customer')->user()->id)
+        ->where('status', 'addedtocart')->get();
         return view('WebsitePages.cart', compact('mycartproducts'));
     }
     public function removeFromCart()
@@ -178,8 +181,55 @@ class WebsiteController extends Controller
     }
     public function checkout()
     {
+        $loggedinuser = Auth::guard('customer')->user();
+        $mycartproducts = MyCart::where('userid', $loggedinuser->id)->get();
         $countries = Country::pluck('nicename');
-        return view('WebsitePages.checkout', compact('countries'));
+        return view('WebsitePages.checkout', compact('countries','mycartproducts'));
+    }
+    public function completeCheckout(Request $request)
+    {
+        // dd($request->all());
+        $loggedinuser = Auth::guard('customer')->user();
+        $billingData = [];
+        $shippingData = [];
+
+        foreach ($request->all() as $key => $value) {
+            if (str_starts_with($key, 'b-')) {
+            $billingData[$key] = $value;
+            } elseif (str_starts_with($key, 's-')) {
+            $shippingData[$key] = $value;
+            }
+        }
+        try {
+            $data = Order::create([
+                'userid' => $loggedinuser->id ?? '',
+                'billing_address' => json_encode($billingData),
+                'shipping_address' => json_encode($shippingData),
+                'grandtotal' => $request->input('grandtotal'),
+                'products' => $request->input('products'),
+                'orderstatus' => 'processing',
+            ]);
+            $cartItems = MyCart::where('userid', $loggedinuser->id)->update([
+                'status' => 'purchased'
+            ]);
+            return response()->json([
+                'success' => true,
+                'message' => "Order placed successfully!",
+                'cart' => $data
+            ], 200);
+        } catch (Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => "Failed to add product to cart.",
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+    public function confirmorder()
+    {
+        $loggedinuser = Auth::guard('customer')->user();
+        $mycartproducts = MyCart::where('userid', $loggedinuser->id)->get();
+        return view('WebsitePages.orderconfirmation', compact('mycartproducts'));
     }
 }
 
