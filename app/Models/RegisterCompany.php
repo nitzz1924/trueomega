@@ -20,5 +20,6 @@ class RegisterCompany extends Model
         'officeaddress',
         'registrationimage',
         'pancardimage',
+        'gstpercentage',
     ];
 }

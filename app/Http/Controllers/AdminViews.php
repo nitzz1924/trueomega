@@ -7,19 +7,20 @@ use App\Models\Blog;
 use App\Models\Lead;
 use App\Models\Master;
 use App\Models\Nortification;
+use App\Models\Order;
 use App\Models\Project;
 use App\Models\PropertyListing;
 use App\Models\RegisterCompany;
 use App\Models\RegisterUser;
 use App\Models\WebsiteSetting;
 use Illuminate\Http\Request;
-use Auth;
+use Auth, Carbon\Carbon;
 use Notification;
 class AdminViews extends Controller
 {
     public function admindashboard()
     {
-        
+
         return view('AdminPanelPages.dashboard');
     }
     public function master()
@@ -40,29 +41,34 @@ class AdminViews extends Controller
         // dd($userdata);
         return view('AdminPanelPages.myprofile', compact('userdata'));
     }
-    public function allusers(){
+    public function allusers()
+    {
         $allusers = RegisterUser::orderBy('created_at', 'desc')->get();
         $userscnt = RegisterUser::count();
-        return view('AdminPanelPages.allusers', compact('allusers','userscnt'));
+        return view('AdminPanelPages.allusers', compact('allusers', 'userscnt'));
     }
-    public function media(){
+    public function media()
+    {
         return view('AdminPanelPages.media');
     }
-    public function addProduct(){
+    public function addProduct()
+    {
         $categories = Master::where('type', 'Product Categories')->get();
-        return view('AdminPanelPages.addProduct',compact('categories'));
+        return view('AdminPanelPages.addProduct', compact('categories'));
     }
-    public function allproducts(){
-        $data = AllProduct::orderBy('created_at','DESC')->get();
+    public function allproducts()
+    {
+        $data = AllProduct::orderBy('created_at', 'DESC')->get();
         $productcnt = AllProduct::count();
         $categories = Master::where('type', 'Product Categories')->get();
-        return view('AdminPanelPages.allproducts',compact('data','productcnt','categories'));
+        return view('AdminPanelPages.allproducts', compact('data', 'productcnt', 'categories'));
     }
-    public function editproduct($id){
+    public function editproduct($id)
+    {
         $categories = Master::where('type', 'Product Categories')->get();
         $data = AllProduct::find($id);
         $productname = $data->productname;
-        return view('AdminPanelPages.editproduct',compact('data','categories','productname'));
+        return view('AdminPanelPages.editproduct', compact('data', 'categories', 'productname'));
     }
     public function blogslist()
     {
@@ -85,8 +91,9 @@ class AdminViews extends Controller
         return view('AdminPanelPages.editblog', compact('blogs', 'categories'));
     }
 
-    public function websitesettings(){
-    
+    public function websitesettings()
+    {
+
         return view('AdminPanelPages.websiteSettings');
     }
 
@@ -97,8 +104,48 @@ class AdminViews extends Controller
         return view('AdminPanelPages.editWebsiteSettings', compact('websitedata'));
     }
 
-    public function policypages(){
-    
+    public function policypages()
+    {
+
         return view('AdminPanelPages.policypages');
+    }
+
+    public function orders(Request $request)
+    {
+        $orderdata = Order::query();
+
+        $ordercnt = Order::count();
+        $MasterOrderStatus = Master::where('type', 'Order Status')->get();
+
+        $filter = $request->input('filterby');
+        $filteredOrderCount = $ordercnt;
+
+        if ($filter === 'todayorder') {
+            $orderdata->whereDate('created_at', Carbon::today());
+            $filteredOrderCount = $orderdata->count();
+        } elseif ($filter === 'cancelledorders') {
+            $orderdata->where('orderstatus', '=', 'Cancelled');
+            $filteredOrderCount = $orderdata->count();
+        } elseif ($filter === 'completedorders') {
+            $orderdata->where('orderstatus', '=', 'Completed');
+            $filteredOrderCount = $orderdata->count();
+        }
+
+        $orderdata = $orderdata->orderBy('created_at', 'DESC')->get();
+
+        return view('AdminPanelPages.orders', compact('orderdata', 'ordercnt', 'MasterOrderStatus', 'filteredOrderCount'));
+    }
+    public function editorder($id)
+    {
+        $order = Order::find($id);
+        $gstpercent = RegisterCompany::first()->gstpercentage;
+        $MasterOrderStatus = Master::where('type', 'Order Status')->get();
+        return view('AdminPanelPages.editorder', compact('order', 'gstpercent', 'MasterOrderStatus'));
+    }
+
+    public function orderinvoice($id){
+        $order = Order::find($id);
+        $gstpercent = RegisterCompany::first()->gstpercentage;
+        return view('AdminPanelPages.orderinvoice', compact('order', 'gstpercent'));
     }
 }

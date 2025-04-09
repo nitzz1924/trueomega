@@ -7,6 +7,7 @@ use App\Models\Blog;
 use App\Models\InvestSetting;
 use App\Models\Lead;
 use App\Models\Nortification;
+use App\Models\Order;
 use App\Models\PolicyPage;
 use App\Models\Project;
 use App\Models\PropertyListing;
@@ -171,6 +172,7 @@ class AdminStores extends Controller
                 'contactnumber' => $request->contactnumber,
                 'email' => $request->email,
                 'officeaddress' => $request->officeaddress,
+                'gstpercentage' => $request->gstpercentage,
                 'registrationimage' => $filenameregistrationimage ?? RegisterCompany::find($request->recordid)->registrationimage,
                 'pancardimage' => $filenamepancardimage ?? RegisterCompany::find($request->recordid)->pancardimage,
             ]);
@@ -652,5 +654,20 @@ class AdminStores extends Controller
     {
         $data = PolicyPage::where('pagename', $request->pagename)->first();
         return response()->json(['data' => $data]);
+    }
+
+    public function updateOrderStatus(Request $request, $id)
+    {
+        try {
+            $order = Order::find($id);
+            if ($order) {
+                $order->orderstatus = $request->status;
+                $order->save();
+                return back()->with('success', "Order status updated successfully!");
+            }
+            return back()->with('error', "Order not found.");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
     }
 }

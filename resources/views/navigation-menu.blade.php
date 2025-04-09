@@ -71,7 +71,7 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link" href="{{route ('admin.allproducts')}}" aria-expanded="false">
                           <span>
-                              <i class="ti ti-notes"></i>
+                              <i class="ti ti-paper-bag"></i>
                           </span>
                           <span class="hide-menu">All Products</span>
                       </a>
@@ -116,6 +116,48 @@
                                       <i class="ti ti-circle"></i>
                                   </div>
                                   <span class="hide-menu">Policy Pages</span>
+                              </a>
+                          </li>
+                      </ul>
+                  </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
+                          <span class="d-flex">
+                              <i class="ti ti-truck-delivery"></i>
+                          </span>
+                          <span class="hide-menu">Order Management</span>
+                      </a>
+                      <ul aria-expanded="false" class="collapse first-level">
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.orders')}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Orders</span>
+                              </a>
+                          </li>
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.orders',['filterby' => 'todayorder'])}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Today's Orders</span>
+                              </a>
+                          </li>
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.orders',['filterby' => 'cancelledorders'])}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Cancelled Orders</span>
+                              </a>
+                          </li>
+                          <li class="sidebar-item">
+                              <a href="{{ route('admin.orders',['filterby' => 'completedorders'])}}" class="sidebar-link">
+                                  <div class="round-16 d-flex align-items-center justify-content-center">
+                                      <i class="ti ti-circle"></i>
+                                  </div>
+                                  <span class="hide-menu">Completed Orders</span>
                               </a>
                           </li>
                       </ul>

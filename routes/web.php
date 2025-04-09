@@ -73,7 +73,10 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/policypages', [AdminViews::class, 'policypages'])->name('admin.policypages');
     Route::post('/policypagesinsert', [AdminStores::class, 'policypagesinsert'])->name('admin.policypagesinsert');
     Route::post('/policypagesgetdata', [AdminStores::class, 'policypagesgetdata'])->name('admin.policypagesgetdata');
-
+    Route::get('/orders', [AdminViews::class, 'orders'])->name('admin.orders');
+    Route::get('/editorder/{id}', [AdminViews::class, 'editorder'])->name('admin.editorder');
+    Route::post('/updateOrderStatus/{id}', [AdminStores::class, 'updateOrderStatus'])->name('admin.updateOrderStatus');
+    Route::get('/orderinvoice/{id}', [AdminViews::class, 'orderinvoice'])->name('admin.orderinvoice');
 });
 
 

@@ -118,9 +118,9 @@
                         </div>
                     </div>
                     <div class="card shadow">
-                        <div class="card-header align-items-center d-flex p-3">
-                            {{-- <h4 class="card-title mb-0 flex-grow-1">Upload Company Documents</h4> --}}
-                        </div>
+                         {{-- <div class="card-header align-items-center d-flex">
+                            <h4 class="card-title mb-0 flex-grow-1">GST & Documents Details</h4>
+                        </div> --}}
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-4">
@@ -192,7 +192,7 @@
                     </div>
                     <div class="card shadow">
                         <div class="card-header align-items-center d-flex">
-                            <h4 class="card-title mb-0 flex-grow-1">Registered Office Details</h4>
+                            <h4 class="card-title mb-0 flex-grow-1">Other Details</h4>
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -253,6 +253,13 @@
                         </div>
                         <div class="card-body">
                             <div class="row">
+                                 <div class="col-md-4">
+                                    <div class="form-group mb-4">
+                                        <input type="text" class="form-control" value="{{$companydata->gstpercentage}}" name="gstpercentage" id="input1" required>
+                                        <span class="bar"></span>
+                                        <label for="input1">GST Percentage (%)</label>
+                                    </div>
+                                </div>
                                 <div class="col-md-4">
                                     <div class="mb-3">
                                         <input class="form-control" name="registrationimage" type="file" id="formFile" />
