@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\CommisionList;
 use App\Models\Lead;
 use App\Models\Master;
 use App\Models\Nortification;
@@ -147,5 +148,10 @@ class AdminViews extends Controller
         $order = Order::find($id);
         $gstpercent = RegisterCompany::first()->gstpercentage;
         return view('AdminPanelPages.orderinvoice', compact('order', 'gstpercent'));
+    }
+
+    public function commissionslist(){
+        $commissions = CommisionList::orderBy('created_at', 'DESC')->get();
+        return view('AdminPanelPages.commissionlist', compact('commissions'));
     }
 }

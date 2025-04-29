@@ -110,7 +110,7 @@ class UserViews extends Controller
                 'name' => $request->fullname,
                 'mobile' => $request->mobile,
                 'email' => $request->email,
-                'sponserid' => $request->sponserid,
+                'sponserid' => $request->sponserid ?? 1001,
                 'company_name' => $request->company_name,
                 'password' => Hash::make($request->password),
                 'profile_photo_path' => 'defaultuser.png',

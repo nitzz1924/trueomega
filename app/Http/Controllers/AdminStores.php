@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\CommisionList;
 use App\Models\InvestSetting;
 use App\Models\Lead;
 use App\Models\Nortification;
@@ -666,6 +667,42 @@ class AdminStores extends Controller
                 return back()->with('success', "Order status updated successfully!");
             }
             return back()->with('error', "Order not found.");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+
+    public function SaveCommission()
+    {
+        try {
+            $data = CommisionList::create([
+                'level' => request('level'),
+                'commission_percentage' => request('commission_percentage'),
+            ]);
+            return back()->with('success', "Commission Added..!!!");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    public function deleteCommission($id)
+    {
+        try {
+            $data = CommisionList::find($id);
+            $data->delete();
+            return back()->with('success', "Deleted..!!!");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+        }
+    }
+    public function updateCommission(Request $request)
+    {
+        try {
+            $data = CommisionList::find($request->commissionid);
+            $data->update([
+                'level' => $request->level,
+                'commission_percentage' => $request->commission_percentage,
+            ]);
+            return back()->with('success', "Commission Updated..!!!");
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }

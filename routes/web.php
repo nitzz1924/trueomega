@@ -77,8 +77,12 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/editorder/{id}', [AdminViews::class, 'editorder'])->name('admin.editorder');
     Route::post('/updateOrderStatus/{id}', [AdminStores::class, 'updateOrderStatus'])->name('admin.updateOrderStatus');
     Route::get('/orderinvoice/{id}', [AdminViews::class, 'orderinvoice'])->name('admin.orderinvoice');
-});
+    Route::get('/commissionslist', [AdminViews::class, 'commissionslist'])->name('admin.commissionslist');
+    Route::post('/SaveCommission', [AdminStores::class, 'SaveCommission'])->name('admin.SaveCommission');
+    Route::get('/deleteCommission/{id}', [AdminStores::class, 'deleteCommission'])->name('admin.deleteCommission');
+    Route::post('/updateCommission', [AdminStores::class, 'updateCommission'])->name('admin.updateCommission');
 
+});
 
 //User Panel Authentication Routes
 Route::get('user/login', [UserViews::class, 'userloginpage'])->name('user.userloginpage');

@@ -162,6 +162,14 @@
                           </li>
                       </ul>
                   </li>
+                   <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('admin.commissionslist')}}" aria-expanded="false">
+                          <span>
+                              <i class="ti ti-sitemap"></i>
+                          </span>
+                          <span class="hide-menu">Commission List</span>
+                      </a>
+                  </li>
               </ul>
           </nav>
 
