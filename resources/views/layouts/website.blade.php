@@ -253,7 +253,7 @@
                             <span class="ml-2 text-dark">{{ Auth::guard('customer')->user()->name }}</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="#">Profile</a>
+                            <a class="dropdown-item" href="{{route('user.myprofile')}}">Profile</a>
                             <a class="dropdown-item" href="#">My Orders</a>
                             <a class="dropdown-item text-danger" href="{{route('user.logoutuserpanel')}}">Logout</a>
                         </div>

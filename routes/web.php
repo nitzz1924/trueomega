@@ -81,6 +81,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/SaveCommission', [AdminStores::class, 'SaveCommission'])->name('admin.SaveCommission');
     Route::get('/deleteCommission/{id}', [AdminStores::class, 'deleteCommission'])->name('admin.deleteCommission');
     Route::post('/updateCommission', [AdminStores::class, 'updateCommission'])->name('admin.updateCommission');
+    Route::get('/referedUsers/{id}', [AdminViews::class, 'referedUsers'])->name('admin.referedUsers');
+    Route::get('/allcommissions', [AdminViews::class, 'allcommissions'])->name('admin.allcommissions');
 
 });
 
@@ -99,6 +101,9 @@ Route::prefix('user')->middleware('customer.auth')->group(function () {
         Route::get('/logoutuserpanel', 'logoutuserpanel')->name('user.logoutuserpanel');
         Route::post('/updateuserprofile', 'updateuserprofile')->name('user.updateuserprofile');
         Route::post('/updatepassword', 'updatepassword')->name('user.updatepassword');
+        Route::get('/myreferedusers', 'myreferedusers')->name('user.myreferedusers');
+        Route::get('/mycommissions', 'mycommissions')->name('user.mycommissions');
+        Route::get('/mywallet', 'mywallet')->name('user.mywallet');
     });
 });
 

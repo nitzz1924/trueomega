@@ -144,14 +144,37 @@ class AdminViews extends Controller
         return view('AdminPanelPages.editorder', compact('order', 'gstpercent', 'MasterOrderStatus'));
     }
 
-    public function orderinvoice($id){
+    public function orderinvoice($id)
+    {
         $order = Order::find($id);
         $gstpercent = RegisterCompany::first()->gstpercentage;
         return view('AdminPanelPages.orderinvoice', compact('order', 'gstpercent'));
     }
 
-    public function commissionslist(){
+    public function commissionslist()
+    {
         $commissions = CommisionList::orderBy('created_at', 'DESC')->get();
         return view('AdminPanelPages.commissionlist', compact('commissions'));
     }
+    public function referedUsers($id)
+    {
+        $referedUsers = RegisterUser::where('sponserid', $id)->orderBy('created_at', 'DESC')->get();
+        return view('AdminPanelPages.referedUsers', compact('referedUsers'));
+    }
+    public function allcommissions()
+    {
+        $commissions = \DB::table('commissions')
+            ->orderBy('commissions.created_at', 'DESC')
+            ->join('register_users as p', 'p.id', '=', 'commissions.parent_id')
+            ->join('register_users as c', 'c.id', '=', 'commissions.user_id')
+            ->select([
+                'p.name as parent_name',
+                'c.name as child_name',
+                'commissions.*'
+            ])
+            ->get();
+        // dd($commissions);
+        return view('AdminPanelPages.allcommissions', compact('commissions'));
+    }
+
 }

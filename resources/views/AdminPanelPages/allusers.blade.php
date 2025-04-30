@@ -1,5 +1,5 @@
 {{----------------------------------------------------🔱🙏HAR HAR MAHADEV🔱🙏----------------------------------------------------}}
-@section('title', 'All Customers')
+@section('title', 'All Users')
 <x-app-layout>
     <div class="container-fluid">
         <div class="card bg-info-subtle shadow-none position-relative overflow-hidden mb-4">
@@ -32,6 +32,7 @@
                                 <th>Email</th>
                                 <th>Verification Status</th>
                                 <th>Set Status</th>
+                                <th>Refered Users</th>
                             </tr>
                         </thead>
                         <tbody id="table-body">
@@ -46,10 +47,15 @@
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
-                                        <input data-id="{{ $data->id }}" class="form-check-input success" type="checkbox" id="color-success{{ $data->id }}" switch="bool"  {{ $data->userstatus == 'enabled' ? 'checked' : '' }}  />
+                                        <input data-id="{{ $data->id }}" class="form-check-input success" type="checkbox" id="color-success{{ $data->id }}" switch="bool" {{ $data->userstatus == 'enabled' ? 'checked' : '' }} />
                                         <label class="form-check-label  {{ $data->userstatus == 'enabled' ? 'text-success' : 'text-danger' }}" for="color-success{{ $data->id }}">
-                                             {{ $data->userstatus == 'enabled' ? 'Enabled' : 'Disabled' }}
+                                            {{ $data->userstatus == 'enabled' ? 'Enabled' : 'Disabled' }}
                                         </label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="hstack gap-3 flex-wrap">
+                                        <a href="{{ route('admin.referedUsers',['id'=>$data->id])}}" class="btn btn-outline-info btn-sm"><i class="ti ti-users-group"></i> View</a>
                                     </div>
                                 </td>
                             </tr>
@@ -68,7 +74,7 @@
                 var status = $(this).is(':checked') ? 'enabled' : 'disabled';
                 console.log(blogId, status);
 
-                 $.ajax({
+                $.ajax({
                     url: '{{ route('admin.updateUserStatus') }}',
                     type: 'POST',
                     data: {
@@ -79,42 +85,41 @@
                     success: function(response) {
                         if (response.success) {
                             Swal.fire({
-                                title: "User is " + status+"!!"
-                                , text: data.message
-                                , icon: "success"
-                                , confirmButtonText: "OK"
-                                , customClass: {
+                                title: "User is " + status + "!!",
+                                text: response.message,
+                                icon: "success",
+                                confirmButtonText: "OK",
+                                customClass: {
                                     confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                                }
-                                , buttonsStyling: true
-                                , showCancelButton: true
-                                , showCloseButton: true
+                                },
+                                buttonsStyling: true,
+                                showCancelButton: true,
+                                showCloseButton: true
                             }).then((result) => {
                                 if (result.isConfirmed) {
                                     window.location.reload();
                                 }
                             });
-                        } else { 
+                        } else {
                             Swal.fire({
-                                title: "Status Not Updated!!"
-                                , text: data.message
-                                , icon: "error"
-                                , confirmButtonText: "OK"
-                                , customClass: {
+                                title: "Status Not Updated!!",
+                                text: response.message,
+                                icon: "error",
+                                confirmButtonText: "OK",
+                                customClass: {
                                     confirmButton: "btn btn-primary w-xs me-2 mt-2"
-                                }
-                                , buttonsStyling: true
-                                , showCancelButton: true
-                                , showCloseButton: true
+                                },
+                                buttonsStyling: true,
+                                showCancelButton: true,
+                                showCloseButton: true
                             });
                         }
                     },
                     error: function() {
-                        swal("Error", "An error occurred.", "error");
+                        Swal.fire("Error", "An error occurred.", "error");
                     }
                 });
             });
         });
-
     </script>
 </x-app-layout>

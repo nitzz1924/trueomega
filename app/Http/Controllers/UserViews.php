@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Commission;
 use App\Models\Nortification;
 use Illuminate\Http\Request;
 use Session;
@@ -176,6 +177,32 @@ class UserViews extends Controller
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
         }
+    }
+
+    public function myreferedusers()
+    {
+        $user = Auth::guard('customer')->user();
+        $referedusers = RegisterUser::where('sponserid', $user->id)->get();
+        return view('UserPanelPages.referedusers', compact('referedusers'));
+    }
+    public function mycommissions()
+    {
+        $mycommissions = Commission::where('parent_id', Auth::guard('customer')->user()->id)
+        ->join('register_users','register_users.id','=','commissions.user_id')
+        ->select('register_users.name as childname','commissions.*')->get();
+        // dd($mycommissions);
+        return view('UserPanelPages.mycommissions', compact('mycommissions'));
+    }
+
+    public function mywallet(){
+        $mycommissions = Commission::where('parent_id', Auth::guard('customer')->user()->id)
+        ->join('register_users','register_users.id','=','commissions.user_id')
+        ->select('register_users.name as childname','commissions.*')->get();
+
+        $totalCommission = Commission::where('parent_id', Auth::guard('customer')->user()->id)
+        ->sum('comm_amount');
+
+        return view('UserPanelPages.mywallet', compact('mycommissions', 'totalCommission'));
     }
 
 }

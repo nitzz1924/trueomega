@@ -14,4 +14,5 @@ class Commission extends Model
         'order_amount',
         'comm_month',
     ];
+    
 }

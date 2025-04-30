@@ -162,13 +162,31 @@
                           </li>
                       </ul>
                   </li>
-                   <li class="sidebar-item">
-                      <a class="sidebar-link" href="{{route ('admin.commissionslist')}}" aria-expanded="false">
-                          <span>
-                              <i class="ti ti-sitemap"></i>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
+                          <span class="d-flex">
+                              <i class="ti ti-truck-delivery"></i>
                           </span>
-                          <span class="hide-menu">Commission List</span>
+                          <span class="hide-menu">Commission</span>
                       </a>
+                      <ul aria-expanded="false" class="collapse first-level">
+                          <li class="sidebar-item">
+                              <a class="sidebar-link" href="{{route ('admin.commissionslist')}}" aria-expanded="false">
+                                  <span>
+                                      <i class="ti ti-sitemap"></i>
+                                  </span>
+                                  <span class="hide-menu">Add Commission List</span>
+                              </a>
+                          </li>
+                          <li class="sidebar-item">
+                              <a class="sidebar-link" href="{{route ('admin.allcommissions')}}" aria-expanded="false">
+                                  <span>
+                                      <i class="ti ti-sitemap"></i>
+                                  </span>
+                                  <span class="hide-menu">All Commissions</span>
+                              </a>
+                          </li>
+                      </ul>
                   </li>
               </ul>
           </nav>

@@ -27,30 +27,36 @@
                         <span class="hide-menu">Dashboard</span>
                     </a>
                 </li>
-                <li class="sidebar-item">
-                    <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
-                        <span class="d-flex">
-                            <i class="ti ti-home-plus"></i>
-                        </span>
-                        <span class="hide-menu">Listings</span>
-                    </a>
-                    <ul aria-expanded="false" class="collapse first-level">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link">
-                                <div class="round-16 d-flex align-items-center justify-content-center">
-                                    <i class="ti ti-circle"></i>
-                                </div>
-                                <span class="hide-menu">My Listings</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
+                 <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('user.myreferedusers')}}" aria-expanded="false">
+                          <span>
+                              <i class="ti ti-users"></i>
+                          </span>
+                          <span class="hide-menu">My Refered Users</span>
+                      </a>
+                  </li>
+                 {{-- <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('user.mycommissions')}}" aria-expanded="false">
+                          <span>
+                             <i class="ti ti-cash"></i>
+                          </span>
+                          <span class="hide-menu">My Commissions</span>
+                      </a>
+                  </li> --}}
                 <li class="sidebar-item">
                     <a class="sidebar-link" href="{{ route('user.myprofile')}}" aria-expanded="false">
                         <span>
                             <i class="ti ti-user-circle"></i>
                         </span>
                         <span class="hide-menu">Profile</span>
+                    </a>
+                </li>
+                <li class="sidebar-item">
+                    <a class="sidebar-link" href="{{ route('user.mywallet')}}" aria-expanded="false">
+                        <span>
+                            <i class="ti ti-wallet"></i>
+                        </span>
+                        <span class="hide-menu">My Wallet</span>
                     </a>
                 </li>
                 <li class="sidebar-item">
