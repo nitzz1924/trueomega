@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 09, 2025 at 03:18 PM
+-- Generation Time: Apr 30, 2025 at 10:24 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -94,6 +94,14 @@ CREATE TABLE `cache` (
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `cache`
+--
+
+INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
+('8944f453e124ebd47c963edc5bb4d779', 'i:3;', 1745991161),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1745991161;', 1745991161);
+
 -- --------------------------------------------------------
 
 --
@@ -105,6 +113,58 @@ CREATE TABLE `cache_locks` (
   `owner` varchar(255) NOT NULL,
   `expiration` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commissions`
+--
+
+CREATE TABLE `commissions` (
+  `id` int(11) NOT NULL,
+  `parent_id` varchar(255) DEFAULT NULL,
+  `user_id` varchar(255) DEFAULT NULL,
+  `comm_amount` varchar(255) DEFAULT NULL,
+  `comm_percentage` varchar(255) DEFAULT NULL,
+  `order_amount` varchar(255) DEFAULT NULL,
+  `comm_month` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `commissions`
+--
+
+INSERT INTO `commissions` (`id`, `parent_id`, `user_id`, `comm_amount`, `comm_percentage`, `order_amount`, `comm_month`, `created_at`, `updated_at`) VALUES
+(1, '1001', '1002', '88.4', NULL, '442', 'April', '2025-04-30 01:13:00', '2025-04-30 01:13:00'),
+(22, '1005', '1006', '1000', '20', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
+(23, '1004', '1006', '600', '12', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
+(24, '1003', '1006', '400', '8', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
+(25, '1002', '1006', '250', '5', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `commission_lists`
+--
+
+CREATE TABLE `commission_lists` (
+  `id` int(11) NOT NULL,
+  `level` varchar(255) DEFAULT NULL,
+  `commission_percentage` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `commission_lists`
+--
+
+INSERT INTO `commission_lists` (`id`, `level`, `commission_percentage`, `created_at`, `updated_at`) VALUES
+(5, '1', '20', '2025-04-29 02:55:20', '2025-04-29 02:55:20'),
+(6, '2', '12', '2025-04-29 02:55:26', '2025-04-29 02:55:26'),
+(7, '3', '8', '2025-04-29 02:58:24', '2025-04-29 02:58:24');
 
 -- --------------------------------------------------------
 
@@ -502,8 +562,7 @@ CREATE TABLE `my_carts` (
 --
 
 INSERT INTO `my_carts` (`id`, `userid`, `productid`, `productname`, `productimage`, `price`, `status`, `quantity`, `created_at`, `updated_at`) VALUES
-(49, '1001', '18', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '987', 'purchased', '2', '2025-04-04 02:54:54', '2025-04-05 02:55:22'),
-(52, '1001', '20', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '75', 'purchased', '2', '2025-04-04 04:39:12', '2025-04-05 02:55:22');
+(63, '1006', '21', 'AEROSHELL ASG64 (3-KG-TIN) Second', '1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg', '5000', 'purchased', '1', '2025-04-30 02:19:10', '2025-04-30 02:19:52');
 
 -- --------------------------------------------------------
 
@@ -528,13 +587,9 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `userid`, `billing_address`, `shipping_address`, `grandtotal`, `products`, `created_at`, `updated_at`, `orderstatus`) VALUES
-(3, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-05 02:55:22', '2025-04-09 02:53:35', 'Completed'),
-(4, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Completed'),
-(5, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Completed'),
-(6, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Processing'),
-(7, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Processing'),
-(8, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Cancelled'),
-(9, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"rrrrrrrrrrrr\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"4444444444\",\"b-email\":\"rrrrrrrrrrrrrrrrrrr\",\"b-order-notes\":\"rrrrrrrrrrrrrrrrrrrrrrr\"}', '{\"s-first-name\":\"Kishan\",\"s-last-name\":\"Gopal\",\"s-company-name\":\"tttttttttttttttt\",\"s-country\":\"American Samoa\",\"s-street-address\":\"kerya ki dhani markerwali\",\"s-apartment\":\"makerwali road ajmer\",\"s-state\":\"Rajasthan\",\"s-city\":\"ajmer\",\"s-postcode\":\"305004\",\"s-order-notes\":\"tttttttttttttttttt\"}', '2124', '[{\"id\":49,\"userid\":\"1001\",\"productid\":\"18\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"987\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T08:24:54.000000Z\",\"updated_at\":\"2025-04-05T13:54:51.000000Z\"},{\"id\":52,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":null,\"quantity\":\"2\",\"created_at\":\"2025-04-04T10:09:12.000000Z\",\"updated_at\":\"2025-04-05T13:54:53.000000Z\"}]', '2025-04-09 02:55:22', '2025-04-09 02:53:35', 'Cancelled');
+(12, '1001', '{\"b-first-name\":\"Kishan\",\"b-last-name\":\"Gopal\",\"b-company-name\":\"dsfdsfdsf\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"5645678665\",\"b-email\":\"kishan@gmail.com\",\"b-order-notes\":\"fdfsdfsdfsdsdf\"}', '{\"s-first-name\":null,\"s-last-name\":null,\"s-company-name\":null,\"s-country\":null,\"s-street-address\":null,\"s-apartment\":null,\"s-state\":null,\"s-city\":null,\"s-postcode\":null,\"s-order-notes\":null}', '75', '[{\"id\":55,\"userid\":\"1001\",\"productid\":\"20\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"75\",\"status\":\"purchased\",\"quantity\":\"1\",\"created_at\":\"2025-04-30T05:33:13.000000Z\",\"updated_at\":\"2025-04-30T05:38:19.000000Z\"}]', '2025-04-30 00:08:55', '2025-04-30 00:08:55', 'processing'),
+(14, '1002', '{\"b-first-name\":\"anshul\",\"b-last-name\":\"kumar\",\"b-company-name\":\"dsfdsfdsf\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"5645678665\",\"b-email\":\"kishan@gmail.com\",\"b-order-notes\":\"dsfsdsdfsddddddddddddddddd\"}', '{\"s-first-name\":null,\"s-last-name\":null,\"s-company-name\":null,\"s-country\":null,\"s-street-address\":null,\"s-apartment\":null,\"s-state\":null,\"s-city\":null,\"s-postcode\":null,\"s-order-notes\":null}', '442', '[{\"id\":56,\"userid\":\"1002\",\"productid\":\"17\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088006_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"442\",\"status\":\"purchased\",\"quantity\":\"1\",\"created_at\":\"2025-04-30T06:31:08.000000Z\",\"updated_at\":\"2025-04-30T06:31:46.000000Z\"}]', '2025-04-30 01:13:00', '2025-04-30 01:13:00', 'processing'),
+(24, '1006', '{\"b-first-name\":\"Dipanshu\",\"b-last-name\":\"Diwarker\",\"b-company-name\":\"dsfdsfdsf\",\"b-country\":\"India\",\"b-street-address\":\"kerya ki dhani markerwali\",\"b-apartment\":\"makerwali road ajmer\",\"b-city\":\"ajmer\",\"b-state\":\"Rajasthan\",\"b-postcode\":\"305004\",\"b-phone\":\"5645678665\",\"b-email\":\"Dipanshu@gmail.com\",\"b-order-notes\":\"sdsdsfdsfs\"}', '{\"s-first-name\":null,\"s-last-name\":null,\"s-company-name\":null,\"s-country\":null,\"s-street-address\":null,\"s-apartment\":null,\"s-state\":null,\"s-city\":null,\"s-postcode\":null,\"s-order-notes\":null}', '5000', '[{\"id\":63,\"userid\":\"1006\",\"productid\":\"21\",\"productname\":\"AEROSHELL ASG64 (3-KG-TIN) Second\",\"productimage\":\"1741088099_aeroshell-asg64-3-kg-tin-1000x1000-1-700x700.jpg\",\"price\":\"5000\",\"status\":\"addedtocart\",\"quantity\":\"1\",\"created_at\":\"2025-04-30T07:49:10.000000Z\",\"updated_at\":\"2025-04-30T07:49:10.000000Z\"}]', '2025-04-30 02:19:52', '2025-04-30 02:19:52', 'processing');
 
 -- --------------------------------------------------------
 
@@ -652,6 +707,7 @@ CREATE TABLE `register_users` (
   `profile_photo_path` varchar(255) DEFAULT NULL,
   `verification_status` varchar(255) DEFAULT '0',
   `userstatus` varchar(255) DEFAULT NULL,
+  `commission_status` varchar(255) DEFAULT NULL,
   `remember_token` varchar(255) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
@@ -661,8 +717,13 @@ CREATE TABLE `register_users` (
 -- Dumping data for table `register_users`
 --
 
-INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '1001', NULL, NULL, 'Anurag09.jpg', '1', 'enabled', '394680ce103720d6fc29cdc4a6c6f5e9bb4b2ef56bd659a8fe9cb1b1936eb6cd', '2025-03-01 04:09:51', '2025-04-05 00:29:18');
+INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `commission_status`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '0', NULL, NULL, 'Anurag09.jpg', '1', 'enabled', 'eligible', 'fdXSBweNmQGWeEMCVmuURzlgaPE79Iu07hCNtBOc63eZC5xvvJscAjd5p8Jp', '2025-03-01 04:09:51', '2025-04-30 07:18:23'),
+(1002, 'Anshul Meena', '2222222222', 'anshulyuvmedia@gmail.com', '$2y$12$PZE8mQF3yxN6RUGQTkHlm.gb8G5n8oevBm66gn7N86VhUDnDYsFiq', '1001', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', 'fLZc2nU46AJo6OrUjb60U0TsBHqSmnP0KoF81ROg1rJhf6OcHS5Me1AWYr26', '2025-04-30 00:32:12', '2025-04-30 06:57:04'),
+(1003, 'Nitesh Sharma', '1234567897', 'niteshyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1002', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:02'),
+(1004, 'Priteek Jain', '6362956859', 'priteekyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1003', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:06'),
+(1005, 'Shakti Singh', '4857485485', 'shaktiyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1004', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:08'),
+(1006, 'Dipanshu Diwarker', '2215414525', 'dipanshuyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1005', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', 'cb56b983995038b354d8b9d406883fc997ff9d60f6469589ceb1a5167e814ff4', '2025-04-30 01:26:13', '2025-04-30 02:19:52');
 
 -- --------------------------------------------------------
 
@@ -710,7 +771,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('CZLwo93iLuDC3t8CF24vTEo5hB376QAV1INMlAmz', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiT1RPa0dIRElsYmtrcEV5UkxIa2xvNG15cjFKRDllVU1mTVRzRzZkcSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzQ6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9vcmRlcnMiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHVWQWZ2VElWRnh2VUdsN3NRQlQ1WGVYTm55VXRFVmtGczc4TTh6dnFIRmFKRmw4R3pPdXRhIjt9', 1744204260);
+('wRubeJxVerXlfj3P3L4KmDfV8q9GDIPGG2NQZaKA', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoid0Vic2VNcWY2UGVrTmlaaEFUUlA5MTE4ak5XckVBQThZT1dGU2hlcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGx1c2VycyI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO3M6NTU6ImxvZ2luX2N1c3RvbWVyXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwNjt9', 1746000900);
 
 -- --------------------------------------------------------
 
@@ -796,6 +857,18 @@ ALTER TABLE `cache`
 --
 ALTER TABLE `cache_locks`
   ADD PRIMARY KEY (`key`);
+
+--
+-- Indexes for table `commissions`
+--
+ALTER TABLE `commissions`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `commission_lists`
+--
+ALTER TABLE `commission_lists`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `countries`
@@ -923,6 +996,18 @@ ALTER TABLE `blogs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
+-- AUTO_INCREMENT for table `commissions`
+--
+ALTER TABLE `commissions`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+
+--
+-- AUTO_INCREMENT for table `commission_lists`
+--
+ALTER TABLE `commission_lists`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
 -- AUTO_INCREMENT for table `countries`
 --
 ALTER TABLE `countries`
@@ -956,13 +1041,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `my_carts`
 --
 ALTER TABLE `my_carts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -986,7 +1071,7 @@ ALTER TABLE `register_companies`
 -- AUTO_INCREMENT for table `register_users`
 --
 ALTER TABLE `register_users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1007;
 
 --
 -- AUTO_INCREMENT for table `reviews`

@@ -4,11 +4,13 @@ namespace App\Http\Controllers;
 
 use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\Commission;
 use App\Models\Country;
 use App\Models\Master;
 use App\Models\MyCart;
 use App\Models\Order;
 use App\Models\PolicyPage;
+use App\Models\RegisterUser;
 use App\Models\Review;
 use Illuminate\Http\Request;
 use App\Models\WebsiteSetting;
@@ -195,16 +197,16 @@ class WebsiteController extends Controller
 
         foreach ($request->all() as $key => $value) {
             if (str_starts_with($key, 'b-')) {
-            $billingData[$key] = $value;
+                $billingData[$key] = $value;
             } elseif (str_starts_with($key, 's-')) {
-            $shippingData[$key] = $value;
+                $shippingData[$key] = $value;
             }
         }
         try {
             $data = Order::create([
                 'userid' => $loggedinuser->id ?? '',
-                'billing_address' => json_encode($billingData),
-                'shipping_address' => json_encode($shippingData),
+                'billing_address' => json_encode($billingData) ?? '',
+                'shipping_address' => json_encode($shippingData) ?? '',
                 'grandtotal' => $request->input('grandtotal'),
                 'products' => $request->input('products'),
                 'orderstatus' => 'processing',
@@ -212,6 +214,31 @@ class WebsiteController extends Controller
             $cartItems = MyCart::where('userid', $loggedinuser->id)->update([
                 'status' => 'purchased'
             ]);
+            $Commission_status = RegisterUser::where('id', $loggedinuser->id)->update([
+                'commission_status' => 'eligible'
+            ]);
+            
+            $commissionLevels = [
+                1 => 0.2, // 20% for level 1
+                2 => 0.12, // 12% for level 2
+                3 => 0.08, // 8% for level 3
+                4 => 0.05, // 5% for level 4
+            ];
+
+            $currentUser = $loggedinuser;
+            foreach ($commissionLevels as $level => $percentage) {
+                $parentUser = RegisterUser::where('id', $currentUser->sponserid)->first();
+                Commission::create([
+                    'user_id' => $loggedinuser->id,
+                    'parent_id' => $parentUser->id,
+                    'comm_amount' => $request->input('grandtotal') * $percentage,
+                    'order_amount' => $request->input('grandtotal'),
+                    'comm_month' => now()->format('F'),
+                    'comm_percentage' => $percentage * 100,
+                ]);
+                $currentUser = $parentUser; // Move to the next parent in the hierarchy
+            }
+            // dd($data);
             return response()->json([
                 'success' => true,
                 'message' => "Order placed successfully!",

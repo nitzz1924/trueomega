@@ -2,7 +2,6 @@
 @extends('layouts.website')
 @section('title','Home | '. env('APP_NAME'))
 @section('content')
-
 {{-- This is Main Slider Component --}}
 <x-home-slider />
 

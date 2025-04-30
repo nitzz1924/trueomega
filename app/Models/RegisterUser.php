@@ -24,5 +24,6 @@ class RegisterUser extends Authenticatable
         'userstatus',
         'profile_photo_path',
         'remember_token',
+        'commission_status',
     ];
 }

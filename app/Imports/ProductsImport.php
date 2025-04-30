@@ -39,13 +39,17 @@ class ProductsImport implements ToCollection, WithStartRow
             $description = isset($row[4]) ? trim($row[4]) : '';
             $thumbnailImages = isset($row[5]) ? trim($row[5]) : '';
             $productstatus = isset($row[10]) ? trim($row[10]) : '';
-            
+
             $missingFields = [];
-            if (empty($productname)) $missingFields[] = 'Product Name';
-            if (empty($category)) $missingFields[] = 'Category';
-            if (empty($regularprice)) $missingFields[] = 'Regular Price';
-            if (empty($saleprice)) $missingFields[] = 'Sale Price';
-            
+            if (empty($productname))
+                $missingFields[] = 'Product Name';
+            if (empty($category))
+                $missingFields[] = 'Category';
+            if (empty($regularprice))
+                $missingFields[] = 'Regular Price';
+            if (empty($saleprice))
+                $missingFields[] = 'Sale Price';
+
             // Validation checks
             if (!empty($missingFields)) {
                 $errors[] = "Row " . ($index + 2) . " is missing: " . implode(', ', $missingFields) . " field";
@@ -67,8 +71,8 @@ class ProductsImport implements ToCollection, WithStartRow
             );
             //dd($data);
         }
-         //If there are errors, return them to the session and stop the import
-         if (!empty($errors)) {
+        //If there are errors, return them to the session and stop the import
+        if (!empty($errors)) {
             Session::flash('error', implode('<br>', $errors));
             return redirect()->back();
         }

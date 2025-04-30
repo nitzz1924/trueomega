@@ -29,6 +29,15 @@
 
 <body>
     <div class="page-wrapper">
+        @if(Auth::guard('customer')->check() && Auth::guard('customer')->user()->commission_status != 'eligible')
+            <div class="top-notice bg-warning text-dark fw-bold">
+                <div class="container text-center">
+                    <h5 class="d-inline-block">To become eligible for commission, please purchase a product!</h5>
+                    <a href="{{ route('website.shop')}}" class="btn btn-light ml-2 btn-sm">Shop Now</a>
+                    <button title="Close (Esc)" type="button" class="mfp-close">×</button>
+                </div>
+            </div>
+        @endif
         <header class="header">
             <div class="header-top">
                 <div class="container">

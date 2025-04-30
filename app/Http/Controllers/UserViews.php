@@ -115,6 +115,7 @@ class UserViews extends Controller
                 'password' => Hash::make($request->password),
                 'profile_photo_path' => 'defaultuser.png',
                 'userstatus' => 'disabled',
+                'commission_status' => 'not eligible',
             ]);
 
             return back()->with('success', 'You have been registered successfully!');
@@ -144,7 +145,7 @@ class UserViews extends Controller
                         $user->remember_token = $token;
                         $user->save();
 
-                        return redirect('/home');
+                        return redirect('/');
                     } else {
                         return back()->with('error', "Invalid Credentials..!!!");
                     }

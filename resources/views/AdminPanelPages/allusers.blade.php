@@ -42,7 +42,7 @@
                                 <td>{{ $data->name}}</td>
                                 <td>{{ $data->mobile}}</td>
                                 <td>{{ $data->email}}</td>
-                                <td> <span class="badge {{$data->verification_status == 1 ? 'text-bg-success' : 'text-bg-danger' }}"> {{ ucfirst('Verified') }}</span>
+                                <td> <span class="badge {{$data->verification_status == 1 ? 'text-bg-success' : 'text-bg-danger' }}"> {{ $data->verification_status == 1 ? 'Verified' : 'Not Verified' }}</span>
                                 </td>
                                 <td>
                                     <div class="form-check form-switch">
