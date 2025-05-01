@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Commission;
 use App\Models\Nortification;
+use App\Models\Withdrawl;
 use Illuminate\Http\Request;
 use Session;
 use Auth, Validator, Hash, Http;
@@ -185,13 +186,14 @@ class UserViews extends Controller
         $referedusers = RegisterUser::where('sponserid', $user->id)->get();
         return view('UserPanelPages.referedusers', compact('referedusers'));
     }
-    public function mycommissions()
+    public function mycommissions($id,$username)
     {
-        $mycommissions = Commission::where('parent_id', Auth::guard('customer')->user()->id)
+        $particularuser = $username;
+        $mycommissions = Commission::where('parent_id', $id)
         ->join('register_users','register_users.id','=','commissions.user_id')
         ->select('register_users.name as childname','commissions.*')->get();
         // dd($mycommissions);
-        return view('UserPanelPages.mycommissions', compact('mycommissions'));
+        return view('AdminPanelPages.userparticularcommission', compact('mycommissions','particularuser'));
     }
 
     public function mywallet(){
@@ -202,7 +204,14 @@ class UserViews extends Controller
         $totalCommission = Commission::where('parent_id', Auth::guard('customer')->user()->id)
         ->sum('comm_amount');
 
-        return view('UserPanelPages.mywallet', compact('mycommissions', 'totalCommission'));
+        $Withdrawltotal = Withdrawl::where('userid', Auth::guard('customer')->user()->id)
+        ->where('status','=','completed')->sum('withdrawl_amt');
+
+        $totalwalletamount = $totalCommission - $Withdrawltotal;
+        //dd($totalCommission);
+
+        $mywithdrawls = Withdrawl::where('userid', Auth::guard('customer')->user()->id)->get();
+        return view('UserPanelPages.mywallet', compact('mycommissions', 'totalwalletamount','mywithdrawls'));
     }
 
 }

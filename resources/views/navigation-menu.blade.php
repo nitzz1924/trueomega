@@ -165,9 +165,9 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
                           <span class="d-flex">
-                              <i class="ti ti-truck-delivery"></i>
+                             <i class="ti ti-currency-rupee"></i>
                           </span>
-                          <span class="hide-menu">Commission</span>
+                          <span class="hide-menu">Commissions</span>
                       </a>
                       <ul aria-expanded="false" class="collapse first-level">
                           <li class="sidebar-item">
@@ -183,7 +183,7 @@
                                   <span>
                                       <i class="ti ti-sitemap"></i>
                                   </span>
-                                  <span class="hide-menu">All Commissions</span>
+                                  <span class="hide-menu">Commissions & Withdrawls</span>
                               </a>
                           </li>
                       </ul>

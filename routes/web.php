@@ -83,7 +83,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::post('/updateCommission', [AdminStores::class, 'updateCommission'])->name('admin.updateCommission');
     Route::get('/referedUsers/{id}', [AdminViews::class, 'referedUsers'])->name('admin.referedUsers');
     Route::get('/allcommissions', [AdminViews::class, 'allcommissions'])->name('admin.allcommissions');
-
+    Route::post('/withdrawrequest', [AdminStores::class, 'withdrawrequest'])->name('admin.withdrawrequest');
+    Route::post('/updateWithdrawlStatus', [AdminStores::class, 'updateWithdrawlStatus'])->name('admin.updateWithdrawlStatus');
 });
 
 //User Panel Authentication Routes
@@ -102,7 +103,7 @@ Route::prefix('user')->middleware('customer.auth')->group(function () {
         Route::post('/updateuserprofile', 'updateuserprofile')->name('user.updateuserprofile');
         Route::post('/updatepassword', 'updatepassword')->name('user.updatepassword');
         Route::get('/myreferedusers', 'myreferedusers')->name('user.myreferedusers');
-        Route::get('/mycommissions', 'mycommissions')->name('user.mycommissions');
+        Route::get('/mycommissions/{id}/{username}', 'mycommissions')->name('user.mycommissions');
         Route::get('/mywallet', 'mywallet')->name('user.mywallet');
     });
 });

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 30, 2025 at 10:24 AM
+-- Generation Time: May 01, 2025 at 03:09 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -99,8 +99,8 @@ CREATE TABLE `cache` (
 --
 
 INSERT INTO `cache` (`key`, `value`, `expiration`) VALUES
-('8944f453e124ebd47c963edc5bb4d779', 'i:3;', 1745991161),
-('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1745991161;', 1745991161);
+('8944f453e124ebd47c963edc5bb4d779', 'i:1;', 1746103497),
+('8944f453e124ebd47c963edc5bb4d779:timer', 'i:1746103497;', 1746103497);
 
 -- --------------------------------------------------------
 
@@ -141,7 +141,7 @@ INSERT INTO `commissions` (`id`, `parent_id`, `user_id`, `comm_amount`, `comm_pe
 (22, '1005', '1006', '1000', '20', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
 (23, '1004', '1006', '600', '12', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
 (24, '1003', '1006', '400', '8', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52'),
-(25, '1002', '1006', '250', '5', '5000', 'April', '2025-04-30 02:19:52', '2025-04-30 02:19:52');
+(25, '1002', '1006', '250', '5', '5000', 'April', '2025-04-30 02:19:52', '2025-05-01 09:36:44');
 
 -- --------------------------------------------------------
 
@@ -719,11 +719,11 @@ CREATE TABLE `register_users` (
 
 INSERT INTO `register_users` (`id`, `name`, `mobile`, `email`, `password`, `sponserid`, `company_name`, `company_document`, `profile_photo_path`, `verification_status`, `userstatus`, `commission_status`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1001, 'noisyboy', '5555555555', 'true@gmail.com', '$2y$12$tVnfrOxmTYu6T2F1cPJPEOF9FoffV5D.P0A3Vzh3uWSm9xDuUEEUG', '0', NULL, NULL, 'Anurag09.jpg', '1', 'enabled', 'eligible', 'fdXSBweNmQGWeEMCVmuURzlgaPE79Iu07hCNtBOc63eZC5xvvJscAjd5p8Jp', '2025-03-01 04:09:51', '2025-04-30 07:18:23'),
-(1002, 'Anshul Meena', '2222222222', 'anshulyuvmedia@gmail.com', '$2y$12$PZE8mQF3yxN6RUGQTkHlm.gb8G5n8oevBm66gn7N86VhUDnDYsFiq', '1001', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', 'fLZc2nU46AJo6OrUjb60U0TsBHqSmnP0KoF81ROg1rJhf6OcHS5Me1AWYr26', '2025-04-30 00:32:12', '2025-04-30 06:57:04'),
-(1003, 'Nitesh Sharma', '1234567897', 'niteshyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1002', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:02'),
-(1004, 'Priteek Jain', '6362956859', 'priteekyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1003', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:06'),
+(1002, 'Anshul Meena', '2222222222', 'anshulyuvmedia@gmail.com', '$2y$12$PZE8mQF3yxN6RUGQTkHlm.gb8G5n8oevBm66gn7N86VhUDnDYsFiq', '1001', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', 'e465ee88f9948bfbb696701c1576e7259b78a1a700959602a0af1e29a581c0ed', '2025-04-30 00:32:12', '2025-04-30 23:15:45'),
+(1003, 'Nitesh Sharma', '1234567897', 'niteshyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1002', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 12:11:36'),
+(1004, 'Priteek Jain', '6362956859', 'priteekyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1003', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 10:36:49'),
 (1005, 'Shakti Singh', '4857485485', 'shaktiyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1004', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', '4hME2d8zdTpyjM73CcWbnpdo4oOymNSj2NdN4MPTsy9hpjegUoPAWGE8SowG', '2025-04-30 01:26:13', '2025-04-30 07:47:08'),
-(1006, 'Dipanshu Diwarker', '2215414525', 'dipanshuyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1005', NULL, NULL, 'defaultuser.png', '1', 'enabled', 'eligible', 'cb56b983995038b354d8b9d406883fc997ff9d60f6469589ceb1a5167e814ff4', '2025-04-30 01:26:13', '2025-04-30 02:19:52');
+(1006, 'Dipanshu Diwarker', '2215414525', 'dipanshuyuvmedia@gmail.com', '$2y$12$9kAa3cMT07krXPDTU4KD7eslYthMRp76y1mQt2UOr6Un3S/HMm752', '1005', NULL, NULL, '1746008772_avatar-3.jpg', '1', 'enabled', 'eligible', 'IJjXEp7MFJCV5FoLdb8thigRP5j5X0pn5p7dd7q8Ayf5xTN7bjnvP0byL7pf', '2025-04-30 01:26:13', '2025-04-30 10:34:59');
 
 -- --------------------------------------------------------
 
@@ -771,7 +771,10 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('wRubeJxVerXlfj3P3L4KmDfV8q9GDIPGG2NQZaKA', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoid0Vic2VNcWY2UGVrTmlaaEFUUlA5MTE4ak5XckVBQThZT1dGU2hlcSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJvbGQiO2E6MDp7fXM6MzoibmV3IjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGx1c2VycyI7fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czoyMToicGFzc3dvcmRfaGFzaF9zYW5jdHVtIjtzOjYwOiIkMnkkMTIkdVZBZnZUSVZGeHZVR2w3c1FCVDVYZVhObnlVdEVWa0ZzNzhNOHp2cUhGYUpGbDhHek91dGEiO3M6NTU6ImxvZ2luX2N1c3RvbWVyXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwNjt9', 1746000900);
+('4TyF9xuIfplicLZofFIJXq5Q65BLPTWD4PpGeqC9', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoieEVyQTAxc2hIb1BlbGE5RVRQV21IMlViblRpTjRGOW8xOWIwSnVVayI7czozOiJ1cmwiO2E6MDp7fXM6OToiX3ByZXZpb3VzIjthOjE6e3M6MzoidXJsIjtzOjM1OiJodHRwOi8vMTI3LjAuMC4xOjgwMDAvdXNlci9teXdhbGxldCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6NTA6ImxvZ2luX3dlYl81OWJhMzZhZGRjMmIyZjk0MDE1ODBmMDE0YzdmNThlYTRlMzA5ODlkIjtpOjE7czo1NToibG9naW5fY3VzdG9tZXJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxMDAyO30=', 1746094843),
+('ipAvnF4gd7rAvhFHQjjf2iO8Yc7DpajEVjXooSXW', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo0OntzOjY6Il90b2tlbiI7czo0MDoiYVY1dXpVOW1WNVBTT2R6TVVYb3o2bkRBYzFDVjNKUFBrQ1NYQkNVbSI7czozOiJ1cmwiO2E6MTp7czo4OiJpbnRlbmRlZCI7czo0MjoiaHR0cDovLzEyNy4wLjAuMTo4MDAwL2FkbWluL2FsbGNvbW1pc3Npb25zIjt9czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mjc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9sb2dpbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1746103389),
+('KYmIdd1ylFNYcBGJltIlDXcxaaev21XCledVtfYh', 1, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTo2OntzOjY6Il90b2tlbiI7czo0MDoiNTR2bkpCZWlPc0xsWUJEb3c2eDg3NGs2YnZqRmgxUFk4eWdkNFVLTyI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6NDI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9hZG1pbi9hbGxjb21taXNzaW9ucyI7fXM6NTU6ImxvZ2luX2N1c3RvbWVyXzU5YmEzNmFkZGMyYjJmOTQwMTU4MGYwMTRjN2Y1OGVhNGUzMDk4OWQiO2k6MTAwMjtzOjUwOiJsb2dpbl93ZWJfNTliYTM2YWRkYzJiMmY5NDAxNTgwZjAxNGM3ZjU4ZWE0ZTMwOTg5ZCI7aToxO3M6MjE6InBhc3N3b3JkX2hhc2hfc2FuY3R1bSI7czo2MDoiJDJ5JDEyJHVWQWZ2VElWRnh2VUdsN3NRQlQ1WGVYTm55VXRFVmtGczc4TTh6dnFIRmFKRmw4R3pPdXRhIjt9', 1746104946),
+('xGGHK7MPPT9y2UfkfNBP92VpoAJ6Phpkrct2qcHo', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiNDBmUXlZRmhBU2pxWWpkY1BpQUR2em1QU29yUVh3R1FuRWRjMFAxQSI7czo2OiJfZmxhc2giO2E6Mjp7czozOiJuZXciO2E6MDp7fXM6Mzoib2xkIjthOjA6e319czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzI6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC91c2VyL2xvZ2luIjt9fQ==', 1746093590);
 
 -- --------------------------------------------------------
 
@@ -829,6 +832,29 @@ CREATE TABLE `website_settings` (
 
 INSERT INTO `website_settings` (`id`, `mainslideriamges`, `offersliderimages`, `firstofferimage`, `secondofferimage`, `created_at`, `updated_at`) VALUES
 (7, '[\"assets\\/images\\/Media\\/71a8b2ffe0b594a5c1b3c28090384fd7.jpg\",\"assets\\/images\\/Media\\/043a1c71577f6249b071679bce73d008.jpg\"]', '[\"assets\\/images\\/Media\\/adb0e2c465ae2a4b7698a8901fdbb177.png\",\"assets\\/images\\/Media\\/e8258e5140317ff36c7f8225a3bf9590.jpg\",\"assets\\/images\\/Media\\/cb79f8fa58b91d3af6c9c991f63962d3.jfif\"]', 'aviationlogin.jpg', '1742534407_your1site-software-company-syria-dubai-slider-1.jpg', '2025-03-20 23:50:07', '2025-03-21 10:05:17');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `withdrawls`
+--
+
+CREATE TABLE `withdrawls` (
+  `id` int(11) NOT NULL,
+  `userid` varchar(255) DEFAULT NULL,
+  `withdrawl_amt` varchar(255) DEFAULT NULL,
+  `status` varchar(255) DEFAULT NULL,
+  `transaction_details` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `withdrawls`
+--
+
+INSERT INTO `withdrawls` (`id`, `userid`, `withdrawl_amt`, `status`, `transaction_details`, `created_at`, `updated_at`) VALUES
+(1, '1002', '100', 'completed', '{\"paymentMode\":\"upi\",\"accountOrUpi\":\"10000anshulii\",\"rejectionReason\":null}', '2025-05-01 00:19:16', '2025-05-01 04:07:02');
 
 --
 -- Indexes for dumped tables
@@ -980,6 +1006,12 @@ ALTER TABLE `website_settings`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `withdrawls`
+--
+ALTER TABLE `withdrawls`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -1090,6 +1122,12 @@ ALTER TABLE `users`
 --
 ALTER TABLE `website_settings`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `withdrawls`
+--
+ALTER TABLE `withdrawls`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AllProduct;
 use App\Models\Blog;
 use App\Models\CommisionList;
+use App\Models\Commission;
 use App\Models\Lead;
 use App\Models\Master;
 use App\Models\Nortification;
@@ -14,6 +15,7 @@ use App\Models\PropertyListing;
 use App\Models\RegisterCompany;
 use App\Models\RegisterUser;
 use App\Models\WebsiteSetting;
+use App\Models\Withdrawl;
 use Illuminate\Http\Request;
 use Auth, Carbon\Carbon;
 use Notification;
@@ -174,7 +176,15 @@ class AdminViews extends Controller
             ])
             ->get();
         // dd($commissions);
-        return view('AdminPanelPages.allcommissions', compact('commissions'));
+        $withdrawlrequests = Withdrawl::join('register_users','withdrawls.userid','=','register_users.id')
+        ->select('withdrawls.*','register_users.name as username')
+        ->orderBy('withdrawls.created_at', 'DESC')->get();
+        $withdrawlrequestscnt = Withdrawl::count();
+        $allusers = RegisterUser::orderBy('created_at', 'desc')->get();
+
+
+
+        return view('AdminPanelPages.allcommissions', compact('allusers','commissions','withdrawlrequests','withdrawlrequestscnt'));
     }
 
 }

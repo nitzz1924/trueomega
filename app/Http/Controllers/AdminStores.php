@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AllProduct;
 use App\Models\Blog;
 use App\Models\CommisionList;
+use App\Models\Commission;
 use App\Models\InvestSetting;
 use App\Models\Lead;
 use App\Models\Nortification;
@@ -16,6 +17,7 @@ use App\Models\RegisterCompany;
 use App\Models\Notification;
 use App\Models\RegisterUser;
 use App\Models\WebsiteSetting;
+use App\Models\Withdrawl;
 use Illuminate\Http\Request;
 use App\Models\Master;
 use Exception;
@@ -705,6 +707,52 @@ class AdminStores extends Controller
             return back()->with('success', "Commission Updated..!!!");
         } catch (Exception $e) {
             return back()->with('error', $e->getMessage());
+        }
+    }
+    public function withdrawrequest(Request $request){
+        try{
+            $withdrawrequest = Withdrawl::create([
+                'userid' => $request->input('user_id'),
+                'withdrawl_amt' => $request->input('withdrawAmount'),
+                'status' => 'pending',
+            ]);
+            return response()->json(['data' => $withdrawrequest]);
+        }
+        catch (Exception $e) {
+            return response()->json(['error' =>$e->getMessage()]);
+        }
+
+    }
+    public function updateWithdrawlStatus(Request $request){
+        try{
+            $withdrawrequest = Withdrawl::find($request->input('withdrawl_id'));
+            $user = RegisterUser::where('id', $withdrawrequest->userid)->first();
+            $walletamountofuser = Commission::where('parent_id', $withdrawrequest->userid)
+                ->sum('comm_amount');
+
+            if ($withdrawrequest) {
+                if ($request->input('status') === 'completed') {
+                    if ($walletamountofuser >= $withdrawrequest->withdrawl_amt) {
+                        $withdrawrequest->transaction_details = json_encode([
+                            'paymentMode' => $request->input('paymentMode'),
+                            'accountOrUpi' => $request->input('accountOrUpi'),
+                            'rejectionReason' => $request->input('rejectionReason'),
+                        ]);
+                    } else {
+                        return response()->json(['error' => 'Insufficient wallet balance']);
+                    }
+                } elseif (in_array($request->input('status'), ['pending', 'rejected'])) {
+                    $withdrawrequest->transaction_details = $request->input('rejectionReason');
+                }
+
+                $withdrawrequest->status = $request->input('status');
+                $withdrawrequest->save();
+                return response()->json(['data' => $withdrawrequest]);
+            } else {
+                return response()->json(['error' => 'Withdrawal request not found']);
+            }
+        } catch (Exception $e) {
+            return response()->json(['error' => $e->getMessage()]);
         }
     }
 }
