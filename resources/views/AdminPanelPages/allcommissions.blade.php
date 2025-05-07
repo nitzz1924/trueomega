@@ -119,6 +119,7 @@
                                                     </select>
                                                 </td>
                                                 <input type="hidden" id="useridinput" name="userid" value="{{ $with->userid}}">
+                                                <input type="hidden" id="requestid" name="requestid" value="{{ $with->id}}">
                                             </tr>
                                             @endforeach
                                         </tbody>
@@ -135,92 +136,91 @@
     <script>
         function confirmDelete(id) {
             Swal.fire({
-                    title: "Are you sure?"
-                    , html: "You want to delete?"
-                    , icon: "warning"
-                    , showCancelButton: true
-                    , confirmButtonColor: "#222222"
-                    , cancelButtonColor: "#d33"
-                    , confirmButtonText: "Yes, delete it!"
-                    , cancelButtonText: "Cancel"
-                })
-                .then((result) => {
-                    if (result.isConfirmed) {
-                        window.location.href = "/admin/deleteProduct/" + id;
-                    }
-                });
+                title: "Are you sure?",
+                html: "You want to delete?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#222222",
+                cancelButtonColor: "#d33",
+                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "Cancel"
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = "/admin/deleteProduct/" + id;
+                }
+            });
         }
-
 
         $(document).on('change', '#statusdrop', function() {
             const selectedStatus = $(this).val();
             const row = $(this).closest('tr');
             const id = row.find('td:first').text(); // Assuming the first column contains the ID
             const userid = $("#useridinput").val();
-            updateStatus(id, selectedStatus, userid);
+            const requestid = $("#requestid").val();
+            console.log(requestid);
+            updateStatus(id, selectedStatus, userid, requestid);
         });
 
-        function updateStatus(id, status, userid) {
+        function updateStatus(id, status, userid,requestid) {
             console.log(id, status);
             Swal.fire({
-                title: "Update Withdrawl Status"
-                , html: `
-                <div style="display: ${status === 'rejected' || status === 'pending' ? 'none' : 'block'};">
-                    <label for="paymentMode" class="form-label">Payment Mode</label>
-                    <select id="paymentMode" class="form-select">
-                        <option value="cash">Cash</option>
-                        <option value="upi">UPI</option>
-                    </select>
-                </div>
-                <div class="mt-3" style="display: ${status === 'rejected' || status === 'pending' ? 'none' : 'block'};">
-                    <label for="accountOrUpi" class="form-label">Account Number / UPI ID</label>
-                    <input type="text" id="accountOrUpi" class="form-control" placeholder="Enter Account Number or UPI ID">
-                </div>
-                <div class="mt-3" id="rejectionReasonContainer" style="display: ${status === 'rejected' || status === 'pending' ? 'block' : 'none'};">
-                <label for="rejectionReason" class="form-label">Reason:</label>
-                <textarea id="rejectionReason" class="form-control" placeholder="Enter reason for rejection"></textarea>
-                </div>
-            `
-                , showCancelButton: true
-                , confirmButtonText: "Submit"
-            , }).then((result) => {
+                title: "Update Withdrawl Status",
+                html: `
+                    <div style="display: ${status === 'rejected' || status === 'pending' ? 'none' : 'block'};">
+                        <label for="paymentMode" class="form-label">Payment Mode</label>
+                        <select id="paymentMode" class="form-select">
+                            <option value="cash">Cash</option>
+                            <option value="upi">UPI</option>
+                        </select>
+                    </div>
+                    <div class="mt-3" style="display: ${status === 'rejected' || status === 'pending' ? 'none' : 'block'};">
+                        <label for="accountOrUpi" class="form-label">Account Number / UPI ID</label>
+                        <input type="text" id="accountOrUpi" class="form-control" placeholder="Enter Account Number or UPI ID">
+                    </div>
+                    <div class="mt-3" id="rejectionReasonContainer" style="display: ${status === 'rejected' || status === 'pending' ? 'block' : 'none'};">
+                        <label for="rejectionReason" class="form-label">Reason:</label>
+                        <textarea id="rejectionReason" class="form-control" placeholder="Enter reason for rejection"></textarea>
+                    </div>
+                `,
+                showCancelButton: true,
+                confirmButtonText: "Submit",
+            }).then((result) => {
                 if (result.isConfirmed) {
                     const paymentMode = document.getElementById('paymentMode') ? document.getElementById('paymentMode').value : null;
                     const accountOrUpi = document.getElementById('accountOrUpi') ? document.getElementById('accountOrUpi').value : null;
                     const rejectionReason = document.getElementById('rejectionReason') ? document.getElementById('rejectionReason').value : null;
 
                     $.ajax({
-                        url: "{{ route('admin.updateWithdrawlStatus') }}"
-                        , type: 'POST'
-                        , data: {
-                            _token: '{{ csrf_token() }}'
-                            , withdrawl_id: id
-                            , user_id: userid
-                            , status: status
-                            , paymentMode: paymentMode
-                            , accountOrUpi: accountOrUpi
-                            , rejectionReason: rejectionReason
-                        }
-                        , success: function(response) {
+                        url: "{{ route('admin.updateWithdrawlStatus') }}",
+                        type: 'POST',
+                        data: {
+                            _token: '{{ csrf_token() }}',
+                            withdrawl_id: requestid,
+                            user_id: userid,
+                            status: status,
+                            paymentMode: paymentMode,
+                            accountOrUpi: accountOrUpi,
+                            rejectionReason: rejectionReason
+                        },
+                        success: function(response) {
                             Swal.fire({
-                                title: "Success"
-                                , text: "Status updated successfully!"
-                                , icon: "success"
-                                , confirmButtonText: "OK"
+                                title: "Success",
+                                text: "Status updated successfully!",
+                                icon: "success",
+                                confirmButtonText: "OK"
                             });
-                        }
-                        , error: function(error) {
+                        },
+                        error: function(error) {
                             Swal.fire({
-                                title: "Error"
-                                , text: "Failed to update status."
-                                , icon: "error"
-                                , confirmButtonText: "OK"
+                                title: "Error",
+                                text: "Failed to update status.",
+                                icon: "error",
+                                confirmButtonText: "OK"
                             });
                         }
                     });
                 }
             });
         }
-
     </script>
 </x-app-layout>

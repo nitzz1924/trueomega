@@ -103,8 +103,9 @@
                                                             <i class="ti ti-credit-card-pay"></i> View Transaction Details
                                                         </a>
                                                     </span>
-                                                    @else
+                                                    @elseif($with->status == 'rejected')
                                                     <span class="badge bg-danger">Rejected</span>
+                                                    <i class="ti ti-help-circle text-dark ms-1  fs-6" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $with->transaction_details ?? 'No reason provided' }}"></i>
                                                     @endif
                                                 </td>
                                             </tr>
@@ -248,6 +249,7 @@
                             <tr>
                                 <th>Payment Mode</th>
                                 <th>Account/UPI</th>
+                                <th>Withdrawl Amount</th>
                                 <th>Rejection Reason</th>
                             </tr>
                         </thead>
@@ -255,6 +257,7 @@
                             <tr>
                                 <td>${transactionDetails.paymentMode || 'N/A'}</td>
                                 <td>${transactionDetails.accountOrUpi || 'N/A'}</td>
+                                <td>₹ ${transactionDetails.withdrawl_amt || 'N/A'} /-</td>
                                 <td>${status === 'pending' || status === 'rejected' ? transactionDetails.rejectionReason || 'N/A' : 'N/A'}</td>
                             </tr>
                         </tbody>

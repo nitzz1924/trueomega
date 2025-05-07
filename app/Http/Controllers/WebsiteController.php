@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\AllProduct;
 use App\Models\Blog;
+use App\Models\CommisionList;
 use App\Models\Commission;
 use App\Models\Country;
 use App\Models\Master;
@@ -141,7 +142,7 @@ class WebsiteController extends Controller
     public function mycart()
     {
         $mycartproducts = MyCart::where('userid', Auth::guard('customer')->user()->id)
-        ->where('status', 'addedtocart')->get();
+            ->where('status', 'addedtocart')->get();
         return view('WebsitePages.cart', compact('mycartproducts'));
     }
     public function removeFromCart()
@@ -186,11 +187,10 @@ class WebsiteController extends Controller
         $loggedinuser = Auth::guard('customer')->user();
         $mycartproducts = MyCart::where('userid', $loggedinuser->id)->get();
         $countries = Country::pluck('nicename');
-        return view('WebsitePages.checkout', compact('countries','mycartproducts'));
+        return view('WebsitePages.checkout', compact('countries', 'mycartproducts'));
     }
     public function completeCheckout(Request $request)
     {
-        // dd($request->all());
         $loggedinuser = Auth::guard('customer')->user();
         $billingData = [];
         $shippingData = [];
@@ -202,7 +202,9 @@ class WebsiteController extends Controller
                 $shippingData[$key] = $value;
             }
         }
+
         try {
+            // Create the order
             $data = Order::create([
                 'userid' => $loggedinuser->id ?? '',
                 'billing_address' => json_encode($billingData) ?? '',
@@ -211,34 +213,81 @@ class WebsiteController extends Controller
                 'products' => $request->input('products'),
                 'orderstatus' => 'processing',
             ]);
-            $cartItems = MyCart::where('userid', $loggedinuser->id)->update([
-                'status' => 'purchased'
-            ]);
-            $Commission_status = RegisterUser::where('id', $loggedinuser->id)->update([
-                'commission_status' => 'eligible'
-            ]);
-            
-            $commissionLevels = [
-                1 => 0.2, // 20% for level 1
-                2 => 0.12, // 12% for level 2
-                3 => 0.08, // 8% for level 3
-                4 => 0.05, // 5% for level 4
-            ];
+
+            // Update cart items status to purchased
+            MyCart::where('userid', $loggedinuser->id)->update(['status' => 'purchased']);
+
+            // Update user's commission status
+            RegisterUser::where('id', $loggedinuser->id)->update(['commission_status' => 'eligible']);
+
+            // Dynamically fetch commission percentages from commission_lists table
+            $commissionLevels = CommisionList::where('commission_type', 'Single')
+                ->pluck('commission_percentage', 'level')
+                ->toArray();
 
             $currentUser = $loggedinuser;
-            foreach ($commissionLevels as $level => $percentage) {
+            $levelCount = 1;
+
+            while ($currentUser) {
                 $parentUser = RegisterUser::where('id', $currentUser->sponserid)->first();
-                Commission::create([
-                    'user_id' => $loggedinuser->id,
-                    'parent_id' => $parentUser->id,
-                    'comm_amount' => $request->input('grandtotal') * $percentage,
-                    'order_amount' => $request->input('grandtotal'),
-                    'comm_month' => now()->format('F'),
-                    'comm_percentage' => $percentage * 100,
-                ]);
-                $currentUser = $parentUser; // Move to the next parent in the hierarchy
+
+                if ($parentUser) {
+                    $level = $levelCount;
+
+                    // Handle Grouped Commission for Level 5 and Beyond
+                    if ($level >= 5) {
+                        $commissionType = CommisionList::where('level', $level)
+                            ->value('commission_type');
+
+                        if ($commissionType === 'Grouped') {
+                            // Get all descendants recursively for turnover calculation
+                            $descendants = $this->getAllDescendants($currentUser->id);
+
+                            // Include siblings for turnover calculation
+                            $siblings = RegisterUser::where('sponserid', $parentUser->id)
+                                ->pluck('id')
+                                ->toArray();
+
+                            // Merge current user, siblings, and descendants
+                            $allGroupUserIds = array_unique(array_merge([$currentUser->id], $siblings, $descendants));
+
+                            // Calculate total turnover
+                            $totalTurnover = Order::whereIn('userid', $allGroupUserIds)->sum('grandtotal');
+
+                            // Determine commission percentage
+                            $groupCommissionPercentage = ($totalTurnover > 1000) ? 7 : 0;
+
+                            // Only the immediate parent receives the commission
+                            Commission::create([
+                                'user_id' => $loggedinuser->id,
+                                'parent_id' => $parentUser->id,
+                                'comm_amount' => $request->input('grandtotal') * ($groupCommissionPercentage / 100),
+                                'order_amount' => $request->input('grandtotal'),
+                                'comm_month' => now()->format('F'),
+                                'comm_percentage' => $groupCommissionPercentage,
+                            ]);
+                        }
+                    } else {
+                        // Handle Single Commission for Level 1 to 4
+                        $percentage = $commissionLevels[$level] ?? 0;
+
+                        Commission::create([
+                            'user_id' => $loggedinuser->id,
+                            'parent_id' => $parentUser->id,
+                            'comm_amount' => $request->input('grandtotal') * ($percentage / 100),
+                            'order_amount' => $request->input('grandtotal'),
+                            'comm_month' => now()->format('F'),
+                            'comm_percentage' => $percentage,
+                        ]);
+                    }
+
+                    $currentUser = $parentUser;
+                    $levelCount++;
+                } else {
+                    break;
+                }
             }
-            // dd($data);
+
             return response()->json([
                 'success' => true,
                 'message' => "Order placed successfully!",
@@ -247,11 +296,30 @@ class WebsiteController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => "Failed to add product to cart.",
+                'message' => "Failed to complete checkout.",
                 'error' => $e->getMessage()
             ], 500);
         }
     }
+
+    /**
+     * Recursively get all descendants of a given user ID
+     */
+    private function getAllDescendants($userId)
+    {
+        $descendants = [];
+        $children = RegisterUser::where('sponserid', $userId)->pluck('id')->toArray();
+
+        foreach ($children as $childId) {
+            $descendants[] = $childId;
+            // Recursively add grandchildren and further descendants
+            $descendants = array_merge($descendants, $this->getAllDescendants($childId));
+        }
+
+        return $descendants;
+    }
+
+
     public function confirmorder()
     {
         $loggedinuser = Auth::guard('customer')->user();

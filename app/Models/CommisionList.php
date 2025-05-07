@@ -10,5 +10,7 @@ class CommisionList extends Model
     protected $fillable = [
         'level',
         'commission_percentage',
+        'commission_type',
+        'total_turnover',
     ];
 }

@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Log;
 use Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
-
+use Illuminate\Support\Facades\Validator;
 class AdminStores extends Controller
 {
 
@@ -674,12 +674,24 @@ class AdminStores extends Controller
         }
     }
 
-    public function SaveCommission()
+    public function SaveCommission(Request $request)
     {
         try {
-            $data = CommisionList::create([
+            $validator = Validator::make($request->all(), [
+                'level' => 'required',
+                'commission_percentage' => 'required',
+                'commission_type' => 'required',
+                'total_turnover' => 'required',
+            ]);
+            
+            if ($validator->fails()) {
+                return back()->withErrors($validator)->withInput();
+            }
+            CommisionList::create([
                 'level' => request('level'),
                 'commission_percentage' => request('commission_percentage'),
+                'commission_type' => request('commission_type'),
+                'total_turnover' => request('total_turnover'),
             ]);
             return back()->with('success', "Commission Added..!!!");
         } catch (Exception $e) {
@@ -703,6 +715,8 @@ class AdminStores extends Controller
             $data->update([
                 'level' => $request->level,
                 'commission_percentage' => $request->commission_percentage,
+                'commission_type' => $request->commission_type,
+                'total_turnover' =>$request->total_turnover,
             ]);
             return back()->with('success', "Commission Updated..!!!");
         } catch (Exception $e) {
@@ -726,6 +740,7 @@ class AdminStores extends Controller
     public function updateWithdrawlStatus(Request $request){
         try{
             $withdrawrequest = Withdrawl::find($request->input('withdrawl_id'));
+            // dd($withdrawrequest);
             $user = RegisterUser::where('id', $withdrawrequest->userid)->first();
             $walletamountofuser = Commission::where('parent_id', $withdrawrequest->userid)
                 ->sum('comm_amount');
@@ -737,6 +752,7 @@ class AdminStores extends Controller
                             'paymentMode' => $request->input('paymentMode'),
                             'accountOrUpi' => $request->input('accountOrUpi'),
                             'rejectionReason' => $request->input('rejectionReason'),
+                            'withdrawl_amt' => $withdrawrequest->withdrawl_amt,
                         ]);
                     } else {
                         return response()->json(['error' => 'Insufficient wallet balance']);
