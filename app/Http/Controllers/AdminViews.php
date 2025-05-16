@@ -186,5 +186,11 @@ class AdminViews extends Controller
 
         return view('AdminPanelPages.allcommissions', compact('allusers','commissions','withdrawlrequests','withdrawlrequestscnt'));
     }
+    public function miscsettings()
+    {
+        $orderamount = WebsiteSetting::where('id', 8)->value('orderamount');
+        // dd($orderamount);
+        return view('AdminPanelPages.miscsettings',compact('orderamount'));
+    }
 
 }

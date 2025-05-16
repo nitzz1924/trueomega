@@ -85,6 +85,8 @@ Route::prefix('admin')->middleware('auth')->group(function () {
     Route::get('/allcommissions', [AdminViews::class, 'allcommissions'])->name('admin.allcommissions');
     Route::post('/withdrawrequest', [AdminStores::class, 'withdrawrequest'])->name('admin.withdrawrequest');
     Route::post('/updateWithdrawlStatus', [AdminStores::class, 'updateWithdrawlStatus'])->name('admin.updateWithdrawlStatus');
+    Route::get('/miscsettings', [AdminViews::class, 'miscsettings'])->name('admin.miscsettings');
+    Route::post('/saveorderamt', [AdminStores::class, 'saveorderamt'])->name('admin.saveorderamt');
 });
 
 //User Panel Authentication Routes

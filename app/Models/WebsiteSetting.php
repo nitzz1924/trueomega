@@ -11,5 +11,6 @@ class WebsiteSetting extends Model
         'offersliderimages',
         'firstofferimage',
         'secondofferimage',
+        'orderamount',
     ];
 }

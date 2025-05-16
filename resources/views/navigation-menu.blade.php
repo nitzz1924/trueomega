@@ -165,7 +165,7 @@
                   <li class="sidebar-item">
                       <a class="sidebar-link has-arrow" href="javascript:void(0)" id="get-url" aria-expanded="false">
                           <span class="d-flex">
-                             <i class="ti ti-currency-rupee"></i>
+                              <i class="ti ti-currency-rupee"></i>
                           </span>
                           <span class="hide-menu">Commissions</span>
                       </a>
@@ -187,6 +187,14 @@
                               </a>
                           </li>
                       </ul>
+                  </li>
+                  <li class="sidebar-item">
+                      <a class="sidebar-link" href="{{route ('admin.miscsettings')}}" aria-expanded="false">
+                          <span>
+                              <i class="ti ti-settings"></i>
+                          </span>
+                          <span class="hide-menu">Misc. Settings</span>
+                      </a>
                   </li>
               </ul>
           </nav>

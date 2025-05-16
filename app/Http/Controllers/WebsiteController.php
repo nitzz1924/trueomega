@@ -22,9 +22,10 @@ class WebsiteController extends Controller
     public function homepage()
     {
         $websitedata = WebsiteSetting::first();
-        // dd($websitedata);
         return view('WebsitePages.homepage', compact('websitedata'));
     }
+
+
     public function aboutpage()
     {
         return view('WebsitePages.aboutpage');
@@ -204,7 +205,7 @@ class WebsiteController extends Controller
         }
 
         try {
-            // Create the order
+            // Store the order data
             $data = Order::create([
                 'userid' => $loggedinuser->id ?? '',
                 'billing_address' => json_encode($billingData) ?? '',
@@ -214,79 +215,56 @@ class WebsiteController extends Controller
                 'orderstatus' => 'processing',
             ]);
 
-            // Update cart items status to purchased
+            // Update the cart status to purchased
             MyCart::where('userid', $loggedinuser->id)->update(['status' => 'purchased']);
 
-            // Update user's commission status
-            RegisterUser::where('id', $loggedinuser->id)->update(['commission_status' => 'eligible']);
+            $orderamount = WebsiteSetting::where('id', 8)->value('orderamount');
 
-            // Dynamically fetch commission percentages from commission_lists table
+            if( $orderamount >= 3000){
+                // Update the commission status of the user
+                RegisterUser::where('id', $loggedinuser->id)->update(['commission_status' => 'eligible']);
+            }
+
+            // Fetch commission levels and percentages from the CommisionList table
             $commissionLevels = CommisionList::where('commission_type', 'Single')
                 ->pluck('commission_percentage', 'level')
                 ->toArray();
 
-            $currentUser = $loggedinuser;
-            $levelCount = 1;
+            // Recursive function to calculate commissions based on hierarchy
+            function calculateCommissions($userId, $grandtotal, $commissionLevels, $level = 1)
+            {
+                // Get the current user
+                $currentUser = RegisterUser::find($userId);
 
-            while ($currentUser) {
-                $parentUser = RegisterUser::where('id', $currentUser->sponserid)->first();
+                if (!$currentUser || $level > count($commissionLevels)) {
+                    return;
+                }
+
+                // Get the parent user based on sponsor ID
+                $parentUser = RegisterUser::find($currentUser->sponserid);
 
                 if ($parentUser) {
-                    $level = $levelCount;
+                    // Calculate the commission for the current level
+                    $percentage = $commissionLevels[$level] ?? 0;
+                    $commissionAmount = $grandtotal * ($percentage / 100);
 
-                    // Handle Grouped Commission for Level 5 and Beyond
-                    if ($level >= 5) {
-                        $commissionType = CommisionList::where('level', $level)
-                            ->value('commission_type');
+                    // Save the commission data
+                    Commission::create([
+                        'user_id' => $userId,
+                        'parent_id' => $parentUser->id,
+                        'comm_amount' => $commissionAmount,
+                        'order_amount' => $grandtotal,
+                        'comm_month' => now()->format('F'),
+                        'comm_percentage' => $percentage,
+                    ]);
 
-                        if ($commissionType === 'Grouped') {
-                            // Get all descendants recursively for turnover calculation
-                            $descendants = $this->getAllDescendants($currentUser->id);
-
-                            // Include siblings for turnover calculation
-                            $siblings = RegisterUser::where('sponserid', $parentUser->id)
-                                ->pluck('id')
-                                ->toArray();
-
-                            // Merge current user, siblings, and descendants
-                            $allGroupUserIds = array_unique(array_merge([$currentUser->id], $siblings, $descendants));
-
-                            // Calculate total turnover
-                            $totalTurnover = Order::whereIn('userid', $allGroupUserIds)->sum('grandtotal');
-
-                            // Determine commission percentage
-                            $groupCommissionPercentage = ($totalTurnover > 1000) ? 7 : 0;
-
-                            // Only the immediate parent receives the commission
-                            Commission::create([
-                                'user_id' => $loggedinuser->id,
-                                'parent_id' => $parentUser->id,
-                                'comm_amount' => $request->input('grandtotal') * ($groupCommissionPercentage / 100),
-                                'order_amount' => $request->input('grandtotal'),
-                                'comm_month' => now()->format('F'),
-                                'comm_percentage' => $groupCommissionPercentage,
-                            ]);
-                        }
-                    } else {
-                        // Handle Single Commission for Level 1 to 4
-                        $percentage = $commissionLevels[$level] ?? 0;
-
-                        Commission::create([
-                            'user_id' => $loggedinuser->id,
-                            'parent_id' => $parentUser->id,
-                            'comm_amount' => $request->input('grandtotal') * ($percentage / 100),
-                            'order_amount' => $request->input('grandtotal'),
-                            'comm_month' => now()->format('F'),
-                            'comm_percentage' => $percentage,
-                        ]);
-                    }
-
-                    $currentUser = $parentUser;
-                    $levelCount++;
-                } else {
-                    break;
+                    // Recursively calculate commission for the next level
+                    calculateCommissions($parentUser->id, $grandtotal, $commissionLevels, $level + 1);
                 }
             }
+
+            // Start calculating commissions from the logged-in user
+            calculateCommissions($loggedinuser->id, $request->input('grandtotal'), $commissionLevels);
 
             return response()->json([
                 'success' => true,
@@ -296,29 +274,11 @@ class WebsiteController extends Controller
         } catch (Exception $e) {
             return response()->json([
                 'success' => false,
-                'message' => "Failed to complete checkout.",
+                'message' => "Failed to place the order.",
                 'error' => $e->getMessage()
             ], 500);
         }
     }
-
-    /**
-     * Recursively get all descendants of a given user ID
-     */
-    private function getAllDescendants($userId)
-    {
-        $descendants = [];
-        $children = RegisterUser::where('sponserid', $userId)->pluck('id')->toArray();
-
-        foreach ($children as $childId) {
-            $descendants[] = $childId;
-            // Recursively add grandchildren and further descendants
-            $descendants = array_merge($descendants, $this->getAllDescendants($childId));
-        }
-
-        return $descendants;
-    }
-
 
     public function confirmorder()
     {

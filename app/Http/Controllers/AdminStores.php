@@ -771,4 +771,16 @@ class AdminStores extends Controller
             return response()->json(['error' => $e->getMessage()]);
         }
     }
+    public function saveorderamt(Request $rq)
+    {
+        try {
+            $attributes = WebsiteSetting::find(8)->update([
+                'orderamount' => $rq->orderamount,
+            ]);
+            return back()->with('success', "Settings Updated");
+        } catch (Exception $e) {
+            return back()->with('error', $e->getMessage());
+            //return back()->with('error', 'Not Updated..Try Again.....');
+        }
+    }
 }
